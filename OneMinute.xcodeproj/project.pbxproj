@@ -3,13 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0220222A13E6600C4899A /* AppDelegate.swift */; };
 		4FC0220522A13E6800C4899A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220422A13E6800C4899A /* Assets.xcassets */; };
 		4FC0220822A13E6800C4899A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */; };
+		4FCCA4C222A74A6C00F42C47 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C122A74A6C00F42C47 /* SigninViewController.swift */; };
+		4FCCA4C422A74B9E00F42C47 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C322A74B9E00F42C47 /* Common.swift */; };
+		4FCCA4C622A74CF400F42C47 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C522A74CF400F42C47 /* InputField.swift */; };
+		4FCCA4C922A756F700F42C47 /* UIColor+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */; };
+		EE87A069BCFCC5137B4145E7 /* Pods_OneMinute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55756C80612AB771DE26544 /* Pods_OneMinute.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +23,13 @@
 		4FC0220422A13E6800C4899A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FC0220722A13E6800C4899A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FC0220922A13E6800C4899A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4FCCA4C122A74A6C00F42C47 /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
+		4FCCA4C322A74B9E00F42C47 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		4FCCA4C522A74CF400F42C47 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
+		4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Common.swift"; sourceTree = "<group>"; };
+		A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.debug.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.debug.xcconfig"; sourceTree = "<group>"; };
+		AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.release.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.release.xcconfig"; sourceTree = "<group>"; };
+		E55756C80612AB771DE26544 /* Pods_OneMinute.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneMinute.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -25,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE87A069BCFCC5137B4145E7 /* Pods_OneMinute.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E88303746CEEC262F7FB936 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E55756C80612AB771DE26544 /* Pods_OneMinute.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D5A8BFD366AD598088600C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */,
+				AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4FC021F622A13E6600C4899A = {
 			isa = PBXGroup;
 			children = (
 				4FC0220122A13E6600C4899A /* OneMinute */,
 				4FC0220022A13E6600C4899A /* Products */,
+				4D5A8BFD366AD598088600C4 /* Pods */,
+				3E88303746CEEC262F7FB936 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -50,12 +82,96 @@
 		4FC0220122A13E6600C4899A /* OneMinute */ = {
 			isa = PBXGroup;
 			children = (
+				4FC0221122A13EBE00C4899A /* Sign */,
+				4FC0221222A1477900C4899A /* Grab */,
+				4FC0220F22A13EAF00C4899A /* Order */,
+				4FC0221022A13EB400C4899A /* Profile */,
+				4FC0221322A1478B00C4899A /* Common */,
 				4FC0220222A13E6600C4899A /* AppDelegate.swift */,
 				4FC0220422A13E6800C4899A /* Assets.xcassets */,
 				4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */,
 				4FC0220922A13E6800C4899A /* Info.plist */,
 			);
 			path = OneMinute;
+			sourceTree = "<group>";
+		};
+		4FC0220F22A13EAF00C4899A /* Order */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		4FC0221022A13EB400C4899A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		4FC0221122A13EBE00C4899A /* Sign */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA4C022A74A5B00F42C47 /* Model */,
+				4FCCA4BF22A74A5600F42C47 /* View */,
+				4FCCA4BE22A74A5100F42C47 /* ViewModel */,
+				4FCCA4BD22A74A4A00F42C47 /* ViewController */,
+			);
+			path = Sign;
+			sourceTree = "<group>";
+		};
+		4FC0221222A1477900C4899A /* Grab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Grab;
+			sourceTree = "<group>";
+		};
+		4FC0221322A1478B00C4899A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA4C722A756E700F42C47 /* Extensions */,
+				4FCCA4C322A74B9E00F42C47 /* Common.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4FCCA4BD22A74A4A00F42C47 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA4C122A74A6C00F42C47 /* SigninViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4FCCA4BE22A74A5100F42C47 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4FCCA4BF22A74A5600F42C47 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA4C522A74CF400F42C47 /* InputField.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4FCCA4C022A74A5B00F42C47 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4FCCA4C722A756E700F42C47 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4FC0220C22A13E6800C4899A /* Build configuration list for PBXNativeTarget "OneMinute" */;
 			buildPhases = (
+				E994794ED3034BD59C1FD3B1 /* [CP] Check Pods Manifest.lock */,
 				4FC021FB22A13E6600C4899A /* Sources */,
 				4FC021FC22A13E6600C4899A /* Frameworks */,
 				4FC021FD22A13E6600C4899A /* Resources */,
+				D35EA4486A14D5FD1AB4D26C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,12 +241,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D35EA4486A14D5FD1AB4D26C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OneMinute/Pods-OneMinute-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OneMinute/Pods-OneMinute-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OneMinute/Pods-OneMinute-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E994794ED3034BD59C1FD3B1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneMinute-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4FC021FB22A13E6600C4899A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FCCA4C222A74A6C00F42C47 /* SigninViewController.swift in Sources */,
+				4FCCA4C422A74B9E00F42C47 /* Common.swift in Sources */,
 				4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */,
+				4FCCA4C622A74CF400F42C47 /* InputField.swift in Sources */,
+				4FCCA4C922A756F700F42C47 /* UIColor+Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,11 +428,13 @@
 		};
 		4FC0220D22A13E6800C4899A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SJ7AKAACE7;
 				INFOPLIST_FILE = OneMinute/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -282,11 +448,13 @@
 		};
 		4FC0220E22A13E6800C4899A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SJ7AKAACE7;
 				INFOPLIST_FILE = OneMinute/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
