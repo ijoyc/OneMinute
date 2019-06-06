@@ -14,6 +14,11 @@
 		4FCCA4C422A74B9E00F42C47 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C322A74B9E00F42C47 /* Common.swift */; };
 		4FCCA4C622A74CF400F42C47 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C522A74CF400F42C47 /* InputField.swift */; };
 		4FCCA4C922A756F700F42C47 /* UIColor+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */; };
+		4FCCA4D522A7E97800F42C47 /* SigninViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4D422A7E97800F42C47 /* SigninViewModel.swift */; };
+		4FCCA4D722A7F39300F42C47 /* SigninModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4D622A7F39300F42C47 /* SigninModel.swift */; };
+		4FCCA4DA22A7F3DD00F42C47 /* SigninService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4D922A7F3DD00F42C47 /* SigninService.swift */; };
+		4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4DB22A7F50900F42C47 /* SigninServiceImpl.swift */; };
+		4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4DD22A8086200F42C47 /* ActivityIndicator.swift */; };
 		EE87A069BCFCC5137B4145E7 /* Pods_OneMinute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55756C80612AB771DE26544 /* Pods_OneMinute.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +32,11 @@
 		4FCCA4C322A74B9E00F42C47 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		4FCCA4C522A74CF400F42C47 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Common.swift"; sourceTree = "<group>"; };
+		4FCCA4D422A7E97800F42C47 /* SigninViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewModel.swift; sourceTree = "<group>"; };
+		4FCCA4D622A7F39300F42C47 /* SigninModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninModel.swift; sourceTree = "<group>"; };
+		4FCCA4D922A7F3DD00F42C47 /* SigninService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninService.swift; sourceTree = "<group>"; };
+		4FCCA4DB22A7F50900F42C47 /* SigninServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninServiceImpl.swift; sourceTree = "<group>"; };
+		4FCCA4DD22A8086200F42C47 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.debug.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.debug.xcconfig"; sourceTree = "<group>"; };
 		AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.release.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.release.xcconfig"; sourceTree = "<group>"; };
 		E55756C80612AB771DE26544 /* Pods_OneMinute.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneMinute.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +122,7 @@
 		4FC0221122A13EBE00C4899A /* Sign */ = {
 			isa = PBXGroup;
 			children = (
+				4FCCA4D822A7F3D200F42C47 /* Service */,
 				4FCCA4C022A74A5B00F42C47 /* Model */,
 				4FCCA4BF22A74A5600F42C47 /* View */,
 				4FCCA4BE22A74A5100F42C47 /* ViewModel */,
@@ -132,6 +143,7 @@
 			children = (
 				4FCCA4C722A756E700F42C47 /* Extensions */,
 				4FCCA4C322A74B9E00F42C47 /* Common.swift */,
+				4FCCA4DD22A8086200F42C47 /* ActivityIndicator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -147,6 +159,7 @@
 		4FCCA4BE22A74A5100F42C47 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4FCCA4D422A7E97800F42C47 /* SigninViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -162,6 +175,7 @@
 		4FCCA4C022A74A5B00F42C47 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4FCCA4D622A7F39300F42C47 /* SigninModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -172,6 +186,15 @@
 				4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4FCCA4D822A7F3D200F42C47 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4FCCA4D922A7F3DD00F42C47 /* SigninService.swift */,
+				4FCCA4DB22A7F50900F42C47 /* SigninServiceImpl.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,11 +311,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FCCA4D722A7F39300F42C47 /* SigninModel.swift in Sources */,
+				4FCCA4D522A7E97800F42C47 /* SigninViewModel.swift in Sources */,
 				4FCCA4C222A74A6C00F42C47 /* SigninViewController.swift in Sources */,
 				4FCCA4C422A74B9E00F42C47 /* Common.swift in Sources */,
 				4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */,
 				4FCCA4C622A74CF400F42C47 /* InputField.swift in Sources */,
+				4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */,
 				4FCCA4C922A756F700F42C47 /* UIColor+Common.swift in Sources */,
+				4FCCA4DA22A7F3DD00F42C47 /* SigninService.swift in Sources */,
+				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
