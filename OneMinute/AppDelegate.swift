@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window!.backgroundColor = UIColor.white
     self.window!.makeKeyAndVisible()
     
-    self.window?.rootViewController = SigninViewController()
+    self.window?.rootViewController = LauncherViewController()
     
     return true
   }

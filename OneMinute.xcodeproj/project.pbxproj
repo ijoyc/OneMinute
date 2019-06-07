@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */; };
+		4F7E09E022A91EB200857FF6 /* GrabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */; };
+		4F7E09E722A91F0200857FF6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09E622A91F0200857FF6 /* OrderViewController.swift */; };
+		4F7E09EE22A91F4B00857FF6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09ED22A91F4B00857FF6 /* ProfileViewController.swift */; };
+		4F7E09F022A9EA9400857FF6 /* GrabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09EF22A9EA9400857FF6 /* GrabService.swift */; };
+		4F7E09F322A9EDE200857FF6 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09F222A9EDE200857FF6 /* Order.swift */; };
+		4F7E09F522A9EF9400857FF6 /* OrderProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09F422A9EF9400857FF6 /* OrderProgress.swift */; };
+		4F7E09F722A9F23900857FF6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09F622A9F23900857FF6 /* BaseViewController.swift */; };
+		4F7E09FD22AA029100857FF6 /* String+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09FC22AA029100857FF6 /* String+Common.swift */; };
+		4F7E0A0022AA06BD00857FF6 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09FF22AA06BD00857FF6 /* OrderCell.swift */; };
+		4F7E0A0222AA06EE00857FF6 /* OrderCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0122AA06EE00857FF6 /* OrderCellModel.swift */; };
+		4F7E0A0422AA126F00857FF6 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0322AA126F00857FF6 /* ViewFactory.swift */; };
+		4F7E0A0622AA3A9F00857FF6 /* GrabServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0522AA3A9F00857FF6 /* GrabServiceImpl.swift */; };
+		4F7E0A0822AA3F6700857FF6 /* GrabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0722AA3F6700857FF6 /* GrabViewModel.swift */; };
 		4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0220222A13E6600C4899A /* AppDelegate.swift */; };
 		4FC0220522A13E6800C4899A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220422A13E6800C4899A /* Assets.xcassets */; };
 		4FC0220822A13E6800C4899A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */; };
@@ -23,6 +37,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewController.swift; sourceTree = "<group>"; };
+		4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabViewController.swift; sourceTree = "<group>"; };
+		4F7E09E622A91F0200857FF6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		4F7E09ED22A91F4B00857FF6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		4F7E09EF22A9EA9400857FF6 /* GrabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabService.swift; sourceTree = "<group>"; };
+		4F7E09F222A9EDE200857FF6 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		4F7E09F422A9EF9400857FF6 /* OrderProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProgress.swift; sourceTree = "<group>"; };
+		4F7E09F622A9F23900857FF6 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		4F7E09FC22AA029100857FF6 /* String+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Common.swift"; sourceTree = "<group>"; };
+		4F7E09FF22AA06BD00857FF6 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
+		4F7E0A0122AA06EE00857FF6 /* OrderCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCellModel.swift; sourceTree = "<group>"; };
+		4F7E0A0322AA126F00857FF6 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
+		4F7E0A0522AA3A9F00857FF6 /* GrabServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabServiceImpl.swift; sourceTree = "<group>"; };
+		4F7E0A0722AA3F6700857FF6 /* GrabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabViewModel.swift; sourceTree = "<group>"; };
 		4FC021FF22A13E6600C4899A /* OneMinute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneMinute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC0220222A13E6600C4899A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FC0220422A13E6800C4899A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,6 +99,154 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4F7E09D422A91D8300857FF6 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09F122A9EDDC00857FF6 /* Model */,
+				4F7E09FE22AA06AD00857FF6 /* View */,
+				4F7E09D722A91DA300857FF6 /* ViewController */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4F7E09D722A91DA300857FF6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */,
+				4F7E09F622A9F23900857FF6 /* BaseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4F7E09DA22A91E9200857FF6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4F7E09DB22A91E9800857FF6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E0A0722AA3F6700857FF6 /* GrabViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4F7E09DC22A91E9E00857FF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4F7E09DD22A91EA200857FF6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F7E09DE22A91EA800857FF6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09EF22A9EA9400857FF6 /* GrabService.swift */,
+				4F7E0A0522AA3A9F00857FF6 /* GrabServiceImpl.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4F7E09E122A91EE000857FF6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09E622A91F0200857FF6 /* OrderViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4F7E09E222A91EE600857FF6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4F7E09E322A91EEB00857FF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4F7E09E422A91EF100857FF6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F7E09E522A91EF700857FF6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4F7E09E822A91F2900857FF6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09ED22A91F4B00857FF6 /* ProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4F7E09E922A91F3300857FF6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4F7E09EA22A91F3800857FF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4F7E09EB22A91F3D00857FF6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F7E09EC22A91F4100857FF6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4F7E09F122A9EDDC00857FF6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09F222A9EDE200857FF6 /* Order.swift */,
+				4F7E09F422A9EF9400857FF6 /* OrderProgress.swift */,
+				4F7E0A0122AA06EE00857FF6 /* OrderCellModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4F7E09FE22AA06AD00857FF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4F7E09FF22AA06BD00857FF6 /* OrderCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4FC021F622A13E6600C4899A = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +268,7 @@
 		4FC0220122A13E6600C4899A /* OneMinute */ = {
 			isa = PBXGroup;
 			children = (
+				4F7E09D422A91D8300857FF6 /* Main */,
 				4FC0221122A13EBE00C4899A /* Sign */,
 				4FC0221222A1477900C4899A /* Grab */,
 				4FC0220F22A13EAF00C4899A /* Order */,
@@ -108,6 +285,11 @@
 		4FC0220F22A13EAF00C4899A /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				4F7E09E522A91EF700857FF6 /* Service */,
+				4F7E09E422A91EF100857FF6 /* Model */,
+				4F7E09E322A91EEB00857FF6 /* View */,
+				4F7E09E222A91EE600857FF6 /* ViewModel */,
+				4F7E09E122A91EE000857FF6 /* ViewController */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -115,6 +297,11 @@
 		4FC0221022A13EB400C4899A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				4F7E09EC22A91F4100857FF6 /* Service */,
+				4F7E09EB22A91F3D00857FF6 /* Model */,
+				4F7E09EA22A91F3800857FF6 /* View */,
+				4F7E09E922A91F3300857FF6 /* ViewModel */,
+				4F7E09E822A91F2900857FF6 /* ViewController */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -134,6 +321,11 @@
 		4FC0221222A1477900C4899A /* Grab */ = {
 			isa = PBXGroup;
 			children = (
+				4F7E09DE22A91EA800857FF6 /* Service */,
+				4F7E09DD22A91EA200857FF6 /* Model */,
+				4F7E09DC22A91E9E00857FF6 /* View */,
+				4F7E09DB22A91E9800857FF6 /* ViewModel */,
+				4F7E09DA22A91E9200857FF6 /* ViewController */,
 			);
 			path = Grab;
 			sourceTree = "<group>";
@@ -184,6 +376,8 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */,
+				4F7E09FC22AA029100857FF6 /* String+Common.swift */,
+				4F7E0A0322AA126F00857FF6 /* ViewFactory.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -312,13 +506,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FCCA4D722A7F39300F42C47 /* SigninModel.swift in Sources */,
+				4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */,
+				4F7E09F322A9EDE200857FF6 /* Order.swift in Sources */,
+				4F7E09E722A91F0200857FF6 /* OrderViewController.swift in Sources */,
+				4F7E09E022A91EB200857FF6 /* GrabViewController.swift in Sources */,
+				4F7E09FD22AA029100857FF6 /* String+Common.swift in Sources */,
+				4F7E09F722A9F23900857FF6 /* BaseViewController.swift in Sources */,
+				4F7E09F522A9EF9400857FF6 /* OrderProgress.swift in Sources */,
+				4F7E09EE22A91F4B00857FF6 /* ProfileViewController.swift in Sources */,
+				4F7E09F022A9EA9400857FF6 /* GrabService.swift in Sources */,
+				4F7E0A0022AA06BD00857FF6 /* OrderCell.swift in Sources */,
+				4F7E0A0222AA06EE00857FF6 /* OrderCellModel.swift in Sources */,
 				4FCCA4D522A7E97800F42C47 /* SigninViewModel.swift in Sources */,
 				4FCCA4C222A74A6C00F42C47 /* SigninViewController.swift in Sources */,
+				4F7E0A0822AA3F6700857FF6 /* GrabViewModel.swift in Sources */,
 				4FCCA4C422A74B9E00F42C47 /* Common.swift in Sources */,
+				4F7E0A0622AA3A9F00857FF6 /* GrabServiceImpl.swift in Sources */,
 				4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */,
 				4FCCA4C622A74CF400F42C47 /* InputField.swift in Sources */,
 				4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */,
 				4FCCA4C922A756F700F42C47 /* UIColor+Common.swift in Sources */,
+				4F7E0A0422AA126F00857FF6 /* ViewFactory.swift in Sources */,
 				4FCCA4DA22A7F3DD00F42C47 /* SigninService.swift in Sources */,
 				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
 			);

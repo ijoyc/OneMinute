@@ -67,7 +67,7 @@ class SigninViewController : UIViewController {
     }
     
     loginButton = UIButton(type: .custom)
-    loginButton.backgroundColor = UIColor.RGBA(132, 215, 207, 1)
+    loginButton.backgroundColor = .themeGreen
     loginButton.layer.cornerRadius = 5
     loginButton.layer.masksToBounds = true
     loginButton.setTitle("马上登录", for: .normal)
@@ -91,7 +91,7 @@ class SigninViewController : UIViewController {
     
     rememberButton = UIButton(type: .custom)
     rememberButton.setImage(UIImage(named: "right"), for: .selected)
-    rememberButton.layer.borderColor = UIColor.RGBA(132, 215, 207, 1).cgColor
+    rememberButton.layer.borderColor = UIColor.themeGreen.cgColor
     rememberButton.layer.borderWidth = 1.0
     view.addSubview(rememberButton)
     rememberButton.snp.makeConstraints { (make) in
@@ -103,7 +103,7 @@ class SigninViewController : UIViewController {
     rememberLabel = UILabel()
     rememberLabel.text = "记住密码"
     rememberLabel.font = UIFont.systemFont(ofSize: 12)
-    rememberLabel.textColor = UIColor.RGBA(153, 153, 153, 1)
+    rememberLabel.textColor = .omTextGray
     view.addSubview(rememberLabel)
     rememberLabel.snp.makeConstraints { (make) in
       make.centerY.equalTo(rememberButton.snp.centerY)
