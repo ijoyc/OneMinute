@@ -33,6 +33,8 @@ enum OrderType : Int, CustomStringConvertible {
 }
 
 class Order {
+  public static let numberOfOrdersPerPage = 20
+  
   let type: OrderType
   let time: TimeInterval
   let distance: String

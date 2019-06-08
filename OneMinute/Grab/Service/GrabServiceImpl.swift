@@ -20,8 +20,8 @@ import RxSwift
 class GrabAPIImplementation : GrabAPI {
   static let shared = GrabAPIImplementation()
   
-  func queryGrabOrders() -> Observable<[Order]> {
-    return Observable.of([Order.init(json:
+  func queryGrabOrders(withPage page: Int, size: Int) -> Observable<(orders: [Order], hasMore: Bool)> {
+    return Observable.of((orders: [Order.init(json:
       [
         "type": 1,
         "time": "2019-11-11 11:11",
@@ -65,6 +65,6 @@ class GrabAPIImplementation : GrabAPI {
         "progress": 1,
         "profit": "$20.00"
       ]
-    )]).delay(.seconds(1), scheduler: MainScheduler.instance)
+      )], hasMore: true)).delay(.seconds(2), scheduler: MainScheduler.instance)
   }
 }
