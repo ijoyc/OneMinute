@@ -13,6 +13,7 @@ import RxCocoa
 class GrabViewController : UIViewController {
   private var tableView: UITableView!
   private var loadingView: UIActivityIndicatorView!
+  private var refreshControl: UIRefreshControl!
   private var viewModel: GrabViewModel?
   
   private let bag = DisposeBag()
@@ -45,20 +46,35 @@ class GrabViewController : UIViewController {
       make.width.height.equalTo(40)
       make.center.equalTo(footerView)
     }
+    
+    refreshControl = UIRefreshControl()
+    refreshControl.backgroundColor = .separateLine
+    refreshControl.attributedTitle = NSAttributedString(string: "下拉刷新", attributes: [.foregroundColor: UIColor.black])
+    tableView.addSubview(refreshControl)
   }
   
   func bindViewModel() {
     let tableView: UITableView = self.tableView
-    let trigger = tableView.rx.contentOffset
+    let loadMoreTrigger = tableView.rx.contentOffset
       .asDriver()
       .distinctUntilChanged()
       .filter({ _ in tableView.isNearBottomEdge() }).map { _ in true }
+    let refreshTrigger = refreshControl.rx
+      .controlEvent(.valueChanged)
+      .asSignal()
+      .map { _ in false }
     
-    viewModel = GrabViewModel(loadTrigger: trigger.asSignal(onErrorJustReturn: false), api: GrabAPIImplementation.shared)
+    let trigger = Signal.merge(loadMoreTrigger.asSignal(onErrorJustReturn: false), refreshTrigger)
+    
+    viewModel = GrabViewModel(loadTrigger: trigger, api: GrabAPIImplementation.shared)
     
     viewModel?.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     
-    viewModel?.cellModels.skip(1)
+    viewModel?.cellModels
+      .skip(1)
+      .do(onNext: { [weak self] _ in
+        self?.refreshControl.endRefreshing()
+      })
       .bind(to: tableView.rx.items(cellIdentifier: "GrabOrderCell", cellType: OrderCell.self)) { (row, element, cell) in
         cell.cellModel = element
       }.disposed(by: bag)

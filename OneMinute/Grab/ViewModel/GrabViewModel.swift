@@ -15,6 +15,8 @@ class GrabViewModel {
   let hasMore = BehaviorRelay<Bool>(value: true)
   let loading: Driver<Bool>
   
+  private let resetPage = BehaviorRelay<Bool>(value: false)
+  
   let bag = DisposeBag()
   
   // true: load more , false: refresh
@@ -24,12 +26,15 @@ class GrabViewModel {
     
     let loadNextPage = Driver.combineLatest(loading, hasMore.asDriver()) { !$0 && $1 }
     
-    // true: load more
     loadTrigger.filter{ $0 }
       .withLatestFrom(loadNextPage)
       .filter{ $0 }
-      .scan(0) { (page, _) -> Int in page + 1 }
-      .do(onNext: { page in print("Request grab orders for page \(page).") })
+      // After refreshing, the next page should be the second one.
+      .scan(0) { [weak self] (page, _) in (self?.resetPage.value ?? true) ? 2 : page + 1 }
+      .do(onNext: { [weak self] page in
+        print("Request grab orders for page \(page).")
+        self?.resetPage.accept(false)
+      })
       .flatMapLatest { page in
         return api.queryGrabOrders(withPage: page, size: Order.numberOfOrdersPerPage)
           .trackActivity(activityIndicator)
@@ -41,6 +46,20 @@ class GrabViewModel {
             return self.cellModels.value + pairs.orders.map { order in OrderCellModel(model: order) }
           }
           .asDriver(onErrorJustReturn: [])
+      }
+      .drive(cellModels)
+      .disposed(by: bag)
+    
+    loadTrigger.filter { !$0 }.flatMapLatest { _ in
+      return api.queryGrabOrders(withPage: 1, size: Order.numberOfOrdersPerPage)
+        .do(onNext: { [weak self] pairs in
+          self?.hasMore.accept(pairs.hasMore)
+          self?.resetPage.accept(true)
+        })
+        .map { pairs in
+          pairs.orders.map { order in OrderCellModel(model: order) }
+        }
+        .asDriver(onErrorJustReturn: [])
       }
       .drive(cellModels)
       .disposed(by: bag)
