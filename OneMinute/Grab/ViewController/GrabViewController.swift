@@ -10,50 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class GrabViewController : UIViewController {
-  private var tableView: UITableView!
-  private var loadingView: UIActivityIndicatorView!
-  private var refreshControl: UIRefreshControl!
+class GrabViewController : OrderBaseViewController {
   private var viewModel: GrabViewModel?
   
-  private let bag = DisposeBag()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    initSubviews()
-    bindViewModel()
-  }
-  
-  func initSubviews() {
-    tableView = UITableView()
-    tableView.separatorStyle = .none
-    tableView.backgroundColor = .separateLine
-    tableView.register(OrderCell.self, forCellReuseIdentifier: "GrabOrderCell")
-    view.addSubview(tableView)
-    tableView.snp.makeConstraints { (make) in
-      make.edges.equalTo(0)
-    }
-    
-    let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 40));
-    footerView.backgroundColor = .separateLine
-    tableView.tableFooterView = footerView
-    
-    loadingView = UIActivityIndicatorView(style: .gray)
-    loadingView.hidesWhenStopped = true
-    footerView .addSubview(loadingView)
-    loadingView.snp.makeConstraints { (make) in
-      make.width.height.equalTo(40)
-      make.center.equalTo(footerView)
-    }
-    
-    refreshControl = UIRefreshControl()
-    refreshControl.backgroundColor = .separateLine
-    refreshControl.attributedTitle = NSAttributedString(string: "下拉刷新", attributes: [.foregroundColor: UIColor.black])
-    tableView.addSubview(refreshControl)
-  }
-  
-  func bindViewModel() {
+  override func bindViewModel() {
     let tableView: UITableView = self.tableView
     let loadMoreTrigger = tableView.rx.contentOffset
       .asDriver()
@@ -75,7 +35,7 @@ class GrabViewController : UIViewController {
       .do(onNext: { [weak self] _ in
         self?.refreshControl.endRefreshing()
       })
-      .bind(to: tableView.rx.items(cellIdentifier: "GrabOrderCell", cellType: OrderCell.self)) { (row, element, cell) in
+      .bind(to: tableView.rx.items(cellIdentifier: OrderBaseViewController.cellID, cellType: OrderCell.self)) { (row, element, cell) in
         cell.cellModel = element
       }.disposed(by: bag)
     

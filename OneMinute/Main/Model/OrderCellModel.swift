@@ -16,7 +16,7 @@ class OrderCellModel {
   private(set) var topViewFrame: CGRect!
   private(set) var progressViewFrame: CGRect!
   private(set) var progressFrames = [CGRect]()
-  private(set) var bottomViewFrame: CGRect!
+  private(set) var bottomViewFrame: CGRect?
   
   let model: Order
   
@@ -46,9 +46,13 @@ class OrderCellModel {
     
     height += top
     
-    bottomViewFrame = CGRect(x: 0, y: height, width: mainFrame.width, height: 49)
+    if let _ = model.profit {
+      bottomViewFrame = CGRect(x: 0, y: height, width: mainFrame.width, height: 49)
+      mainFrame.size.height = bottomViewFrame!.maxY
+    } else {
+      mainFrame.size.height = height
+    }
     
-    mainFrame.size.height = bottomViewFrame.maxY
     
     cellHeight = mainFrame.maxY + 8
   }

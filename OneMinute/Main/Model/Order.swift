@@ -32,15 +32,42 @@ enum OrderType : Int, CustomStringConvertible {
   }
 }
 
+enum OrderState : Int, CustomStringConvertible {
+  case doing = 1, finished, canceled
+  
+  public var description: String {
+    switch self {
+    case .finished:
+      return "已完成"
+    case .canceled:
+      return "已取消"
+    default:
+      return "在路上"
+    }
+  }
+  
+  public var color: UIColor {
+    switch self {
+    case .finished:
+      return .black
+    case .canceled:
+      return .omTextGray
+    default:
+      return .themeGreen
+    }
+  }
+}
+
 class Order {
   public static let numberOfOrdersPerPage = 20
   
   let type: OrderType
   let time: TimeInterval
-  let distance: String
+  let distance: String?
+  let state: OrderState?
   let progresses: [OrderProgress]
   let progress: Int
-  let profit: String
+  let profit: String?
   
   var timeString: String {
     return "2019.04.11 15:16"
@@ -49,7 +76,8 @@ class Order {
   init(json: [String: Any]) {
     self.type = OrderType(rawValue: (json["type"] as? Int) ?? 1) ?? .buy
     self.time = json["time"] as? TimeInterval ?? 0
-    self.distance = json["distance"] as? String ?? ""
+    self.distance = json["distance"] as? String
+    self.state = OrderState(rawValue: (json["state"] as? Int ?? 0))
     
     var progresses = [OrderProgress]()
     for progress in (json["progresses"] as? Array ?? []) {
@@ -59,6 +87,6 @@ class Order {
     self.progresses = progresses
     
     self.progress = json["progress"] as? Int ?? 1
-    self.profit = json["profit"] as? String ?? ""
+    self.profit = json["profit"] as? String
   }
 }

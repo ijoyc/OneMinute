@@ -56,12 +56,23 @@ class OrderCell : UITableViewCell {
     for i in 0 ..< progressView.subviews.count {
       progressView.subviews[i].frame = cellModel.progressFrames[i]
     }
-    bottomView.frame = cellModel.bottomViewFrame
+    
+    bottomView.frame = cellModel.bottomViewFrame ?? .zero
+    if model.profit == nil {
+      bottomView.isHidden = true
+    }
     
     typeLabel.text = model.type.description
     timeLabel.text = model.timeString
-    distanceLabel.text = model.distance
-    profitLabel.text = "预计收益: \(model.profit)"
+    profitLabel.text = "预计收益: \(model.profit ?? "")"
+    
+    if let state = model.state {
+      distanceLabel.text = state.description
+      distanceLabel.textColor = state.color
+    } else {
+      distanceLabel.text = model.distance ?? ""
+      distanceLabel.textColor = .RGBA(235, 56, 15, 1)
+    }
   }
 }
 
@@ -115,7 +126,6 @@ extension OrderCell {
     }
     
     distanceLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
-    distanceLabel.textColor = UIColor.RGBA(235, 56, 15, 1)
     topView.addSubview(distanceLabel)
     distanceLabel.snp.makeConstraints { (make) in
       make.centerY.equalTo(iconImageView)
