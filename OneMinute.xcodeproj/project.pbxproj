@@ -28,6 +28,9 @@
 		4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A1122AB696300857FF6 /* OrderServiceImpl.swift */; };
 		4F7E0A1422ABAF0E00857FF6 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A1322ABAF0E00857FF6 /* OrderViewModel.swift */; };
 		4F7E0A1722AC13EC00857FF6 /* OrderBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A1622AC13EC00857FF6 /* OrderBaseViewController.swift */; };
+		4F7E0A1922AD575F00857FF6 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A1822AD575F00857FF6 /* OrderDetailViewController.swift */; };
+		4F7E0A1B22AD585E00857FF6 /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A1A22AD585E00857FF6 /* OrderDetail.swift */; };
+		4FB4745022AE77B400130B9C /* OrderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4744F22AE77B400130B9C /* OrderDetailViewModel.swift */; };
 		4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0220222A13E6600C4899A /* AppDelegate.swift */; };
 		4FC0220522A13E6800C4899A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220422A13E6800C4899A /* Assets.xcassets */; };
 		4FC0220822A13E6800C4899A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */; };
@@ -65,6 +68,9 @@
 		4F7E0A1122AB696300857FF6 /* OrderServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderServiceImpl.swift; sourceTree = "<group>"; };
 		4F7E0A1322ABAF0E00857FF6 /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		4F7E0A1622AC13EC00857FF6 /* OrderBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBaseViewController.swift; sourceTree = "<group>"; };
+		4F7E0A1822AD575F00857FF6 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		4F7E0A1A22AD585E00857FF6 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
+		4FB4744F22AE77B400130B9C /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewModel.swift; sourceTree = "<group>"; };
 		4FC021FF22A13E6600C4899A /* OneMinute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneMinute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC0220222A13E6600C4899A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FC0220422A13E6800C4899A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				4F7E09E622A91F0200857FF6 /* OrderViewController.swift */,
+				4F7E0A1822AD575F00857FF6 /* OrderDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -185,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				4F7E0A1322ABAF0E00857FF6 /* OrderViewModel.swift */,
+				4FB4744F22AE77B400130B9C /* OrderDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -200,6 +208,7 @@
 		4F7E09E422A91EF100857FF6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4F7E0A1A22AD585E00857FF6 /* OrderDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -542,9 +551,11 @@
 				4F7E09FD22AA029100857FF6 /* String+Common.swift in Sources */,
 				4F7E09F722A9F23900857FF6 /* BaseViewController.swift in Sources */,
 				4F7E09F522A9EF9400857FF6 /* OrderProgress.swift in Sources */,
+				4F7E0A1922AD575F00857FF6 /* OrderDetailViewController.swift in Sources */,
 				4F7E09EE22A91F4B00857FF6 /* ProfileViewController.swift in Sources */,
 				4F7E09F022A9EA9400857FF6 /* GrabService.swift in Sources */,
 				4F7E0A0022AA06BD00857FF6 /* OrderCell.swift in Sources */,
+				4F7E0A1B22AD585E00857FF6 /* OrderDetail.swift in Sources */,
 				4F7E0A0222AA06EE00857FF6 /* OrderCellModel.swift in Sources */,
 				4F7E0A0C22AA5A5500857FF6 /* OrderRepositories.swift in Sources */,
 				4FCCA4D522A7E97800F42C47 /* SigninViewModel.swift in Sources */,
@@ -562,6 +573,7 @@
 				4FCCA4DA22A7F3DD00F42C47 /* SigninService.swift in Sources */,
 				4F7E0A1722AC13EC00857FF6 /* OrderBaseViewController.swift in Sources */,
 				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
+				4FB4745022AE77B400130B9C /* OrderDetailViewModel.swift in Sources */,
 				4F7E0A1422ABAF0E00857FF6 /* OrderViewModel.swift in Sources */,
 				4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */,
 				4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */,

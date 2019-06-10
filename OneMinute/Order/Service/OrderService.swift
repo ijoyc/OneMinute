@@ -10,4 +10,5 @@ import RxSwift
 
 protocol OrderAPI {
   func queryOrders(withCategory category: Int, page: Int, size: Int) -> Observable<(orders: [Order], hasMore: Bool)>
+  func queryOrderDetail(with id: Int) -> Observable<OrderDetail>
 }
