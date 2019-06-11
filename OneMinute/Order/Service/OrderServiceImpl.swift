@@ -95,10 +95,10 @@ class OrderAPIImplementation : OrderAPI {
       "orderID": "A201904093937563",
       "note": "麻烦帮我快点送过来，谢谢！",
       "telephone": "18463104321",
-      "startLatitude": "30.308997",
-      "startLongitude": "120.092703",
-      "endLatitude": "30.273821",
-      "endLongitude": "120.114909"
+      "startLatitude": 30.308997,
+      "startLongitude": 120.092703,
+      "endLatitude": 30.273821,
+      "endLongitude": 120.114909
       ])).delay(.seconds(1), scheduler: MainScheduler.instance)
   }
 }

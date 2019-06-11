@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 import CoreLocation
 
 class OrderDetail {
@@ -19,6 +20,16 @@ class OrderDetail {
   let telephone: String
   let start: CLLocationCoordinate2D
   let end: CLLocationCoordinate2D
+  let startPoint: Point
+  let endPoint: Point
+  
+  public class Point : NSObject, MKAnnotation {
+    public var coordinate: CLLocationCoordinate2D
+    
+    init(_ coordinate: CLLocationCoordinate2D) {
+      self.coordinate = coordinate
+    }
+  }
   
   init(json: [String: Any]) {
     self.type = OrderType(rawValue: (json["type"] as? Int) ?? 1) ?? .buy
@@ -37,5 +48,8 @@ class OrderDetail {
     self.telephone = json["telephone"] as? String ?? ""
     self.start = CLLocationCoordinate2D(latitude: json["startLatitude"] as? CLLocationDegrees ?? 0, longitude: json["startLongitude"] as? CLLocationDegrees ?? 0)
     self.end = CLLocationCoordinate2D(latitude: json["endLatitude"] as? CLLocationDegrees ?? 0, longitude: json["endLongitude"] as? CLLocationDegrees ?? 0)
+    
+    self.startPoint = Point(self.start)
+    self.endPoint = Point(self.end)
   }
 }

@@ -50,11 +50,26 @@ class OrderDetailViewController : BaseViewController {
     bindViewModel()
   }
   
+  private func bindViewModel() {
+    let viewModel = OrderDetailViewModel(orderID: orderID, api: OrderAPIImplementation.shared)
+    
+    viewModel.orderDetail.do(onNext: { [weak self] orderDetail in
+      self?.orderDetail = orderDetail
+      self?.updateUI()
+      self?.updateMapView()
+    }).drive().disposed(by: bag)
+  }
+}
+
+// MARK: - UI Initialize
+
+extension OrderDetailViewController {
   private func initSubviews() {
     mapView = MKMapView()
+    mapView.delegate = self
     view.addSubview(mapView)
     mapView.snp.makeConstraints { (make) in
-        make.edges.equalTo(0)
+      make.edges.equalTo(0)
     }
     
     orderView = UIView()
@@ -116,6 +131,53 @@ class OrderDetailViewController : BaseViewController {
     }
   }
   
+  private func initBottomView() {
+    bottomView = UIView()
+    orderView.addSubview(bottomView)
+    bottomView.snp.makeConstraints { (make) in
+      make.leading.trailing.bottom.height.equalTo(0)
+    }
+    
+    noteLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    noteLabel.textColor = .RGBA(235, 56, 26, 1)
+    bottomView.addSubview(noteLabel)
+    noteLabel.snp.makeConstraints { (make) in
+      make.leading.equalTo(16)
+      make.top.equalTo(0)
+    }
+    
+    telButton = ViewFactory.button(withTitle: "联系下单人", font: UIFont.boldSystemFont(ofSize: 17))
+    telButton.backgroundColor = .white
+    telButton.setTitleColor(.themeGreen, for: .normal)
+    telButton.layer.cornerRadius = 5
+    telButton.layer.masksToBounds = true
+    telButton.layer.borderWidth = 1
+    telButton.layer.borderColor = UIColor.themeGreen.cgColor
+    bottomView.addSubview(telButton)
+    
+    dealButton = ViewFactory.button(withTitle: "", font: UIFont.boldSystemFont(ofSize: 17))
+    dealButton.backgroundColor = .themeGreen
+    dealButton.setTitleColor(.white, for: .normal)
+    dealButton.layer.cornerRadius = 5
+    dealButton.layer.masksToBounds = true
+    bottomView.addSubview(dealButton)
+    
+    telButton.snp.makeConstraints { (make) in
+      make.height.equalTo(48)
+      make.top.equalTo(noteLabel.snp.bottom).offset(11)
+      make.leading.equalTo(16)
+    }
+    dealButton.snp.makeConstraints { (make) in
+      make.top.height.width.equalTo(telButton)
+      make.trailing.equalTo(-16)
+      make.leading.equalTo(telButton.snp.trailing).offset(10)
+    }
+  }
+}
+
+// MARK: - UI Update
+
+extension OrderDetailViewController {
   private func addProgressView(model: OrderDetail) {
     progressView = UIView()
     orderView.addSubview(progressView)
@@ -204,49 +266,6 @@ class OrderDetailViewController : BaseViewController {
     }
   }
   
-  private func initBottomView() {
-    bottomView = UIView()
-    orderView.addSubview(bottomView)
-    bottomView.snp.makeConstraints { (make) in
-      make.leading.trailing.bottom.height.equalTo(0)
-    }
-    
-    noteLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
-    noteLabel.textColor = .RGBA(235, 56, 26, 1)
-    bottomView.addSubview(noteLabel)
-    noteLabel.snp.makeConstraints { (make) in
-      make.leading.equalTo(16)
-      make.top.equalTo(0)
-    }
-    
-    telButton = ViewFactory.button(withTitle: "联系下单人", font: UIFont.boldSystemFont(ofSize: 17))
-    telButton.backgroundColor = .white
-    telButton.setTitleColor(.themeGreen, for: .normal)
-    telButton.layer.cornerRadius = 5
-    telButton.layer.masksToBounds = true
-    telButton.layer.borderWidth = 1
-    telButton.layer.borderColor = UIColor.themeGreen.cgColor
-    bottomView.addSubview(telButton)
-    
-    dealButton = ViewFactory.button(withTitle: "", font: UIFont.boldSystemFont(ofSize: 17))
-    dealButton.backgroundColor = .themeGreen
-    dealButton.setTitleColor(.white, for: .normal)
-    dealButton.layer.cornerRadius = 5
-    dealButton.layer.masksToBounds = true
-    bottomView.addSubview(dealButton)
-    
-    telButton.snp.makeConstraints { (make) in
-      make.height.equalTo(48)
-      make.top.equalTo(noteLabel.snp.bottom).offset(11)
-      make.leading.equalTo(16)
-    }
-    dealButton.snp.makeConstraints { (make) in
-      make.top.height.width.equalTo(telButton)
-      make.trailing.equalTo(-16)
-      make.leading.equalTo(telButton.snp.trailing).offset(10)
-    }
-  }
-  
   private func updateUI() {
     guard let orderDetail = self.orderDetail else { return }
     
@@ -279,12 +298,18 @@ class OrderDetailViewController : BaseViewController {
       make.height.equalTo(87)
     }
     
+    let orderViewHeight = 40 + top + 87 + OMGetSafeArea().bottom
+    
+    mapView.snp.updateConstraints { (make) in
+      make.bottom.equalTo(-orderViewHeight)
+    }
+    
     // Commit pending layout operations first,
     // so that the following animation will only work on orderView's height
     view.layoutIfNeeded()
     
     orderView.snp.updateConstraints { (make) in
-      make.height.equalTo(40 + top + 87 + OMGetSafeArea().bottom)
+      make.height.equalTo(orderViewHeight)
     }
     view.setNeedsUpdateConstraints()
     
@@ -294,12 +319,49 @@ class OrderDetailViewController : BaseViewController {
     }
   }
   
-  private func bindViewModel() {
-    let viewModel = OrderDetailViewModel(orderID: orderID, api: OrderAPIImplementation.shared)
+  private func updateMapView() {
+    guard let orderDetail = self.orderDetail else { return }
     
-    viewModel.orderDetail.do(onNext: { [weak self] orderDetail in
-      self?.orderDetail = orderDetail
-      self?.updateUI()
-    }).drive().disposed(by: bag)
+    let annotations = [orderDetail.startPoint, orderDetail.endPoint]
+    mapView.addAnnotations(annotations)
+    mapView.showAnnotations(annotations, animated: true)
+    
+    // Show Route
+    if #available(iOS 10.0, *) {
+      let sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.start))
+      let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.end))
+      
+      let directionRequest = MKDirections.Request()
+      directionRequest.source = sourceItem
+      directionRequest.destination = destinationItem
+      directionRequest.transportType = .automobile
+      
+      let directions = MKDirections(request: directionRequest)
+      directions.calculate { (response, error) in
+        guard let response = response else {
+          if let error = error {
+            print("Failed to calculate route on map: \(error)")
+          }
+          return
+        }
+        
+        let route = response.routes[0]
+        self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+      }
+    } else {
+      // Fallback on earlier versions
+    }
   }
 }
+
+// MARK: - MKMapViewDelegate
+
+extension OrderDetailViewController : MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard let annotation = annotation as? OrderDetail.Point, let orderDetail = self.orderDetail else { return nil }
+    let view = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+    view.image = annotation == orderDetail.startPoint ? UIImage(named: "driver") : UIImage(named: "receiver")
+    return view
+  }
+}
+
