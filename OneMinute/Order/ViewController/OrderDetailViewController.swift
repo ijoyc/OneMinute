@@ -139,7 +139,7 @@ extension OrderDetailViewController {
     }
     
     noteLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
-    noteLabel.textColor = .RGBA(235, 56, 26, 1)
+    noteLabel.textColor = .secondaryTextColor
     bottomView.addSubview(noteLabel)
     noteLabel.snp.makeConstraints { (make) in
       make.leading.equalTo(16)
@@ -276,6 +276,16 @@ extension OrderDetailViewController {
     addProgressView(model: orderDetail)
     
     noteLabel.text = "备注:\(orderDetail.note)"
+    dealButton.setTitle("已买到商品", for: .normal)
+    
+    telButton.rx.tap.subscribe(onNext: {
+      
+    }).disposed(by: bag)
+    
+    dealButton.rx.tap.subscribe(onNext: { [weak self] in
+      guard let self = self else { return }
+      DealPopupView.show(on: self.view)
+    }).disposed(by: bag)
     
     var top: CGFloat = 0
     let maxWidth = topView.frame.width - 41 - 16

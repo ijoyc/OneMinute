@@ -24,4 +24,8 @@ extension UIColor {
   open class var themeGreen: UIColor {
     return RGBA(132, 215, 207, 1)
   }
+  
+  open class var secondaryTextColor: UIColor {
+    return RGBA(235, 56, 15, 1)
+  }
 }

@@ -71,7 +71,7 @@ class OrderCell : UITableViewCell {
       distanceLabel.textColor = state.color
     } else {
       distanceLabel.text = model.distance ?? ""
-      distanceLabel.textColor = .RGBA(235, 56, 15, 1)
+      distanceLabel.textColor = .secondaryTextColor
     }
   }
 }
