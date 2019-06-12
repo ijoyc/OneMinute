@@ -9,6 +9,10 @@
 import UIKit
 
 class ProfileHeaderView : UIView {
+  var profileView: UIImageView!
+  var nameLabel: UILabel!
+  var ordersLabel: UILabel!
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     
@@ -42,8 +46,8 @@ class ProfileHeaderView : UIView {
       make.edges.equalTo(0)
     }
     
-    let profileView = UIImageView()
-    profileView.backgroundColor = .red
+    profileView = UIImageView()
+    profileView.backgroundColor = .white
     profileView.layer.cornerRadius = 26
     profileView.layer.masksToBounds = true
     profileView.layer.borderColor = UIColor.white.cgColor
@@ -55,7 +59,7 @@ class ProfileHeaderView : UIView {
       make.centerY.equalTo(contentView)
     }
     
-    let nameLabel = ViewFactory.label(withText: "小小菜菜", font: UIFont.boldSystemFont(ofSize: 15))
+    nameLabel = ViewFactory.label(withText: "", font: UIFont.boldSystemFont(ofSize: 15))
     nameLabel.textColor = .white
     contentView.addSubview(nameLabel)
     nameLabel.snp.makeConstraints { (make) in
@@ -71,7 +75,7 @@ class ProfileHeaderView : UIView {
       make.top.equalTo(nameLabel.snp.bottom).offset(12)
     }
     
-    let ordersLabel = ViewFactory.label(withText: "2983 笔", font: UIFont.boldSystemFont(ofSize: 14))
+    ordersLabel = ViewFactory.label(withText: "2983 笔", font: UIFont.boldSystemFont(ofSize: 14))
     ordersLabel.textColor = .white
     contentView.addSubview(ordersLabel)
     ordersLabel.snp.makeConstraints { (make) in

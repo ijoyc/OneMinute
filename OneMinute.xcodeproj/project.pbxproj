@@ -39,6 +39,11 @@
 		4FB4745F22B0958600130B9C /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4745E22B0958600130B9C /* LanguageViewController.swift */; };
 		4FB4746122B096BD00130B9C /* ProfitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746022B096BD00130B9C /* ProfitViewController.swift */; };
 		4FB4746722B1148E00130B9C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746622B1148E00130B9C /* Config.swift */; };
+		4FB4746922B11CA500130B9C /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746822B11CA500130B9C /* ProfileService.swift */; };
+		4FB4746B22B11CEC00130B9C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746A22B11CEC00130B9C /* User.swift */; };
+		4FB4746E22B11F6300130B9C /* ProfileServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746D22B11F6300130B9C /* ProfileServiceImpl.swift */; };
+		4FB4747022B11FD200130B9C /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746F22B11FD200130B9C /* ProfileViewModel.swift */; };
+		4FB4747222B120F600130B9C /* UIImageView+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4747122B120F600130B9C /* UIImageView+Common.swift */; };
 		4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0220222A13E6600C4899A /* AppDelegate.swift */; };
 		4FC0220522A13E6800C4899A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220422A13E6800C4899A /* Assets.xcassets */; };
 		4FC0220822A13E6800C4899A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */; };
@@ -87,6 +92,11 @@
 		4FB4745E22B0958600130B9C /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
 		4FB4746022B096BD00130B9C /* ProfitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitViewController.swift; sourceTree = "<group>"; };
 		4FB4746622B1148E00130B9C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		4FB4746822B11CA500130B9C /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		4FB4746A22B11CEC00130B9C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4FB4746D22B11F6300130B9C /* ProfileServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceImpl.swift; sourceTree = "<group>"; };
+		4FB4746F22B11FD200130B9C /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		4FB4747122B120F600130B9C /* UIImageView+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Common.swift"; sourceTree = "<group>"; };
 		4FC021FF22A13E6600C4899A /* OneMinute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneMinute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC0220222A13E6600C4899A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FC0220422A13E6800C4899A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -254,6 +264,7 @@
 		4F7E09E922A91F3300857FF6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4FB4746F22B11FD200130B9C /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 			children = (
 				4FB4745622B083A200130B9C /* ProfileHeaderView.swift */,
 				4FB4746622B1148E00130B9C /* Config.swift */,
+				4FB4746A22B11CEC00130B9C /* User.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,6 +290,8 @@
 		4F7E09EC22A91F4100857FF6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				4FB4746822B11CA500130B9C /* ProfileService.swift */,
+				4FB4746D22B11F6300130B9C /* ProfileServiceImpl.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -438,6 +452,7 @@
 			children = (
 				4FCCA4C822A756F700F42C47 /* UIColor+Common.swift */,
 				4F7E09FC22AA029100857FF6 /* String+Common.swift */,
+				4FB4747122B120F600130B9C /* UIImageView+Common.swift */,
 				4F7E0A0322AA126F00857FF6 /* ViewFactory.swift */,
 				4F7E0A0922AA589C00857FF6 /* UIScrollView+Common.swift */,
 			);
@@ -568,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FCCA4D722A7F39300F42C47 /* SigninModel.swift in Sources */,
+				4FB4746922B11CA500130B9C /* ProfileService.swift in Sources */,
 				4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */,
 				4F7E09F322A9EDE200857FF6 /* Order.swift in Sources */,
 				4F7E09E722A91F0200857FF6 /* OrderViewController.swift in Sources */,
@@ -591,6 +607,7 @@
 				4F7E0A0A22AA589C00857FF6 /* UIScrollView+Common.swift in Sources */,
 				4F7E0A0822AA3F6700857FF6 /* GrabViewModel.swift in Sources */,
 				4FCCA4C422A74B9E00F42C47 /* Common.swift in Sources */,
+				4FB4746E22B11F6300130B9C /* ProfileServiceImpl.swift in Sources */,
 				4F7E0A0622AA3A9F00857FF6 /* GrabServiceImpl.swift in Sources */,
 				4FB4745922B090DA00130B9C /* SettingItem.swift in Sources */,
 				4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */,
@@ -598,10 +615,12 @@
 				4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */,
 				4F7E0A1022AB695D00857FF6 /* OrderService.swift in Sources */,
 				4FCCA4C922A756F700F42C47 /* UIColor+Common.swift in Sources */,
+				4FB4746B22B11CEC00130B9C /* User.swift in Sources */,
 				4FB4745B22B094FB00130B9C /* AboutViewController.swift in Sources */,
 				4F7E0A0422AA126F00857FF6 /* ViewFactory.swift in Sources */,
 				4FCCA4DA22A7F3DD00F42C47 /* SigninService.swift in Sources */,
 				4FB4746122B096BD00130B9C /* ProfitViewController.swift in Sources */,
+				4FB4747022B11FD200130B9C /* ProfileViewModel.swift in Sources */,
 				4F7E0A1722AC13EC00857FF6 /* OrderBaseViewController.swift in Sources */,
 				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
 				4FB4745722B083A200130B9C /* ProfileHeaderView.swift in Sources */,
@@ -609,6 +628,7 @@
 				4F7E0A1422ABAF0E00857FF6 /* OrderViewModel.swift in Sources */,
 				4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */,
 				4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */,
+				4FB4747222B120F600130B9C /* UIImageView+Common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

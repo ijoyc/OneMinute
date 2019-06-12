@@ -12,6 +12,7 @@ import RxCocoa
 
 class ProfileViewController : UIViewController {
   private var tableView: UITableView!
+  private var headerView: ProfileHeaderView!
   private var settings: [SettingItem]!
   private let bag = DisposeBag()
   
@@ -33,7 +34,7 @@ class ProfileViewController : UIViewController {
       make.edges.equalTo(0)
     }
     
-    let headerView = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 125))
+    headerView = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 125))
     tableView.tableHeaderView = headerView
   }
   
@@ -79,6 +80,20 @@ class ProfileViewController : UIViewController {
     }).disposed(by: bag)
     
     tableView.rx.setDelegate(self).disposed(by: bag)
+    
+    let viewModel = ProfileViewModel(api: ProfileAPIImplementation.shared)
+    viewModel.currentUser.drive(onNext: { user in
+      User.current.update(user)
+    }).disposed(by: bag)
+    
+    viewModel.currentUser.map { $0.avatar }.drive(onNext: { [weak self] urlString in
+      guard let self = self else { return }
+      
+      self.headerView.profileView.rx.setImage(with: urlString).disposed(by: self.bag)
+    }).disposed(by: bag)
+    
+    viewModel.currentUser.map { "\($0.firstName) \($0.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
+    viewModel.currentUser.map { "\($0.completeOrderNum) 笔" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
   }
 }
 
