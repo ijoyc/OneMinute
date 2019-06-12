@@ -58,19 +58,20 @@ class ProfileViewController : UIViewController {
       
       switch indexPath.row {
       case 0:
-        // 我的收益
+        // My Profits
         self.navigationController?.pushViewController(ProfitViewController(), animated: true)
       case 1:
-        // 切换中英文
+        // Change Language
         self.navigationController?.pushViewController(LanguageViewController(), animated: true)
       case 2:
-        // 员工守则
+        // Rules
         self.navigationController?.pushViewController(RuleViewController(), animated: true)
       case 3:
-        // 关于 one minute
+        // About one minute
         self.navigationController?.pushViewController(AboutViewController(), animated: true)
       case 4:
-        // 退出登录
+        // Sign out
+        // TODO: sign out
         return
       default:
         return
