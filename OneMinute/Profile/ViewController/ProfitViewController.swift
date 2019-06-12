@@ -12,6 +12,9 @@ import RxCocoa
 
 class ProfitViewController : UIViewController {
   private var tableView: UITableView!
+  private var headerView: ProfitHeaderView!
+  private var settings: [SettingItem]!
+  
   private let bag = DisposeBag()
   
   private static let cellID = "ProfitCellID"
@@ -21,15 +24,44 @@ class ProfitViewController : UIViewController {
     title = "我的收益"
     
     initSubviews()
+    bindViewModel()
   }
   
   private func initSubviews() {
-    tableView = UITableView()
+    tableView = UITableView(frame: view.bounds)
     tableView.tableFooterView = UIView()
+    tableView.separatorStyle = .none
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: ProfitViewController.cellID)
     view.addSubview(tableView)
     tableView.snp.makeConstraints { (make) in
       make.edges.equalTo(0)
     }
+    
+    headerView = ProfitHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150))
+    tableView.tableHeaderView = headerView
+  }
+  
+  private func bindViewModel() {
+    settings = [
+      SettingItem(iconName: "withdraw", title: "申请提现"),
+      SettingItem(iconName: "records", title: "明细记录")
+    ]
+    
+    Driver.just(settings).drive(tableView.rx.items(cellIdentifier: ProfitViewController.cellID, cellType: UITableViewCell.self)) { (row, element, cell) in
+      cell.textLabel?.text = element.title
+      cell.imageView?.image = UIImage(named: element.iconName)
+      cell.accessoryView = UIImageView(image: UIImage(named: "right_arrow"))
+    }.disposed(by: bag)
+    
+    tableView.rx.setDelegate(self).disposed(by: bag)
+    
+    User.current.map { "\($0.withdraw)" }.bind(to: headerView.withdrawLabel.rx.text).disposed(by: bag)
+    User.current.map { "\($0.dailyProfit)" }.bind(to: headerView.profitLabel.rx.text).disposed(by: bag)
+  }
+}
+
+extension ProfitViewController : UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 50
   }
 }

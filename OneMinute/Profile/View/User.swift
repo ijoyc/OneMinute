@@ -6,7 +6,7 @@
 //  Copyright © 2019 yizhuo.cyz. All rights reserved.
 //
 
-import Foundation
+import RxCocoa
 
 class User {
   enum Sex : Int {
@@ -24,9 +24,11 @@ class User {
   var firstName = ""
   var lastName = ""
   var sex: Sex = .Male
+  var dailyProfit: Double = 0
+  var withdraw: Double = 0
 //  var type: UserType
   
-  static let current = User(json: [String: Any]())
+  static let current = BehaviorRelay(value: User(json: [String: Any]()))
   
   init(json: [String: Any]) {
     avatar = json["avatarUrl"] as? String ?? ""
@@ -34,13 +36,17 @@ class User {
     firstName = json["firstname"] as? String ?? ""
     lastName = json["lastname"] as? String ?? ""
     sex = Sex(rawValue: json["sex"] as? Int ?? 1) ?? .Male
+    dailyProfit = json["dailyProfit"] as? Double ?? 0
+    withdraw = json["withdraw"] as? Double ?? 0
   }
   
   func update(_ user: User) {
-    self.avatar = user.avatar
-    self.completeOrderNum = user.completeOrderNum
-    self.firstName = user.firstName
-    self.lastName = user.lastName
-    self.sex = user.sex
+    avatar = user.avatar
+    completeOrderNum = user.completeOrderNum
+    firstName = user.firstName
+    lastName = user.lastName
+    sex = user.sex
+    dailyProfit = user.dailyProfit
+    withdraw = user.withdraw
   }
 }

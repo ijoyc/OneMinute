@@ -83,7 +83,7 @@ class ProfileViewController : UIViewController {
     
     let viewModel = ProfileViewModel(api: ProfileAPIImplementation.shared)
     viewModel.currentUser.drive(onNext: { user in
-      User.current.update(user)
+      User.current.accept(user)
     }).disposed(by: bag)
     
     viewModel.currentUser.map { $0.avatar }.drive(onNext: { [weak self] urlString in

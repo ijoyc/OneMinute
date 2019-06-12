@@ -19,6 +19,8 @@ class ProfileAPIImplementation : ProfileAPI {
       "firstname": "三",
       "lastname": "张",
       "sex": 1,
+      "dailyProfit": 8125.29,
+      "withdraw": 105.29
       ])).delay(.seconds(1), scheduler: MainScheduler.instance)
   }
 }
