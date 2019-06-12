@@ -53,6 +53,22 @@ class ProfitViewController : UIViewController {
       cell.accessoryView = UIImageView(image: UIImage(named: "right_arrow"))
     }.disposed(by: bag)
     
+    tableView.rx.itemSelected.subscribe(onNext: { [weak self] (indexPath) in
+      guard let self = self else { return }
+      self.tableView.deselectRow(at: indexPath, animated: true)
+      
+      switch indexPath.row {
+      case 0:
+        // Apply withdraw
+        self.navigationController?.pushViewController(ApplyWithdrawController(), animated: true)
+      case 1:
+        // Records
+        self.navigationController?.pushViewController(RecordsViewController(), animated: true)
+      default:
+        return
+      }
+    }).disposed(by: bag)
+    
     tableView.rx.setDelegate(self).disposed(by: bag)
     
     User.current.map { "\($0.withdraw)" }.bind(to: headerView.withdrawLabel.rx.text).disposed(by: bag)

@@ -81,7 +81,7 @@ class DealPopupView : UIView {
       DealPopupView.dismiss()
     }).disposed(by: bag)
     
-    let titleLabel = ViewFactory.label(withText: "订单完成", font: UIFont.boldSystemFont(ofSize: 16))
+    let titleLabel = ViewFactory.label(withText: "订单完成", font: .boldSystemFont(ofSize: 16))
     titleLabel.textAlignment = .center
     contentView.addSubview(titleLabel)
     titleLabel.snp.makeConstraints { (make) in
@@ -97,7 +97,7 @@ class DealPopupView : UIView {
       make.top.equalTo(titleLabel.snp.bottom)
     }
     
-    let tipLabel = ViewFactory.label(withText: "请向对方索要确认码,正确输入后完成订单", font: UIFont.systemFont(ofSize: 11))
+    let tipLabel = ViewFactory.label(withText: "请向对方索要确认码,正确输入后完成订单", font: .systemFont(ofSize: 11))
     tipLabel.textColor = .secondaryTextColor
     tipLabel.textAlignment = .center
     contentView.addSubview(tipLabel)
@@ -116,7 +116,7 @@ class DealPopupView : UIView {
       inputView.layer.masksToBounds = true
       inputView.keyboardType = .numberPad
       inputView.tintColor = .clear
-      inputView.font = UIFont.boldSystemFont(ofSize: 24)
+      inputView.font = .boldSystemFont(ofSize: 24)
       inputView.textAlignment = .center
       inputView.delegate = self
       inputViews.append(inputView)
@@ -133,7 +133,7 @@ class DealPopupView : UIView {
       lastView = inputView
     }
     
-    submitButton = ViewFactory.button(withTitle: "提交", font: UIFont.boldSystemFont(ofSize: 17))
+    submitButton = ViewFactory.button(withTitle: "提交", font: .boldSystemFont(ofSize: 17))
     submitButton.backgroundColor = .themeGreen
     submitButton.setTitleColor(.white, for: .normal)
     submitButton.layer.cornerRadius = 4

@@ -44,21 +44,21 @@ class ProfitHeaderView : UIView {
       make.edges.equalTo(0)
     }
     
-    let profitTipLabel = ViewFactory.label(withText: "今日收益", font: UIFont.systemFont(ofSize: 12))
+    let profitTipLabel = ViewFactory.label(withText: "今日收益", font: .systemFont(ofSize: 12))
     contentView.addSubview(profitTipLabel)
     profitTipLabel.snp.makeConstraints { (make) in
       make.top.equalTo(42)
       make.centerX.equalTo(contentView).multipliedBy(0.5)
     }
     
-    let dollarLabel = ViewFactory.label(withText: "$", font: UIFont.systemFont(ofSize: 20))
+    let dollarLabel = ViewFactory.label(withText: "$", font: .systemFont(ofSize: 20))
     contentView.addSubview(dollarLabel)
     dollarLabel.snp.makeConstraints { (make) in
       make.leading.equalTo(33)
       make.top.equalTo(profitTipLabel.snp.bottom).offset(15)
     }
     
-    profitLabel = ViewFactory.label(withText: "00.00", font: UIFont.boldSystemFont(ofSize: 24))
+    profitLabel = ViewFactory.label(withText: "00.00", font: .boldSystemFont(ofSize: 24))
     contentView.addSubview(profitLabel)
     profitLabel.snp.makeConstraints { (make) in
       make.leading.equalTo(dollarLabel.snp.trailing).offset(2)
@@ -74,21 +74,21 @@ class ProfitHeaderView : UIView {
       make.height.equalTo(34)
     }
     
-    let withdrawTipLabel = ViewFactory.label(withText: "可提现收益", font: UIFont.systemFont(ofSize: 12))
+    let withdrawTipLabel = ViewFactory.label(withText: "可提现收益", font: .systemFont(ofSize: 12))
     contentView.addSubview(withdrawTipLabel)
     withdrawTipLabel.snp.makeConstraints { (make) in
       make.centerX.equalTo(contentView.snp.trailing).multipliedBy(0.75)
       make.top.equalTo(profitTipLabel.snp.top)
     }
     
-    withdrawLabel = ViewFactory.label(withText: "00.00", font: UIFont.boldSystemFont(ofSize: 24))
+    withdrawLabel = ViewFactory.label(withText: "00.00", font: .boldSystemFont(ofSize: 24))
     contentView.addSubview(withdrawLabel)
     withdrawLabel.snp.makeConstraints { (make) in
       make.centerX.equalTo(withdrawTipLabel)
       make.top.equalTo(profitLabel.snp.top)
     }
     
-    let dollarLabel2 = ViewFactory.label(withText: "$", font: UIFont.systemFont(ofSize: 20))
+    let dollarLabel2 = ViewFactory.label(withText: "$", font: .systemFont(ofSize: 20))
     contentView.addSubview(dollarLabel2)
     dollarLabel2.snp.makeConstraints { (make) in
       make.trailing.equalTo(withdrawLabel.snp.leading).offset(-2)

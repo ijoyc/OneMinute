@@ -35,8 +35,8 @@ class OrderCellModel {
     var top: CGFloat = 0
     let maxWidth = mainFrame.width - 37 - 16
     for progress in model.progresses {
-      let titleSize = progress.title.boundingSize(with: maxWidth, font: UIFont.boldSystemFont(ofSize: 14))
-      let descSize = progress.desc.boundingSize(with: maxWidth, font: UIFont.systemFont(ofSize: 12))
+      let titleSize = progress.title.boundingSize(with: maxWidth, font: .boldSystemFont(ofSize: 14))
+      let descSize = progress.desc.boundingSize(with: maxWidth, font: .systemFont(ofSize: 12))
       let height = 17 + titleSize.height + 8 + descSize.height + 12
       progressFrames.append(CGRect(x: 0, y: top, width: mainFrame.width, height: height))
       top += height

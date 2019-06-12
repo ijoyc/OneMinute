@@ -59,7 +59,7 @@ class ProfileHeaderView : UIView {
       make.centerY.equalTo(contentView)
     }
     
-    nameLabel = ViewFactory.label(withText: "", font: UIFont.boldSystemFont(ofSize: 15))
+    nameLabel = ViewFactory.label(withText: "", font: .boldSystemFont(ofSize: 15))
     nameLabel.textColor = .white
     contentView.addSubview(nameLabel)
     nameLabel.snp.makeConstraints { (make) in
@@ -67,7 +67,7 @@ class ProfileHeaderView : UIView {
       make.bottom.equalTo(contentView.snp.centerY).offset(-6)
     }
     
-    let descLabel = ViewFactory.label(withText: "司机", font: UIFont.systemFont(ofSize: 14))
+    let descLabel = ViewFactory.label(withText: "司机", font: .systemFont(ofSize: 14))
     descLabel.textColor = .white
     contentView.addSubview(descLabel)
     descLabel.snp.makeConstraints { (make) in
@@ -75,7 +75,7 @@ class ProfileHeaderView : UIView {
       make.top.equalTo(nameLabel.snp.bottom).offset(12)
     }
     
-    ordersLabel = ViewFactory.label(withText: "2983 笔", font: UIFont.boldSystemFont(ofSize: 14))
+    ordersLabel = ViewFactory.label(withText: "2983 笔", font: .boldSystemFont(ofSize: 14))
     ordersLabel.textColor = .white
     contentView.addSubview(ordersLabel)
     ordersLabel.snp.makeConstraints { (make) in

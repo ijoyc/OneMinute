@@ -111,21 +111,21 @@ extension OrderCell {
       make.top.equalTo(10)
     }
     
-    typeLabel = ViewFactory.label(withText: "", font: UIFont.boldSystemFont(ofSize: 15))
+    typeLabel = ViewFactory.label(withText: "", font: .boldSystemFont(ofSize: 15))
     topView.addSubview(typeLabel)
     typeLabel.snp.makeConstraints { (make) in
       make.leading.equalTo(iconImageView.snp.trailing).offset(5)
       make.centerY.equalTo(iconImageView)
     }
     
-    timeLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    timeLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
     topView.addSubview(timeLabel)
     timeLabel.snp.makeConstraints { (make) in
       make.centerX.equalTo(topView)
       make.centerY.equalTo(iconImageView)
     }
     
-    distanceLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    distanceLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
     topView.addSubview(distanceLabel)
     distanceLabel.snp.makeConstraints { (make) in
       make.centerY.equalTo(iconImageView)
@@ -157,7 +157,7 @@ extension OrderCell {
       progressView.addSubview(wrapper)
       
       let progress = model.progresses[i]
-      let iconView = ViewFactory.label(withText: progress.type.description, font: UIFont.systemFont(ofSize: 10))
+      let iconView = ViewFactory.label(withText: progress.type.description, font: .systemFont(ofSize: 10))
       iconView.textColor = .white
       iconView.textAlignment = .center
       iconView.backgroundColor = progress.type.iconColor
@@ -170,14 +170,14 @@ extension OrderCell {
         make.top.equalTo(15)
       }
       
-      let titleLabel = ViewFactory.label(withText: progress.title, font: UIFont.boldSystemFont(ofSize: 14))
+      let titleLabel = ViewFactory.label(withText: progress.title, font: .boldSystemFont(ofSize: 14))
       wrapper.addSubview(titleLabel)
       titleLabel.snp.makeConstraints { (make) in
         make.leading.equalTo(iconView.snp.trailing).offset(10)
         make.top.equalTo(17)
       }
       
-      let descLabel = ViewFactory.label(withText: progress.desc, font: UIFont.systemFont(ofSize: 12))
+      let descLabel = ViewFactory.label(withText: progress.desc, font: .systemFont(ofSize: 12))
       descLabel.textColor = .omTextGray
       descLabel.numberOfLines = 0
       wrapper.addSubview(descLabel)
@@ -236,7 +236,7 @@ extension OrderCell {
     bottomView.backgroundColor = .themeGreen
     wrapperView.addSubview(bottomView)
     
-    profitLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 15))
+    profitLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 15))
     profitLabel.textColor = .white
     bottomView.addSubview(profitLabel)
     profitLabel.snp.makeConstraints { (make) in
@@ -244,7 +244,7 @@ extension OrderCell {
       make.centerY.equalTo(bottomView)
     }
     
-    let grabButton = ViewFactory.button(withTitle: "确认抢单", font: UIFont.boldSystemFont(ofSize: 14))
+    let grabButton = ViewFactory.button(withTitle: "确认抢单", font: .boldSystemFont(ofSize: 14))
     grabButton.backgroundColor = .white
     grabButton.setTitleColor(.themeGreen, for: .normal)
     grabButton.layer.cornerRadius = 5

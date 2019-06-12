@@ -47,7 +47,7 @@ class InputField : UIView {
     }
 
     nameLabel.text = title
-    nameLabel.font = UIFont.systemFont(ofSize: 16.0)
+    nameLabel.font = .systemFont(ofSize: 16.0)
     addSubview(nameLabel)
     nameLabel.snp.makeConstraints { (make) in
       make.centerY.equalTo(logoImageView.snp_centerY)
@@ -73,7 +73,7 @@ class InputField : UIView {
     }
     
     errorLabel.textColor = UIColor.RGBA(232, 70, 90, 1.0)
-    errorLabel.font = UIFont.systemFont(ofSize: 12)
+    errorLabel.font = .systemFont(ofSize: 12)
     addSubview(errorLabel)
     errorLabel.snp.makeConstraints { (make) in
       make.right.equalTo(textField.snp.right)

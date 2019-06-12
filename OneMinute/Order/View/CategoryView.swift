@@ -36,7 +36,7 @@ class CategoryView : UIView {
     
     let itemWidth = bounds.width / CGFloat(categories.count)
     for i in 0 ..< categories.count {
-      let label = ViewFactory.label(withText: categories[i], font: UIFont.systemFont(ofSize: 14))
+      let label = ViewFactory.label(withText: categories[i], font: .systemFont(ofSize: 14))
       label.frame = CGRect(x: CGFloat(i) * itemWidth, y: 0, width: itemWidth, height: bounds.height)
       label.textAlignment = .center
       labels.append(label)

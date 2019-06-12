@@ -99,7 +99,7 @@ extension OrderDetailViewController {
       make.top.equalTo(10)
     }
     
-    typeLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    typeLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
     typeLabel.textColor = .themeGreen
     topView.addSubview(typeLabel)
     typeLabel.snp.makeConstraints { (make) in
@@ -107,7 +107,7 @@ extension OrderDetailViewController {
       make.centerY.equalTo(iconImageView)
     }
     
-    idLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    idLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
     idLabel.textColor = .omTextGray
     topView.addSubview(idLabel)
     idLabel.snp.makeConstraints { (make) in
@@ -115,7 +115,7 @@ extension OrderDetailViewController {
       make.centerY.equalTo(iconImageView)
     }
     
-    stateLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    stateLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
     topView.addSubview(stateLabel)
     stateLabel.snp.makeConstraints { (make) in
       make.centerY.equalTo(iconImageView)
@@ -138,7 +138,7 @@ extension OrderDetailViewController {
       make.leading.trailing.bottom.height.equalTo(0)
     }
     
-    noteLabel = ViewFactory.label(withText: "", font: UIFont.systemFont(ofSize: 12))
+    noteLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
     noteLabel.textColor = .secondaryTextColor
     bottomView.addSubview(noteLabel)
     noteLabel.snp.makeConstraints { (make) in
@@ -146,7 +146,7 @@ extension OrderDetailViewController {
       make.top.equalTo(0)
     }
     
-    telButton = ViewFactory.button(withTitle: "联系下单人", font: UIFont.boldSystemFont(ofSize: 17))
+    telButton = ViewFactory.button(withTitle: "联系下单人", font: .boldSystemFont(ofSize: 17))
     telButton.backgroundColor = .white
     telButton.setTitleColor(.themeGreen, for: .normal)
     telButton.layer.cornerRadius = 5
@@ -155,7 +155,7 @@ extension OrderDetailViewController {
     telButton.layer.borderColor = UIColor.themeGreen.cgColor
     bottomView.addSubview(telButton)
     
-    dealButton = ViewFactory.button(withTitle: "", font: UIFont.boldSystemFont(ofSize: 17))
+    dealButton = ViewFactory.button(withTitle: "", font: .boldSystemFont(ofSize: 17))
     dealButton.backgroundColor = .themeGreen
     dealButton.setTitleColor(.white, for: .normal)
     dealButton.layer.cornerRadius = 5
@@ -192,7 +192,7 @@ extension OrderDetailViewController {
       progressView.addSubview(wrapper)
       
       let progress = model.progresses[i]
-      let iconView = ViewFactory.label(withText: progress.type.description, font: UIFont.systemFont(ofSize: 10))
+      let iconView = ViewFactory.label(withText: progress.type.description, font: .systemFont(ofSize: 10))
       iconView.textColor = .white
       iconView.textAlignment = .center
       iconView.backgroundColor = progress.type.iconColor
@@ -205,14 +205,14 @@ extension OrderDetailViewController {
         make.top.equalTo(15)
       }
       
-      let titleLabel = ViewFactory.label(withText: progress.title, font: UIFont.boldSystemFont(ofSize: 14))
+      let titleLabel = ViewFactory.label(withText: progress.title, font: .boldSystemFont(ofSize: 14))
       wrapper.addSubview(titleLabel)
       titleLabel.snp.makeConstraints { (make) in
         make.leading.equalTo(iconView.snp.trailing).offset(10)
         make.top.equalTo(17)
       }
       
-      let descLabel = ViewFactory.label(withText: progress.desc, font: UIFont.systemFont(ofSize: 12))
+      let descLabel = ViewFactory.label(withText: progress.desc, font: .systemFont(ofSize: 12))
       descLabel.textColor = .omTextGray
       descLabel.numberOfLines = 0
       wrapper.addSubview(descLabel)
@@ -291,8 +291,8 @@ extension OrderDetailViewController {
     let maxWidth = topView.frame.width - 41 - 16
     for i in 0 ..< orderDetail.progresses.count {
       let progress = orderDetail.progresses[i]
-      let titleSize = progress.title.boundingSize(with: maxWidth, font: UIFont.boldSystemFont(ofSize: 14))
-      let descSize = progress.desc.boundingSize(with: maxWidth, font: UIFont.systemFont(ofSize: 12))
+      let titleSize = progress.title.boundingSize(with: maxWidth, font: .boldSystemFont(ofSize: 14))
+      let descSize = progress.desc.boundingSize(with: maxWidth, font: .systemFont(ofSize: 12))
       let height = 17 + titleSize.height + 8 + descSize.height + 12
       progressView.subviews[i].frame = CGRect(x: 0, y: top, width: topView.frame.width, height: height)
       top += height

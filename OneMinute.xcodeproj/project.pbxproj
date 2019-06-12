@@ -45,6 +45,9 @@
 		4FB4747022B11FD200130B9C /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4746F22B11FD200130B9C /* ProfileViewModel.swift */; };
 		4FB4747222B120F600130B9C /* UIImageView+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4747122B120F600130B9C /* UIImageView+Common.swift */; };
 		4FB4747422B12A3400130B9C /* ProfitHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4747322B12A3400130B9C /* ProfitHeaderView.swift */; };
+		4FB4747622B1491200130B9C /* ApplyWithdrawController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4747522B1491200130B9C /* ApplyWithdrawController.swift */; };
+		4FB4747822B1497B00130B9C /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4747722B1497B00130B9C /* RecordsViewController.swift */; };
+		4FB4747A22B149E600130B9C /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB4747922B149E600130B9C /* RecordCell.swift */; };
 		4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC0220222A13E6600C4899A /* AppDelegate.swift */; };
 		4FC0220522A13E6800C4899A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220422A13E6800C4899A /* Assets.xcassets */; };
 		4FC0220822A13E6800C4899A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */; };
@@ -99,6 +102,9 @@
 		4FB4746F22B11FD200130B9C /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		4FB4747122B120F600130B9C /* UIImageView+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Common.swift"; sourceTree = "<group>"; };
 		4FB4747322B12A3400130B9C /* ProfitHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitHeaderView.swift; sourceTree = "<group>"; };
+		4FB4747522B1491200130B9C /* ApplyWithdrawController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyWithdrawController.swift; sourceTree = "<group>"; };
+		4FB4747722B1497B00130B9C /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		4FB4747922B149E600130B9C /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		4FC021FF22A13E6600C4899A /* OneMinute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneMinute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC0220222A13E6600C4899A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4FC0220422A13E6800C4899A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -259,6 +265,8 @@
 				4FB4745C22B0954F00130B9C /* RuleViewController.swift */,
 				4FB4745A22B094FB00130B9C /* AboutViewController.swift */,
 				4FB4746022B096BD00130B9C /* ProfitViewController.swift */,
+				4FB4747522B1491200130B9C /* ApplyWithdrawController.swift */,
+				4FB4747722B1497B00130B9C /* RecordsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -278,6 +286,7 @@
 				4FB4747322B12A3400130B9C /* ProfitHeaderView.swift */,
 				4FB4746622B1148E00130B9C /* Config.swift */,
 				4FB4746A22B11CEC00130B9C /* User.swift */,
+				4FB4747922B149E600130B9C /* RecordCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -586,6 +595,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FCCA4D722A7F39300F42C47 /* SigninModel.swift in Sources */,
+				4FB4747622B1491200130B9C /* ApplyWithdrawController.swift in Sources */,
 				4FB4746922B11CA500130B9C /* ProfileService.swift in Sources */,
 				4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */,
 				4F7E09F322A9EDE200857FF6 /* Order.swift in Sources */,
@@ -593,6 +603,7 @@
 				4F7E09E022A91EB200857FF6 /* GrabViewController.swift in Sources */,
 				4FB4745D22B0954F00130B9C /* RuleViewController.swift in Sources */,
 				4F7E09FD22AA029100857FF6 /* String+Common.swift in Sources */,
+				4FB4747822B1497B00130B9C /* RecordsViewController.swift in Sources */,
 				4F7E09F722A9F23900857FF6 /* BaseViewController.swift in Sources */,
 				4F7E09F522A9EF9400857FF6 /* OrderProgress.swift in Sources */,
 				4FB4745522AFC94000130B9C /* DealPopupView.swift in Sources */,
@@ -629,6 +640,7 @@
 				4FB4747422B12A3400130B9C /* ProfitHeaderView.swift in Sources */,
 				4FB4745722B083A200130B9C /* ProfileHeaderView.swift in Sources */,
 				4FB4745022AE77B400130B9C /* OrderDetailViewModel.swift in Sources */,
+				4FB4747A22B149E600130B9C /* RecordCell.swift in Sources */,
 				4F7E0A1422ABAF0E00857FF6 /* OrderViewModel.swift in Sources */,
 				4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */,
 				4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */,

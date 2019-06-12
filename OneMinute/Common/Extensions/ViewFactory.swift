@@ -9,7 +9,7 @@
 import UIKit
 
 struct ViewFactory {
-  static func label(withText text: String = "", font: UIFont = UIFont.systemFont(ofSize: 12)) -> UILabel {
+  static func label(withText text: String = "", font: UIFont = .systemFont(ofSize: 12)) -> UILabel {
     let label = UILabel()
     label.text = text
     label.font = font
@@ -22,7 +22,7 @@ struct ViewFactory {
     return view
   }
   
-  static func button(withTitle title: String, font: UIFont = UIFont.systemFont(ofSize: 12)) -> UIButton {
+  static func button(withTitle title: String, font: UIFont = .systemFont(ofSize: 12)) -> UIButton {
     let button = UIButton(type: .custom)
     button.setTitle(title, for: .normal)
     button.titleLabel?.font = font

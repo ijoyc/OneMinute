@@ -39,9 +39,7 @@ class SigninViewController : UIViewController {
       make.top.equalTo(82)
     }
     
-    let titleLabel = UILabel(frame: .zero)
-    titleLabel.text = "One Minute 司机端"
-    titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+    let titleLabel = ViewFactory.label(withText: "One Minute 司机端", font: .boldSystemFont(ofSize: 17))
     view.addSubview(titleLabel)
     titleLabel.snp.makeConstraints { (make) in
       make.top.equalTo(logoImageView.snp_bottom).offset(28)
@@ -66,13 +64,11 @@ class SigninViewController : UIViewController {
       make.height.equalTo(InputField.height)
     }
     
-    loginButton = UIButton(type: .custom)
+    loginButton = ViewFactory.button(withTitle: "马上登录", font: .systemFont(ofSize: 18))
     loginButton.backgroundColor = .themeGreen
     loginButton.layer.cornerRadius = 5
     loginButton.layer.masksToBounds = true
-    loginButton.setTitle("马上登录", for: .normal)
     loginButton.setTitleColor(.white, for: .normal)
-    loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
     view.addSubview(loginButton)
     loginButton.snp.makeConstraints { (make) in
       make.leading.equalTo(37)
@@ -100,9 +96,7 @@ class SigninViewController : UIViewController {
       make.leading.equalTo(36)
     }
     
-    rememberLabel = UILabel()
-    rememberLabel.text = "记住密码"
-    rememberLabel.font = UIFont.systemFont(ofSize: 12)
+    rememberLabel = ViewFactory.label(withText: "记住密码", font: .systemFont(ofSize: 12))
     rememberLabel.textColor = .omTextGray
     view.addSubview(rememberLabel)
     rememberLabel.snp.makeConstraints { (make) in
