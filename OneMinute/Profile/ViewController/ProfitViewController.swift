@@ -71,8 +71,8 @@ class ProfitViewController : UIViewController {
     
     tableView.rx.setDelegate(self).disposed(by: bag)
     
-    User.current.map { "\($0.withdraw)" }.bind(to: headerView.withdrawLabel.rx.text).disposed(by: bag)
-    User.current.map { "\($0.dailyProfit)" }.bind(to: headerView.profitLabel.rx.text).disposed(by: bag)
+    User.current.map { "\(String(format: "%.2f", $0.withdraw))" }.bind(to: headerView.withdrawLabel.rx.text).disposed(by: bag)
+    User.current.map { "\(String(format: "%.2f", $0.dailyProfit))" }.bind(to: headerView.profitLabel.rx.text).disposed(by: bag)
   }
 }
 

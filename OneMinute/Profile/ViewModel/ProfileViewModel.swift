@@ -15,6 +15,6 @@ class ProfileViewModel {
   let currentUser: Driver<User>
   
   init(api: ProfileAPI) {
-    currentUser = api.queryUserInfo(token: User.current.value.token, driverToken: User.current.value.driverToken).asDriver(onErrorJustReturn: User.current.value)
+    currentUser = api.queryUserInfo().asDriver(onErrorJustReturn: User.current.value)
   }
 }

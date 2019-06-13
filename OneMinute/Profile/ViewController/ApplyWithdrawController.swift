@@ -27,6 +27,7 @@ class ApplyWithdrawController : UIViewController {
     super.viewDidLoad()
     title = "提现"
     initSubviews()
+    bindViewModel()
   }
   
   private func initSubviews() {
@@ -121,6 +122,10 @@ class ApplyWithdrawController : UIViewController {
       make.centerX.equalTo(footerView)
       make.top.equalTo(submitButton.snp.bottom).offset(16)
     }
+  }
+  
+  private func bindViewModel() {
+    User.current.map { "\(String(format: "%.2f", $0.withdraw))" }.bind(to: amountLabel.rx.text).disposed(by: bag)
   }
 }
 

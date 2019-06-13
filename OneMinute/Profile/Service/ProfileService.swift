@@ -9,5 +9,6 @@
 import RxSwift
 
 protocol ProfileAPI {
-  func queryUserInfo(token: String, driverToken: String) -> Observable<User>
+  func queryUserInfo() -> Observable<User>
+  func queryRecords(withPage page: Int, size: Int) -> Observable<(records: [Record], hasMore: Bool)>
 }

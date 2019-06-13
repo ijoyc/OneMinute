@@ -35,7 +35,7 @@ class OrderBaseViewController : BaseViewController {
       make.edges.equalTo(0)
     }
     
-    let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 40));
+    let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 40));
     footerView.backgroundColor = .separateLine
     tableView.tableFooterView = footerView
     
