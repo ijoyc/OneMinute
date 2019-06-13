@@ -36,6 +36,10 @@ class SigninServiceImplementation : SigninAPI {
     
     return Observable.just(result).delay(.seconds(1), scheduler: MainScheduler.instance)
   }
+  
+  func signout() -> Observable<Bool> {
+    return Observable.just(true).delay(.seconds(1), scheduler: MainScheduler.instance)
+  }
 }
 
 class ValidationServiceImplementation : validationService {

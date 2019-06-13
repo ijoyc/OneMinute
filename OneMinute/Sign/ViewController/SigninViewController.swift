@@ -30,6 +30,8 @@ class SigninViewController : UIViewController {
   }
   
   private func initSubviews() {
+    view.backgroundColor = .white
+    
     let logoImageView = UIImageView(image: UIImage(named: "logo"))
     logoImageView.contentMode = .scaleAspectFill
     view.addSubview(logoImageView)
@@ -156,9 +158,12 @@ class SigninViewController : UIViewController {
     }).do(onNext: { [weak self] result in
       guard case .ok = result.result else { return }
       
+      User.signInfo.signin(withToken: "123", driverToken: "456")
+      UIApplication.shared.delegate?.window??.rootViewController = LauncherViewController()
+      
       if let needRemember = self?.rememberButton.isSelected, needRemember {
-        let username = self?.usernameField.textField.text ?? ""
-        let password = self?.passwordField.textField.text ?? ""
+//        let username = self?.usernameField.textField.text ?? ""
+//        let password = self?.passwordField.textField.text ?? ""
         
         // TODO: remember user
       } else {

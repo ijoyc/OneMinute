@@ -10,6 +10,7 @@ import RxSwift
 
 protocol SigninAPI {
   func signin(withUsername username: String, password: String) -> Observable<LoginResult>
+  func signout() -> Observable<Bool>
 }
 
 protocol validationService {

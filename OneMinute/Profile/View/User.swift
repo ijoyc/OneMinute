@@ -8,6 +8,53 @@
 
 import RxCocoa
 
+struct SignInfo {
+  var token: String?
+  var driverToken: String?
+  
+  static let tokenKey = "tokenKey"
+  
+  static let separator = "===="
+  
+  init() {
+    do {
+      guard let combinedToken = try Config.storage?.value(for: SignInfo.tokenKey) else {
+        return
+      }
+      
+      let pairs = (combinedToken as NSString).components(separatedBy: SignInfo.separator)
+      if pairs.count != 2 {
+        return
+      }
+      
+      token = pairs[0]
+      driverToken = pairs[1]
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
+  
+  mutating func signin(withToken token: String, driverToken: String) {
+    self.token = token
+    self.driverToken = driverToken
+    do {
+      try Config.storage?.setValue("\(token)\(SignInfo.separator)\(driverToken)", for: SignInfo.tokenKey)
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
+  
+  mutating func signout() {
+    self.token = nil
+    self.driverToken = nil
+    do {
+      try Config.storage?.removeAllValues()
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
+}
+
 class User {
   enum Sex : Int {
     case Male = 1, Female
@@ -17,8 +64,8 @@ class User {
 //
 //  }
   
-  var token = ""
-  var driverToken = ""
+  static var signInfo = SignInfo()
+  
   var avatar = ""
   var completeOrderNum = 0
   var firstName = ""
@@ -49,4 +96,5 @@ class User {
     dailyProfit = user.dailyProfit
     withdraw = user.withdraw
   }
+  
 }

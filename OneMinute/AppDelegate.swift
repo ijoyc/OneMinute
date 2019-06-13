@@ -19,7 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window!.backgroundColor = UIColor.white
     self.window!.makeKeyAndVisible()
     
-    self.window?.rootViewController = LauncherViewController()
+    Config.storage = KeychainStorage.shared
+    
+    if let _ = User.signInfo.token, let _ = User.signInfo.driverToken {
+      self.window?.rootViewController = LauncherViewController()
+    } else {
+      self.window?.rootViewController = SigninViewController()
+    }
     
     return true
   }

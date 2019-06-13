@@ -24,4 +24,14 @@ struct Config {
       UserDefaults.standard.synchronize()
     }
   }
+  
+  private static var _storage: StorageService?
+  static var storage: StorageService? {
+    get {
+      return _storage
+    }
+    set {
+      _storage = newValue
+    }
+  }
 }

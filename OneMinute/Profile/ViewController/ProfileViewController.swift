@@ -13,6 +13,8 @@ import RxCocoa
 class ProfileViewController : UIViewController {
   private var tableView: UITableView!
   private var headerView: ProfileHeaderView!
+  private var loadingView: UIActivityIndicatorView!
+  
   private var settings: [SettingItem]!
   private let bag = DisposeBag()
   
@@ -36,6 +38,14 @@ class ProfileViewController : UIViewController {
     
     headerView = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 125))
     tableView.tableHeaderView = headerView
+    
+    loadingView = UIActivityIndicatorView(style: .whiteLarge)
+    loadingView.hidesWhenStopped = true
+    view.addSubview(loadingView)
+    loadingView.snp.makeConstraints { (make) in
+      make.width.height.equalTo(40)
+      make.center.equalTo(self.view)
+    }
   }
   
   private func bindViewModel() {
@@ -70,18 +80,20 @@ class ProfileViewController : UIViewController {
       case 3:
         // About one minute
         self.navigationController?.pushViewController(AboutViewController(), animated: true)
-      case 4:
-        // Sign out
-        // TODO: sign out
-        return
       default:
         return
       }
     }).disposed(by: bag)
     
+    let signoutTap = tableView.rx.itemSelected.filter { $0.row == 4 }.map { _ in () }.asSignal(onErrorJustReturn: ())
+    
     tableView.rx.setDelegate(self).disposed(by: bag)
     
-    let viewModel = ProfileViewModel(api: ProfileAPIImplementation.shared)
+    let viewModel = ProfileViewModel(
+      signoutTap: signoutTap,
+      dependency: (profileAPI: ProfileAPIImplementation.shared,
+                   signinAPI: SigninServiceImplementation.shared))
+    
     viewModel.currentUser.drive(onNext: { user in
       User.current.accept(user)
     }).disposed(by: bag)
@@ -94,6 +106,16 @@ class ProfileViewController : UIViewController {
     
     viewModel.currentUser.map { "\($0.firstName) \($0.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
     viewModel.currentUser.map { "\($0.completeOrderNum) 笔" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
+    
+    viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
+    
+    viewModel.signedOut.drive(onNext: { success in
+      guard success == true else { return }
+      
+      // Sign out
+      User.signInfo.signout()
+      self.present(SigninViewController(), animated: true, completion: nil)
+    }).disposed(by: bag)
   }
 }
 
