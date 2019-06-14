@@ -37,6 +37,7 @@ struct Config {
   
   enum Address: String {
     case signin = "driver/login"
+    case userInfo = "driver/getDriverInfo"
     
     private var baseURL: String { return "http://47.252.8.20:8080/api/" }
     var url: String {

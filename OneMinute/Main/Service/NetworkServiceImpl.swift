@@ -17,7 +17,7 @@ class NetworkServiceImpl : NetworkService {
   
   private init() {}
   
-  func get(_ address: Config.Address, parameters: [String : String]) -> Observable<[String : Any]> {
+  func get(_ address: Config.Address, parameters: [String : String]?) -> Observable<[String : Any]> {
     var headers: [String: String] = [:]
     if let token = User.signInfo.token, token.count > 0 {
       headers[NetworkServiceImpl.tokenKey] = token
@@ -28,7 +28,7 @@ class NetworkServiceImpl : NetworkService {
     }
   }
   
-  func post(_ address: Config.Address, parameters: [String : String]) -> Observable<[String : Any]> {
+  func post(_ address: Config.Address, parameters: [String : String]?) -> Observable<[String : Any]> {
     var headers: [String: String] = [:]
     if let token = User.signInfo.token, token.count > 0 {
       headers[NetworkServiceImpl.tokenKey] = token

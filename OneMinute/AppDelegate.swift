@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Config.storage = KeychainStorage.shared
     OneMinuteAPI.networkService = NetworkServiceImpl.shared
     
-    if let _ = User.signInfo.token, let _ = User.signInfo.driverToken {
+    if let token = User.signInfo.token, token.count > 0 {
       self.window?.rootViewController = LauncherViewController()
     } else {
       self.window?.rootViewController = SigninViewController()

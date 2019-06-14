@@ -46,42 +46,54 @@ struct SignInfo {
 
 class User {
   enum Sex : Int {
-    case Male = 1, Female
+    case male, female
   }
   
-//  enum UserType {
-//
-//  }
+  enum UserType : Int, CustomStringConvertible {
+    case fulltime, parttime
+    
+    var description: String {
+      switch self {
+      case .fulltime: return "全职"
+      case .parttime: return "兼职"
+      }
+    }
+  }
   
   static var signInfo = SignInfo()
   
+  var id = 0
   var avatar = ""
   var completeOrderNum = 0
   var firstName = ""
   var lastName = ""
-  var sex: Sex = .Male
+  var sex: Sex = .male
   var dailyProfit: Double = 0
   var withdraw: Double = 0
-//  var type: UserType
+  var type: UserType
   
   static let current = BehaviorRelay(value: User(json: [String: Any]()))
   
   init(json: [String: Any]) {
+    id = json["driverId"] as? Int ?? 0
     avatar = json["avatarUrl"] as? String ?? ""
     completeOrderNum = json["completeOrderNum"] as? Int ?? 0
     firstName = json["firstname"] as? String ?? ""
     lastName = json["lastname"] as? String ?? ""
-    sex = Sex(rawValue: json["sex"] as? Int ?? 1) ?? .Male
+    sex = Sex(rawValue: json["sex"] as? Int ?? 0) ?? .male
+    type = UserType(rawValue: json["type"] as? Int ?? 0) ?? .parttime
     dailyProfit = json["dailyProfit"] as? Double ?? 0
     withdraw = json["withdraw"] as? Double ?? 0
   }
   
   func update(_ user: User) {
+    id = user.id
     avatar = user.avatar
     completeOrderNum = user.completeOrderNum
     firstName = user.firstName
     lastName = user.lastName
     sex = user.sex
+    type = user.type
     dailyProfit = user.dailyProfit
     withdraw = user.withdraw
   }

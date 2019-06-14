@@ -13,15 +13,8 @@ class ProfileAPIImplementation : ProfileAPI {
   static let shared = ProfileAPIImplementation()
   
   func queryUserInfo() -> Observable<User> {
-    return Observable.just(User(json: [
-      "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJOd6bIE19NzmGnBzL6dl6aicsye2e74C0sjQCmFbqgdZbfezRdAYQXbBS17Pjm4ibXpZWwzRoQowibg/132",
-      "completeOrderNum": 12,
-      "firstname": "三",
-      "lastname": "张",
-      "sex": 1,
-      "dailyProfit": 8125.29,
-      "withdraw": 105.29
-      ])).delay(.seconds(1), scheduler: MainScheduler.instance)
+    return OneMinuteAPI.get(.userInfo, parameters: nil)
+      .map { User(json: $0["data"] as? [String: Any] ?? [:]) }
   }
   
   func queryRecords(withPage page: Int, size: Int) -> Observable<(records: [Record], hasMore: Bool)> {
