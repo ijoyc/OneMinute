@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F527E4522B31BAE00BF875C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4422B31BAE00BF875C /* NetworkService.swift */; };
+		4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */; };
+		4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */; };
 		4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */; };
 		4F7E09E022A91EB200857FF6 /* GrabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */; };
 		4F7E09E722A91F0200857FF6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09E622A91F0200857FF6 /* OrderViewController.swift */; };
@@ -69,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F527E4422B31BAE00BF875C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
+		4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneMinuteAPI.swift; sourceTree = "<group>"; };
 		4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewController.swift; sourceTree = "<group>"; };
 		4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabViewController.swift; sourceTree = "<group>"; };
 		4F7E09E622A91F0200857FF6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -163,9 +169,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4F527E4322B31B9100BF875C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4F527E4422B31BAE00BF875C /* NetworkService.swift */,
+				4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */,
+				4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		4F7E09D422A91D8300857FF6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				4F527E4322B31B9100BF875C /* Service */,
 				4F7E09F122A9EDDC00857FF6 /* Model */,
 				4F7E09FE22AA06AD00857FF6 /* View */,
 				4F7E0A1522ABB36600857FF6 /* ViewModel */,
@@ -643,6 +660,7 @@
 				4F7E0A0622AA3A9F00857FF6 /* GrabServiceImpl.swift in Sources */,
 				4FB4745922B090DA00130B9C /* SettingItem.swift in Sources */,
 				4FC0220322A13E6600C4899A /* AppDelegate.swift in Sources */,
+				4F527E4522B31BAE00BF875C /* NetworkService.swift in Sources */,
 				4FCCA4C622A74CF400F42C47 /* InputField.swift in Sources */,
 				4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */,
 				4F7E0A1022AB695D00857FF6 /* OrderService.swift in Sources */,
@@ -654,7 +672,9 @@
 				4FB4746122B096BD00130B9C /* ProfitViewController.swift in Sources */,
 				4FB4747022B11FD200130B9C /* ProfileViewModel.swift in Sources */,
 				4F7E0A1722AC13EC00857FF6 /* OrderBaseViewController.swift in Sources */,
+				4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */,
 				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
+				4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */,
 				4FB4748422B27C0700130B9C /* StorageError.swift in Sources */,
 				4FB4747422B12A3400130B9C /* ProfitHeaderView.swift in Sources */,
 				4FB4745722B083A200130B9C /* ProfileHeaderView.swift in Sources */,

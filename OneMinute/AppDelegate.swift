@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window!.makeKeyAndVisible()
     
     Config.storage = KeychainStorage.shared
+    OneMinuteAPI.networkService = NetworkServiceImpl.shared
     
     if let _ = User.signInfo.token, let _ = User.signInfo.driverToken {
       self.window?.rootViewController = LauncherViewController()

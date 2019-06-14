@@ -155,20 +155,10 @@ class SigninViewController : UIViewController {
       } else {
         passwordResult.accept(result.result)
       }
-    }).do(onNext: { [weak self] result in
+    }).do(onNext: { result in
       guard case .ok = result.result else { return }
       
-      User.signInfo.signin(withToken: "123", driverToken: "456")
       UIApplication.shared.delegate?.window??.rootViewController = LauncherViewController()
-      
-      if let needRemember = self?.rememberButton.isSelected, needRemember {
-//        let username = self?.usernameField.textField.text ?? ""
-//        let password = self?.passwordField.textField.text ?? ""
-        
-        // TODO: remember user
-      } else {
-        
-      }
     }).drive(onNext: { signedIn in
       print("User signed in \(signedIn)")
     }).disposed(by: bag)

@@ -38,6 +38,7 @@ class SigninViewModel {
     signedIn = input.loginTaps.withLatestFrom(usernameAndPassword)
       .flatMapLatest { pair in
         return api.signin(withUsername: pair.username, password: pair.password)
+          .do(onNext: { User.signInfo.signin(withToken: $0.token ) })
           .trackActivity(signingIn)
           .asDriver(onErrorJustReturn: LoginResult.empty)
       }

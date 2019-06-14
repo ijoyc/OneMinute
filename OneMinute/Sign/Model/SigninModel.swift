@@ -26,6 +26,12 @@ enum ValidationResult {
 struct LoginResult {
   var result: ValidationResult
   var isUsername: Bool
+  var token = ""
+  
+  init(result: ValidationResult, isUsername: Bool) {
+    self.result = result
+    self.isUsername = isUsername
+  }
   
   static var empty: LoginResult {
     return LoginResult(result: .empty, isUsername: true)

@@ -34,4 +34,13 @@ struct Config {
       _storage = newValue
     }
   }
+  
+  enum Address: String {
+    case signin = "driver/login"
+    
+    private var baseURL: String { return "http://47.252.8.20:8080/api/" }
+    var url: String {
+      return baseURL.appending(rawValue)
+    }
+  }
 }

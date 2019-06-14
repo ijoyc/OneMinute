@@ -10,35 +10,25 @@ import RxCocoa
 
 struct SignInfo {
   var token: String?
-  var driverToken: String?
   
   static let tokenKey = "tokenKey"
   
-  static let separator = "===="
-  
   init() {
     do {
-      guard let combinedToken = try Config.storage?.value(for: SignInfo.tokenKey) else {
+      guard let key = try Config.storage?.value(for: SignInfo.tokenKey) else {
         return
       }
       
-      let pairs = (combinedToken as NSString).components(separatedBy: SignInfo.separator)
-      if pairs.count != 2 {
-        return
-      }
-      
-      token = pairs[0]
-      driverToken = pairs[1]
+      token = key
     } catch {
       print(error.localizedDescription)
     }
   }
   
-  mutating func signin(withToken token: String, driverToken: String) {
+  mutating func signin(withToken token: String) {
     self.token = token
-    self.driverToken = driverToken
     do {
-      try Config.storage?.setValue("\(token)\(SignInfo.separator)\(driverToken)", for: SignInfo.tokenKey)
+      try Config.storage?.setValue(token, for: SignInfo.tokenKey)
     } catch {
       print(error.localizedDescription)
     }
@@ -46,7 +36,6 @@ struct SignInfo {
   
   mutating func signout() {
     self.token = nil
-    self.driverToken = nil
     do {
       try Config.storage?.removeAllValues()
     } catch {
