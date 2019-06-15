@@ -14,13 +14,33 @@ class GrabViewModel {
   let cellModels = BehaviorRelay<[OrderCellModel]>(value: [])
   let hasMore = BehaviorRelay<Bool>(value: true)
   let loading: Driver<Bool>
+  let grabing: Driver<Bool>
+  let grabResult: Driver<Result>
   
   private let resetPage = BehaviorRelay<Bool>(value: false)
   
   let bag = DisposeBag()
   
   // true: load more , false: refresh
-  init(loadTrigger: Signal<Bool>, api: GrabAPI) {
+  init(input: (loadTrigger: Signal<Bool>, grabTrigger: Signal<Int>), api: GrabAPI) {
+    let loadTrigger = input.loadTrigger
+    let grabTrigger = input.grabTrigger
+    
+    // Grab order
+    
+    let grabingIndicator = ActivityIndicator()
+    grabing = grabingIndicator.asDriver()
+    
+    grabResult = grabTrigger.filter { $0 >= 0 }.do(onNext: { id in
+      print("grab order \(id)")
+    }).flatMapLatest { id in
+      return api.grabOrder(with: id)
+        .trackActivity(grabingIndicator)
+        .asDriver(onErrorJustReturn: .empty)
+    }
+    
+    // load orders
+    
     let activityIndicator = ActivityIndicator()
     loading = activityIndicator.asDriver()
     

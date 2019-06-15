@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class OrderCell : UITableViewCell {
   private var mainView: UIView!
@@ -20,6 +22,7 @@ class OrderCell : UITableViewCell {
   private var timeLabel: UILabel!
   private var distanceLabel: UILabel!
   private var profitLabel: UILabel!
+  fileprivate var grabButton: UIButton!
   
   var cellModel: OrderCellModel? {
     didSet {
@@ -245,7 +248,7 @@ extension OrderCell {
       make.centerY.equalTo(bottomView)
     }
     
-    let grabButton = ViewFactory.button(withTitle: "确认抢单", font: .boldSystemFont(ofSize: 14))
+    grabButton = ViewFactory.button(withTitle: "确认抢单", font: .boldSystemFont(ofSize: 14))
     grabButton.backgroundColor = .white
     grabButton.setTitleColor(.themeGreen, for: .normal)
     grabButton.layer.cornerRadius = 5
@@ -257,5 +260,11 @@ extension OrderCell {
       make.centerY.equalTo(profitLabel)
       make.trailing.equalTo(-13)
     }
+  }
+}
+
+extension Reactive where Base: OrderCell {
+  var grabOrder: ControlEvent<Void> {
+    return base.grabButton.rx.tap
   }
 }

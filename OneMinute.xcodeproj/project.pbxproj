@@ -10,6 +10,7 @@
 		4F527E4522B31BAE00BF875C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4422B31BAE00BF875C /* NetworkService.swift */; };
 		4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */; };
 		4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */; };
+		4F527E6122B4B93D00BF875C /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E6022B4B93D00BF875C /* Result.swift */; };
 		4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */; };
 		4F7E09E022A91EB200857FF6 /* GrabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */; };
 		4F7E09E722A91F0200857FF6 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E09E622A91F0200857FF6 /* OrderViewController.swift */; };
@@ -74,6 +75,7 @@
 		4F527E4422B31BAE00BF875C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneMinuteAPI.swift; sourceTree = "<group>"; };
+		4F527E6022B4B93D00BF875C /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewController.swift; sourceTree = "<group>"; };
 		4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabViewController.swift; sourceTree = "<group>"; };
 		4F7E09E622A91F0200857FF6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				4F7E09F222A9EDE200857FF6 /* Order.swift */,
 				4F7E09F422A9EF9400857FF6 /* OrderProgress.swift */,
 				4F7E0A0122AA06EE00857FF6 /* OrderCellModel.swift */,
+				4F527E6022B4B93D00BF875C /* Result.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F527E6122B4B93D00BF875C /* Result.swift in Sources */,
 				4FCCA4D722A7F39300F42C47 /* SigninModel.swift in Sources */,
 				4FB4747622B1491200130B9C /* ApplyWithdrawController.swift in Sources */,
 				4FB4746922B11CA500130B9C /* ProfileService.swift in Sources */,

@@ -28,4 +28,19 @@ struct ViewFactory {
     button.titleLabel?.font = font
     return button
   }
+  
+  static func showAlert(_ title: String?, message: String?) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    
+    var currentVC = UIApplication.shared.keyWindow?.rootViewController
+    if let presented = currentVC?.presentedViewController {
+      currentVC = presented
+    }
+    if let _ = currentVC?.presentedViewController {
+      return
+    }
+    
+    currentVC?.present(alert, animated: true, completion: nil)
+  }
 }

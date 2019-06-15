@@ -41,4 +41,12 @@ class GrabAPIImplementation : GrabAPI {
       return (orders: orders, hasMore: hasMore)
     }
   }
+  
+  func grabOrder(with id: Int) -> Observable<Result> {
+    return OneMinuteAPI.post(.grabOrder, parameters: ["orderId": id]).map { json in
+      let success = json["data"] as? Bool ?? false
+      let message = json["message"] as? String ?? ""
+      return Result(success: success, message: message)
+    }
+  }
 }

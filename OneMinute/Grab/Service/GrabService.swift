@@ -10,4 +10,5 @@ import RxSwift
 
 protocol GrabAPI {
   func queryGrabOrders(withPage page: Int, size: Int) -> Observable<(orders: [Order], hasMore: Bool)>
+  func grabOrder(with id: Int) -> Observable<Result>
 }

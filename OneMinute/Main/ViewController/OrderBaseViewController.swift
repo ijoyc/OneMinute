@@ -41,7 +41,7 @@ class OrderBaseViewController : BaseViewController {
     
     loadingView = UIActivityIndicatorView(style: .gray)
     loadingView.hidesWhenStopped = true
-    footerView .addSubview(loadingView)
+    footerView.addSubview(loadingView)
     loadingView.snp.makeConstraints { (make) in
       make.width.height.equalTo(40)
       make.center.equalTo(footerView)
