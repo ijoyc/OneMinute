@@ -58,20 +58,20 @@ class OrderCell : UITableViewCell {
     }
     
     bottomView.frame = cellModel.bottomViewFrame ?? .zero
-    if model.profit == nil {
+    if !model.isGrabable {
       bottomView.isHidden = true
     }
     
     typeLabel.text = model.type.description
     timeLabel.text = model.timeString
-    profitLabel.text = "预计收益: \(model.profit ?? "")"
+    profitLabel.text = "预计收益: \(String(format: "$%.2f", model.profit))"
     
-    if let state = model.state {
-      distanceLabel.text = state.description
-      distanceLabel.textColor = state.color
-    } else {
-      distanceLabel.text = model.distance ?? ""
+    if model.isGrabable {
+      distanceLabel.text = String(format: "距离我%.1fkm", model.distance)
       distanceLabel.textColor = .secondaryTextColor
+    } else {
+      distanceLabel.text = model.state.description
+      distanceLabel.textColor = model.state.color
     }
   }
 }
@@ -157,10 +157,11 @@ extension OrderCell {
       progressView.addSubview(wrapper)
       
       let progress = model.progresses[i]
-      let iconView = ViewFactory.label(withText: progress.type.description, font: .systemFont(ofSize: 10))
+      let progressType = ProgressType.create(with: model.type, index: i)
+      let iconView = ViewFactory.label(withText: progressType.description, font: .systemFont(ofSize: 10))
       iconView.textColor = .white
       iconView.textAlignment = .center
-      iconView.backgroundColor = progress.type.iconColor
+      iconView.backgroundColor = progressType.iconColor
       iconView.layer.masksToBounds = true
       iconView.layer.cornerRadius = 15 / 2
       wrapper.addSubview(iconView)
@@ -219,7 +220,7 @@ extension OrderCell {
       }
       
       // current progress indicator
-      if (i == model.progress - 1) {
+      if (i == model.progress - 1 && total != 1) {
         let indicator = UIImageView(image: UIImage(named: "progress"))
         wrapper.addSubview(indicator)
         indicator.snp.makeConstraints { (make) in

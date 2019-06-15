@@ -53,7 +53,7 @@ class OrderDetailViewController : BaseViewController {
   private func bindViewModel() {
     let viewModel = OrderDetailViewModel(orderID: orderID, api: OrderAPIImplementation.shared)
     
-    viewModel.orderDetail.do(onNext: { [weak self] orderDetail in
+    viewModel.orderDetail.filter { $0 != nil }.do(onNext: { [weak self] orderDetail in
       self?.orderDetail = orderDetail
       self?.updateUI()
       self?.updateMapView()
@@ -192,10 +192,11 @@ extension OrderDetailViewController {
       progressView.addSubview(wrapper)
       
       let progress = model.progresses[i]
-      let iconView = ViewFactory.label(withText: progress.type.description, font: .systemFont(ofSize: 10))
+      let progressType = ProgressType.create(with: model.type, index: i)
+      let iconView = ViewFactory.label(withText: progressType.description, font: .systemFont(ofSize: 10))
       iconView.textColor = .white
       iconView.textAlignment = .center
-      iconView.backgroundColor = progress.type.iconColor
+      iconView.backgroundColor = progressType.iconColor
       iconView.layer.masksToBounds = true
       iconView.layer.cornerRadius = 15 / 2
       wrapper.addSubview(iconView)

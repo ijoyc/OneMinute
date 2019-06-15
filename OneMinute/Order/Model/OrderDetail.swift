@@ -35,12 +35,13 @@ class OrderDetail {
     self.type = OrderType(rawValue: (json["type"] as? Int) ?? 1) ?? .buy
     self.state = OrderState(rawValue: (json["state"] as? Int ?? 0)) ?? .doing
     
-    var progresses = [OrderProgress]()
-    for progress in (json["progresses"] as? Array ?? []) {
-      guard let progress = progress as? [String: Any] else { continue }
-      progresses.append(OrderProgress(json: progress))
-    }
-    self.progresses = progresses
+//    var progresses = [OrderProgress]()
+//    for progress in (json["progresses"] as? Array ?? []) {
+//      guard let progress = progress as? [String: Any] else { continue }
+//      progresses.append(OrderProgress(json: progress))
+//    }
+//    self.progresses = progresses
+    self.progresses = []
     self.progress = json["progress"] as? Int ?? 1
     
     self.orderID = json["orderID"] as? String ?? ""

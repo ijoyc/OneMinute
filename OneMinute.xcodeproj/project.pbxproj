@@ -25,7 +25,6 @@
 		4F7E0A0622AA3A9F00857FF6 /* GrabServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0522AA3A9F00857FF6 /* GrabServiceImpl.swift */; };
 		4F7E0A0822AA3F6700857FF6 /* GrabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0722AA3F6700857FF6 /* GrabViewModel.swift */; };
 		4F7E0A0A22AA589C00857FF6 /* UIScrollView+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0922AA589C00857FF6 /* UIScrollView+Common.swift */; };
-		4F7E0A0C22AA5A5500857FF6 /* OrderRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0B22AA5A5500857FF6 /* OrderRepositories.swift */; };
 		4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0D22AB5C6600857FF6 /* CategoryView.swift */; };
 		4F7E0A1022AB695D00857FF6 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A0F22AB695D00857FF6 /* OrderService.swift */; };
 		4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E0A1122AB696300857FF6 /* OrderServiceImpl.swift */; };
@@ -90,7 +89,6 @@
 		4F7E0A0522AA3A9F00857FF6 /* GrabServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabServiceImpl.swift; sourceTree = "<group>"; };
 		4F7E0A0722AA3F6700857FF6 /* GrabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabViewModel.swift; sourceTree = "<group>"; };
 		4F7E0A0922AA589C00857FF6 /* UIScrollView+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Common.swift"; sourceTree = "<group>"; };
-		4F7E0A0B22AA5A5500857FF6 /* OrderRepositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRepositories.swift; sourceTree = "<group>"; };
 		4F7E0A0D22AB5C6600857FF6 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		4F7E0A0F22AB695D00857FF6 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		4F7E0A1122AB696300857FF6 /* OrderServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderServiceImpl.swift; sourceTree = "<group>"; };
@@ -345,7 +343,6 @@
 			children = (
 				4F7E09F222A9EDE200857FF6 /* Order.swift */,
 				4F7E09F422A9EF9400857FF6 /* OrderProgress.swift */,
-				4F7E0A0B22AA5A5500857FF6 /* OrderRepositories.swift */,
 				4F7E0A0122AA06EE00857FF6 /* OrderCellModel.swift */,
 			);
 			path = Model;
@@ -648,7 +645,6 @@
 				4F7E0A1B22AD585E00857FF6 /* OrderDetail.swift in Sources */,
 				4F7E0A0222AA06EE00857FF6 /* OrderCellModel.swift in Sources */,
 				4FB4746722B1148E00130B9C /* Config.swift in Sources */,
-				4F7E0A0C22AA5A5500857FF6 /* OrderRepositories.swift in Sources */,
 				4FCCA4D522A7E97800F42C47 /* SigninViewModel.swift in Sources */,
 				4FCCA4C222A74A6C00F42C47 /* SigninViewController.swift in Sources */,
 				4FB4748622B27CB800130B9C /* KeychainStorage.swift in Sources */,

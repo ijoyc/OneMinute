@@ -46,7 +46,7 @@ class OrderCellModel {
     
     height += top
     
-    if let _ = model.profit {
+    if model.isGrabable {
       bottomViewFrame = CGRect(x: 0, y: height, width: mainFrame.width, height: 49)
       mainFrame.size.height = bottomViewFrame!.maxY
     } else {

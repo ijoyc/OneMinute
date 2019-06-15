@@ -11,12 +11,12 @@ import RxSwift
 struct OneMinuteAPI {
   static var networkService: NetworkService?
   
-  static func get(_ address: Config.Address, parameters: [String: String]?) -> Observable<[String: Any]> {
+  static func get(_ address: Config.Address, parameters: [String: Any]?) -> Observable<[String: Any]> {
     print("[OneMinuteAPI] GET \(address.url) with parameters \(parameters ?? [:])")
     return networkService?.get(address, parameters: parameters).debug() ?? .empty()
   }
   
-  static func post(_ address: Config.Address, parameters: [String: String]?) -> Observable<[String: Any]> {
+  static func post(_ address: Config.Address, parameters: [String: Any]?) -> Observable<[String: Any]> {
     print("[OneMinuteAPI] POST \(address.url) with parameters \(parameters ?? [:])")
     return networkService?.post(address, parameters: parameters).debug() ?? .empty()
   }

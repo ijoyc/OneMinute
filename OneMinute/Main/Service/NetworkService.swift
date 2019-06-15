@@ -9,6 +9,6 @@
 import RxSwift
 
 protocol NetworkService {
-  func get(_ address: Config.Address, parameters: [String: String]?) -> Observable<[String: Any]>
-  func post(_ address: Config.Address, parameters: [String: String]?) -> Observable<[String: Any]>
+  func get(_ address: Config.Address, parameters: [String: Any]?) -> Observable<[String: Any]>
+  func post(_ address: Config.Address, parameters: [String: Any]?) -> Observable<[String: Any]>
 }

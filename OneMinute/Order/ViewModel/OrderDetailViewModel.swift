@@ -12,9 +12,9 @@ import RxCocoa
 class OrderDetailViewModel {
   // - Output
   
-  let orderDetail: Driver<OrderDetail>
+  let orderDetail: Driver<OrderDetail?>
   
   init(orderID: Int, api: OrderAPI) {
-    orderDetail = api.queryOrderDetail(with: orderID).asDriver(onErrorJustReturn: OrderDetail(json: [String: Any]()))
+    orderDetail = api.queryOrderDetail(with: orderID).asDriver(onErrorJustReturn: nil)
   }
 }

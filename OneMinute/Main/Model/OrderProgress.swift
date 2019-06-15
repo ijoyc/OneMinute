@@ -38,16 +38,24 @@ public enum ProgressType : Int, CustomStringConvertible {
       return UIColor.RGBA(129, 215, 207, 1)
     }
   }
+  
+  static func create(with orderType: OrderType, index: Int) -> ProgressType {
+    switch orderType {
+    case .buy:
+      return index == 0 ? .buy : .receive
+    case .take:
+      return index == 0 ? .receive : .get
+    case .send:
+      return index == 0 ? .get : .receive
+    case .transfer:
+      return index == 0 ? .take : .send
+    default:
+      return .receive
+    }
+  }
 }
 
-class OrderProgress {
-  let type: ProgressType
+struct OrderProgress {
   let title: String
   let desc: String
-  
-  init(json: [String: Any]) {
-    self.type = ProgressType(rawValue: json["type"] as? Int ?? 1) ?? .buy
-    self.title = json["title"] as? String ?? ""
-    self.desc = json["desc"] as? String ?? ""
-  }
 }
