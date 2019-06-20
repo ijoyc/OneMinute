@@ -12,9 +12,62 @@ import RxCocoa
 class OrderDetailViewModel {
   // - Output
   
-  let orderDetail: Driver<OrderDetail?>
+  var queryResult: Driver<(orderDetail: OrderDetail?, result: Result)>
+  let operationText = BehaviorRelay<String>(value: "")
+  let stateText = BehaviorRelay<String>(value: "")
+  let currentProgress = BehaviorRelay<Int>(value: 0)
+  let orderState = BehaviorRelay<OrderState>(value: .paying)
+  let changingOrderState: Driver<Bool>
+  let errorMessage = BehaviorRelay<String>(value: "")
   
-  init(orderID: Int, api: OrderAPI) {
-    orderDetail = api.queryOrderDetail(with: orderID).asDriver(onErrorJustReturn: nil)
+  let bag = DisposeBag()
+  
+  init(input: (orderID: Int,
+               changeStateSignal: Signal<OrderState>,
+               finishSignal: Signal<String>),
+       api: OrderAPI) {
+    let orderID = input.orderID
+    let changeStateSignal = input.changeStateSignal
+    let finishSignal = input.finishSignal
+    
+    let activityIndicator = ActivityIndicator()
+    changingOrderState = activityIndicator.asDriver()
+    
+    queryResult = api.queryOrderDetail(with: orderID).asDriver(onErrorJustReturn: (orderDetail: nil, result: Result.empty))
+    queryResult = queryResult.do(onNext: { [weak self] pair in
+      guard let self = self, let orderDetail = pair.orderDetail else { return }
+      
+      self.operationText.accept(orderDetail.currentOperationTitle)
+      self.stateText.accept(orderDetail.state.description)
+      self.currentProgress.accept(orderDetail.progress)
+      self.orderState.accept(orderDetail.state)
+    })
+    
+    changeStateSignal.flatMapLatest { state in
+      return api.changeOrderState(with: orderID, state: state.rawValue).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty).do(onNext: { result in
+        guard result.success else { return }
+        
+        self.currentProgress.accept(self.currentProgress.value + 1)
+        self.orderState.accept(state)
+        
+        switch state {
+        case .doing:
+          self.operationText.accept(OrderState.reached.description)
+          self.stateText.accept(OrderState.doing.description)
+          break
+        case .finished:
+          self.operationText.accept(OrderState.finished.description)
+          self.stateText.accept(OrderState.finished.description)
+          break
+        default:
+          break
+        }
+        
+      })
+    }.drive(onNext: { self.errorMessage.accept($0.message) }).disposed(by: bag)
+    
+    finishSignal.flatMapLatest { code in
+      return api.finishOrder(with: orderID, code: code).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty)
+    }.drive(onNext: { self.errorMessage.accept($0.message) }).disposed(by: bag)
   }
 }

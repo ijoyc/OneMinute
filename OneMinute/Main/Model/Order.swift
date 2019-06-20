@@ -28,7 +28,7 @@ enum OrderType : Int, CustomStringConvertible {
 }
 
 enum OrderState : Int, CustomStringConvertible {
-  case paying, grabing, grabed, doing, reached, payed, finished, timeout, canceled, chargeback
+  case paying, grabing, grabed, doing, reached, finished, timeout = -1, canceled = -2, chargeback = -3
   
   public var description: String {
     switch self {
@@ -37,13 +37,11 @@ enum OrderState : Int, CustomStringConvertible {
     case .grabing:
       return "待接单(已付配送费)"
     case .grabed:
-      return "正前往收货地址"
+      return "正前往商家"
     case .doing:
-      return "已到达取货位置(已买到商品)"
+      return "正前往收货地"
     case .reached:
       return "已到达目的地"
-    case .payed:
-      return "已支付商品费用"
     case .finished:
       return "已完成"
     case .timeout:
@@ -110,11 +108,10 @@ class Order {
     progresses.append(startPoint)
     
     for progress in (json["addressReceiveList"] as? [[String: Any]] ?? []) {
-      progresses.append(OrderProgress(title: progress["addressReceive"] as? String ?? "",
-                                      desc: progress["addressReceiveDetail"] as? String ?? ""))
+      progresses.append(OrderProgress(json: progress))
     }
     self.progresses = progresses
-    self.progress = json["progress"] as? Int ?? 1
+    self.progress = 1
     
     self.distance = Double(exactly: json["distanceDriver"] as? NSNumber ?? 0) ?? 0
     self.profit = Double(exactly: json["feeDeliverDriver"] as? NSNumber ?? 0) ?? 0

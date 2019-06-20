@@ -62,7 +62,7 @@ class GrabViewController : OrderBaseViewController {
         
         cell.cellModel = element
         cell.rx.grabOrder.subscribe(onNext: {
-          grabTrigger.onNext(row)
+          grabTrigger.onNext(element.model.id)
         }).disposed(by: self.bag)
       }.disposed(by: bag)
     

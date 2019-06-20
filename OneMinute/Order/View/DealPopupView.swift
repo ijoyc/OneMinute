@@ -13,8 +13,12 @@ import SnapKit
 
 class DealPopupView : UIView {
   
-  private static let shared = DealPopupView(frame: .zero)
-  fileprivate var submitButton: UIButton!
+  var submitButton: UIButton!
+  var code: String {
+    return inputViews.map { $0.text ?? "" }.joined()
+  }
+  static let shared = DealPopupView(frame: .zero)
+  
   private let bag = DisposeBag()
   private var inputViews: [UITextField] = []
   

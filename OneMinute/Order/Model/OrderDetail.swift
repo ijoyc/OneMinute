@@ -12,45 +12,87 @@ import CoreLocation
 
 class OrderDetail {
   let type: OrderType
-  let state: OrderState
+  var state: OrderState
   let progresses: [OrderProgress]
   let progress: Int
-  let orderID: String
+  let orderID: Int
+  let orderNo: String
   let note: String
-  let telephone: String
-  let start: CLLocationCoordinate2D
-  let end: CLLocationCoordinate2D
   let startPoint: Point
-  let endPoint: Point
   
   public class Point : NSObject, MKAnnotation {
     public var coordinate: CLLocationCoordinate2D
     
-    init(_ coordinate: CLLocationCoordinate2D) {
-      self.coordinate = coordinate
+    override init() {
+      self.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    }
+    
+    init(_ progress: OrderProgress?) {
+      self.coordinate = CLLocationCoordinate2D(latitude: progress?.latitude ?? 0, longitude: progress?.longitude ?? 0)
     }
   }
   
   init(json: [String: Any]) {
-    self.type = OrderType(rawValue: (json["type"] as? Int) ?? 1) ?? .buy
-    self.state = OrderState(rawValue: (json["state"] as? Int ?? 0)) ?? .doing
+    self.type = OrderType(rawValue: (json["orderType"] as? Int) ?? 1) ?? .buy
+    self.state = OrderState(rawValue: (json["orderFlag"] as? Int ?? 0)) ?? .doing
+
+    var progresses = [OrderProgress]()
+    // add start point, see the comment of `init(orderJson:)` in `OrderProgress`
+    let startPoint = OrderProgress(orderJson: json)
+    progresses.append(startPoint)
     
-//    var progresses = [OrderProgress]()
-//    for progress in (json["progresses"] as? Array ?? []) {
-//      guard let progress = progress as? [String: Any] else { continue }
-//      progresses.append(OrderProgress(json: progress))
-//    }
-//    self.progresses = progresses
-    self.progresses = []
-    self.progress = json["progress"] as? Int ?? 1
+    for progress in (json["addressReceiveList"] as? [[String: Any]] ?? []) {
+      progresses.append(OrderProgress(json: progress))
+    }
+    self.progresses = progresses
+    self.progress = 1
     
-    self.orderID = json["orderID"] as? String ?? ""
-    self.note = json["note"] as? String ?? ""
-    self.telephone = json["telephone"] as? String ?? ""
-    self.start = CLLocationCoordinate2D(latitude: json["startLatitude"] as? CLLocationDegrees ?? 0, longitude: json["startLongitude"] as? CLLocationDegrees ?? 0)
-    self.end = CLLocationCoordinate2D(latitude: json["endLatitude"] as? CLLocationDegrees ?? 0, longitude: json["endLongitude"] as? CLLocationDegrees ?? 0)
+    self.orderID = json["id"] as? Int ?? 0
+    self.orderNo = json["orderNo"] as? String ?? ""
+    self.note = json["remark"] as? String ?? ""
     
-    self.startPoint = Point(self.start)
-    self.endPoint = Point(self.end)
+    self.startPoint = Point(self.progresses.first)
+  }
+  
+  var currentReceiverTelephone: String {
+    guard progress < progresses.count else { return "" }
+    return progresses[progress].contactPhone
+  }
+  
+  var currentReceiverPoint: Point {
+    guard progress < progresses.count else { return Point() }
+    return Point(progresses[progress])
+  }
+  
+  var currentOperationTitle: String {
+    if case .grabed = state {
+      switch type {
+      case .buy:
+        return "已买到商品"
+      case .take, .send:
+        return "已到达取货地"
+      case .transfer:
+        return "已到达出发地"
+      default:
+        break
+      }
+    } else if case .doing = state {
+      return "已到达目的地"
+    }
+    
+    return state.description
+  }
+  
+  var shouldOpenCodePanel: Bool {
+    if case .doing = state {
+      switch type {
+      case .buy, .take, .send:
+        return true
+      default:
+        break
+      }
+    }
+    
+    return false
   }
 }

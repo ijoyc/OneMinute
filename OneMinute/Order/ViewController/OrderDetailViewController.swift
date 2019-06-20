@@ -51,13 +51,70 @@ class OrderDetailViewController : BaseViewController {
   }
   
   private func bindViewModel() {
-    let viewModel = OrderDetailViewModel(orderID: orderID, api: OrderAPIImplementation.shared)
+    let changeStateTrigger = PublishSubject<OrderState>()
+    let finishTrigger = PublishSubject<String>()
     
-    viewModel.orderDetail.filter { $0 != nil }.do(onNext: { [weak self] orderDetail in
+    let viewModel = OrderDetailViewModel(input: (
+        orderID: orderID,
+        changeStateSignal: changeStateTrigger.asSignal(onErrorJustReturn: .paying),
+        finishTrigger.asSignal(onErrorJustReturn: "")
+      ),
+                                         api: OrderAPIImplementation.shared)
+    
+    let model = viewModel.queryResult.map { $0.orderDetail }.filter { $0 != nil }.map { $0! }
+      
+    model.do(onNext: { [weak self] orderDetail in
       self?.orderDetail = orderDetail
       self?.updateUI()
       self?.updateMapView()
     }).drive().disposed(by: bag)
+    
+    viewModel.orderState.subscribe(onNext: { [weak self] state in
+      self?.orderDetail?.state = state
+    }).disposed(by: bag)
+    viewModel.operationText.bind(to: dealButton.rx.title()).disposed(by: bag)
+    viewModel.stateText.map { "\($0) >" }.bind(to: stateLabel.rx.text).disposed(by: bag)
+    
+    // Disable deal button when changing state of order
+    
+    viewModel.changingOrderState.map(!).drive(dealButton.rx.isEnabled).disposed(by: bag)
+    
+    // show error message if any
+    
+    viewModel.queryResult.map { $0.result }.filter { !$0.success }.drive(onNext: { result in
+      ViewFactory.showAlert(result.message, message: nil)
+    }).disposed(by: bag)
+    viewModel.errorMessage.filter { $0.count > 0 }.subscribe(onNext: {
+      ViewFactory.showAlert($0, message: nil)
+    }).disposed(by: bag)
+    
+    telButton.rx.tap.subscribe(onNext: { [weak self] _ in
+      guard let self = self,
+        let orderDetail = self.orderDetail,
+        let url = URL(string: "tel://\(orderDetail.currentReceiverTelephone)"),
+        UIApplication.shared.canOpenURL(url) else { return }
+      
+      UIApplication.shared.openURL(url)
+    }).disposed(by: bag)
+    
+    dealButton.rx.tap.subscribe(onNext: { [weak self] in
+      guard let self = self,
+        let orderDetail = self.orderDetail else { return }
+      
+      if orderDetail.shouldOpenCodePanel {
+        DealPopupView.show(on: self.view)
+      } else if orderDetail.state.rawValue <= OrderState.doing.rawValue {
+        var nextState: OrderState = .doing
+        if case .doing = orderDetail.state {
+          nextState = .finished
+        }
+        changeStateTrigger.onNext(nextState)
+      }
+    }).disposed(by: bag)
+    
+    DealPopupView.shared.submitButton.rx.tap.map { DealPopupView.shared.code }.filter { $0.count == 4 }.subscribe(onNext: { code in
+      finishTrigger.onNext(code)
+    }).disposed(by: bag)
   }
 }
 
@@ -255,7 +312,7 @@ extension OrderDetailViewController {
       }
       
       // current progress indicator
-      if (i == model.progress - 1) {
+      if i == model.progress - 1 && total != 1 {
         let indicator = UIImageView(image: UIImage(named: "progress"))
         wrapper.addSubview(indicator)
         indicator.snp.makeConstraints { (make) in
@@ -271,22 +328,11 @@ extension OrderDetailViewController {
     guard let orderDetail = self.orderDetail else { return }
     
     typeLabel.text = orderDetail.type.description
-    idLabel.text = "| \(orderDetail.orderID)"
-    stateLabel.text = "\(orderDetail.state) >"
+    idLabel.text = "| \(orderDetail.orderNo)"
     
     addProgressView(model: orderDetail)
     
     noteLabel.text = "备注:\(orderDetail.note)"
-    dealButton.setTitle("已买到商品", for: .normal)
-    
-    telButton.rx.tap.subscribe(onNext: {
-      
-    }).disposed(by: bag)
-    
-    dealButton.rx.tap.subscribe(onNext: { [weak self] in
-      guard let self = self else { return }
-      DealPopupView.show(on: self.view)
-    }).disposed(by: bag)
     
     var top: CGFloat = 0
     let maxWidth = topView.frame.width - 41 - 16
@@ -333,14 +379,14 @@ extension OrderDetailViewController {
   private func updateMapView() {
     guard let orderDetail = self.orderDetail else { return }
     
-    let annotations = [orderDetail.startPoint, orderDetail.endPoint]
+    let annotations = [orderDetail.startPoint, orderDetail.currentReceiverPoint]
     mapView.addAnnotations(annotations)
     mapView.showAnnotations(annotations, animated: true)
     
     // Show Route
     if #available(iOS 10.0, *) {
-      let sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.start))
-      let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.end))
+      let sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.startPoint.coordinate))
+      let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.currentReceiverPoint.coordinate))
       
       let directionRequest = MKDirections.Request()
       directionRequest.source = sourceItem

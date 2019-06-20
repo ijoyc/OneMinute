@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 public enum ProgressType : Int, CustomStringConvertible {
   case buy = 1
@@ -58,4 +59,42 @@ public enum ProgressType : Int, CustomStringConvertible {
 struct OrderProgress {
   let title: String
   let desc: String
+  let contactName: String
+  let contactPhone: String
+  let latitude: Double
+  let longitude: Double
+  
+  init(title: String, desc: String) {
+    self.title = title
+    self.desc = desc
+    self.contactPhone = ""
+    self.contactName = ""
+    self.latitude = 0
+    self.longitude = 0
+  }
+  
+  init(json: [String: Any]) {
+    self.title = json["addressReceive"] as? String ?? ""
+    self.desc = json["addressReceiveDetail"] as? String ?? ""
+    self.contactName = json["contactName"] as? String ?? ""
+    self.contactPhone = json["contactPhone"] as? String ?? ""
+    self.latitude = Double(exactly: (json["latReceive"] as? NSNumber ?? 0)) ?? 0
+    self.longitude = Double(exactly: (json["lngReceive"] as? NSNumber ?? 0)) ?? 0
+  }
+  
+  // To fit the poor field design of server...
+  // The first progress is out of `addressReceiveList` array in `OrderDetail`
+  // so we need to handle it first.
+  init(orderJson json: [String: Any]) {
+    self.title = json["addressNameGet"] as? String ?? ""
+    self.desc = json["addressDetailGet"] as? String ?? ""
+    self.contactName = json["contactName"] as? String ?? ""
+    self.contactPhone = json["contactPhone"] as? String ?? ""
+    self.latitude = Double(exactly: (json["latGet"] as? NSNumber ?? 0)) ?? 0
+    self.longitude = Double(exactly: (json["lngGet"] as? NSNumber ?? 0)) ?? 0
+  }
+  
+  var location: CLLocationCoordinate2D {
+    return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+  }
 }

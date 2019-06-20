@@ -312,8 +312,6 @@
 			children = (
 				4FB4745622B083A200130B9C /* ProfileHeaderView.swift */,
 				4FB4747322B12A3400130B9C /* ProfitHeaderView.swift */,
-				4FB4746622B1148E00130B9C /* Config.swift */,
-				4FB4746A22B11CEC00130B9C /* User.swift */,
 				4FB4747922B149E600130B9C /* RecordCell.swift */,
 			);
 			path = View;
@@ -323,6 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				4FB4745822B090DA00130B9C /* SettingItem.swift */,
+				4FB4746622B1148E00130B9C /* Config.swift */,
+				4FB4746A22B11CEC00130B9C /* User.swift */,
 				4FB4747B22B1E1A400130B9C /* Record.swift */,
 				4FB4748322B27C0700130B9C /* StorageError.swift */,
 			);

@@ -17,8 +17,6 @@ class SigninViewController : UIViewController {
   private var passwordField: InputField!
   private var loginButton: UIButton!
   private var loadingView: UIActivityIndicatorView!
-  private var rememberButton: UIButton!
-  private var rememberLabel: UILabel!
   
   private let bag = DisposeBag()
   
@@ -86,25 +84,6 @@ class SigninViewController : UIViewController {
       make.size.equalTo(CGSize(width: 40, height: 40))
       make.center.equalTo(loginButton.snp.center)
     }
-    
-    rememberButton = UIButton(type: .custom)
-    rememberButton.setImage(UIImage(named: "right"), for: .selected)
-    rememberButton.layer.borderColor = UIColor.themeGreen.cgColor
-    rememberButton.layer.borderWidth = 1.0
-    view.addSubview(rememberButton)
-    rememberButton.snp.makeConstraints { (make) in
-      make.width.height.equalTo(16)
-      make.top.equalTo(passwordField.snp.bottom).offset(12)
-      make.leading.equalTo(36)
-    }
-    
-    rememberLabel = ViewFactory.label(withText: "记住密码", font: .systemFont(ofSize: 12))
-    rememberLabel.textColor = .omTextGray
-    view.addSubview(rememberLabel)
-    rememberLabel.snp.makeConstraints { (make) in
-      make.centerY.equalTo(rememberButton.snp.centerY)
-      make.leading.equalTo(rememberButton.snp.trailing).offset(5)
-    }
   }
   
   private func bindViewModel() {
@@ -112,10 +91,6 @@ class SigninViewController : UIViewController {
       self?.view.endEditing(true)
     }).subscribe()
       .disposed(by: bag)
-    
-    Observable.merge(rememberButton.rx.controlEvent(.touchUpInside).asObservable(), rememberLabel.rx.tapGesture().asObservable().map { _ in () }).do(onNext: { [weak self] (_) in
-      self?.rememberButton.isSelected = !(self?.rememberButton.isSelected ?? true)
-    }).subscribe().disposed(by: bag)
     
     let usernameResult = BehaviorRelay<ValidationResult>(value: .ok)
     let passwordResult = BehaviorRelay<ValidationResult>(value: .ok)

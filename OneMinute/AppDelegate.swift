@@ -19,6 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window!.backgroundColor = UIColor.white
     self.window!.makeKeyAndVisible()
     
+    UINavigationBar.appearance().tintColor = .black
+    // hide back button title
+    let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 0.1), NSAttributedString.Key.foregroundColor: UIColor.clear]
+    UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
+    UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .highlighted)
+    
     Config.storage = KeychainStorage.shared
     OneMinuteAPI.networkService = NetworkServiceImpl.shared
     

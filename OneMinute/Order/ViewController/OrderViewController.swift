@@ -60,7 +60,7 @@ class OrderViewController : OrderBaseViewController {
       }.disposed(by: bag)
     
     tableView.rx.modelSelected(OrderCellModel.self).subscribe(onNext: { (value) in
-      let vc = OrderDetailViewController(orderID: /*value.model.id*/0)
+      let vc = OrderDetailViewController(orderID: value.model.id)
       vc.hidesBottomBarWhenPushed = true
       self.navigationController?.pushViewController(vc, animated: true)
     }).disposed(by: bag)

@@ -23,7 +23,7 @@ class NetworkServiceImpl : NetworkService {
       headers[NetworkServiceImpl.tokenKey] = token
     }
     
-    return json(.get, address.url, parameters: parameters, encoding: JSONEncoding.default, headers: headers).map {
+    return json(.get, address.url, parameters: parameters, encoding: URLEncoding.default, headers: headers).map {
       return $0 as? [String: Any] ?? [:]
     }
   }
