@@ -63,7 +63,7 @@ class OrderViewModel {
     
     // Refresh
     
-    let refreshTrigger = Signal.merge(loadTrigger.filter { !$0 }.withLatestFrom(categoryTrigger), categoryTrigger)
+    let refreshTrigger = Signal.merge(loadTrigger.filter { !$0 }.withLatestFrom(categoryTrigger.startWith(0)), categoryTrigger)
     
     refreshTrigger.flatMapLatest { category in
       return api.queryOrders(withCategory: category, page: 1, size: Order.numberOfOrdersPerPage)
