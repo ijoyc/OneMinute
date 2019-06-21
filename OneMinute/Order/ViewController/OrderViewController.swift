@@ -61,6 +61,7 @@ class OrderViewController : OrderBaseViewController {
     
     tableView.rx.modelSelected(OrderCellModel.self).subscribe(onNext: { (value) in
       let vc = OrderDetailViewController(orderID: value.model.id)
+      vc.locationService = LBSServiceImpl.shared
       vc.hidesBottomBarWhenPushed = true
       self.navigationController?.pushViewController(vc, animated: true)
     }).disposed(by: bag)

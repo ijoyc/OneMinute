@@ -75,7 +75,6 @@ class Order {
   let distance: Double
   let state: OrderState
   let progresses: [OrderProgress]
-  let progress: Int
   let profit: Double
   let isGrabable: Bool
   
@@ -111,7 +110,6 @@ class Order {
       progresses.append(OrderProgress(json: progress))
     }
     self.progresses = progresses
-    self.progress = 1
     
     self.distance = Double(exactly: json["distanceDriver"] as? NSNumber ?? 0) ?? 0
     self.profit = Double(exactly: json["feeDeliverDriver"] as? NSNumber ?? 0) ?? 0

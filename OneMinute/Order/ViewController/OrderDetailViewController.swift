@@ -12,6 +12,8 @@ import RxCocoa
 import MapKit
 
 class OrderDetailViewController : BaseViewController {
+  var locationService: LBSService?
+  
   private var mapView: MKMapView!
   private var orderView: UIView!
   
@@ -30,6 +32,8 @@ class OrderDetailViewController : BaseViewController {
   private let orderID: Int
   private let bag = DisposeBag()
   private var orderDetail: OrderDetail?
+  private let endPoint = BehaviorRelay<Int>(value: 0)
+  private var calculatedOrderViewHeight: CGFloat?
   
   private let cellID = "orderDetailCellID"
   
@@ -50,6 +54,16 @@ class OrderDetailViewController : BaseViewController {
     bindViewModel()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    locationService?.start()
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    locationService?.stop()
+  }
+  
   private func bindViewModel() {
     let changeStateTrigger = PublishSubject<OrderState>()
     let finishTrigger = PublishSubject<String>()
@@ -62,11 +76,10 @@ class OrderDetailViewController : BaseViewController {
                                          api: OrderAPIImplementation.shared)
     
     let model = viewModel.queryResult.map { $0.orderDetail }.filter { $0 != nil }.map { $0! }
-      
+
     model.do(onNext: { [weak self] orderDetail in
       self?.orderDetail = orderDetail
       self?.updateUI()
-      self?.updateMapView()
     }).drive().disposed(by: bag)
     
     viewModel.orderState.subscribe(onNext: { [weak self] state in
@@ -91,7 +104,7 @@ class OrderDetailViewController : BaseViewController {
     telButton.rx.tap.subscribe(onNext: { [weak self] _ in
       guard let self = self,
         let orderDetail = self.orderDetail,
-        let url = URL(string: "tel://\(orderDetail.currentReceiverTelephone)"),
+        let url = URL(string: "tel://\(orderDetail.telephone)"),
         UIApplication.shared.canOpenURL(url) else { return }
       
       UIApplication.shared.openURL(url)
@@ -115,6 +128,35 @@ class OrderDetailViewController : BaseViewController {
     DealPopupView.shared.submitButton.rx.tap.map { DealPopupView.shared.code }.filter { $0.count == 4 }.subscribe(onNext: { code in
       finishTrigger.onNext(code)
     }).disposed(by: bag)
+    
+    // default: the last address.
+    // tap: change endpoint address
+    model.map { $0.progresses.count - 1 }.drive(endPoint).disposed(by: bag)
+    progressView.rx.tapGesture().asLocation().map { location in
+      self.progressView.subviews.firstIndex {
+        location.y >= $0.frame.minY && location.y <= $0.frame.maxY
+      } ?? 0
+    }.bind(to: endPoint).disposed(by: bag)
+    
+    let expanded = BehaviorRelay<Bool>(value: true)
+    let swipe = progressView.rx.swipeGesture([.down, .up]).asDriver()
+    // Collapse order view
+    swipe.filter { $0.direction == .down }.map { _ in false }.drive(expanded).disposed(by: bag)
+    // Expand order view
+    swipe.filter { $0.direction == .up }.map { _ in true }.drive(expanded).disposed(by: bag)
+    expanded.skip(1).distinctUntilChanged().subscribe(onNext: { [weak self] expanded in
+      guard let orderDetail = self?.orderDetail, orderDetail.progresses.count > 3 else { return }
+      
+      if expanded {
+        self?.expandOrderView()
+      } else {
+        self?.collapseOrderView()
+      }
+    }).disposed(by: bag)
+    
+    endPoint.subscribe(onNext: { index in
+      self.updateMapView(index)
+    }).disposed(by: bag)
   }
 }
 
@@ -124,6 +166,7 @@ extension OrderDetailViewController {
   private func initSubviews() {
     mapView = MKMapView()
     mapView.delegate = self
+    mapView.showsUserLocation = true
     view.addSubview(mapView)
     mapView.snp.makeConstraints { (make) in
       make.edges.equalTo(0)
@@ -186,6 +229,13 @@ extension OrderDetailViewController {
       make.height.equalTo(1)
       make.bottom.equalTo(topView)
     }
+    
+    progressView = UIView()
+    orderView.addSubview(progressView)
+    progressView.snp.makeConstraints { (make) in
+      make.leading.trailing.height.equalTo(0)
+      make.top.equalTo(topView.snp.bottom)
+    }
   }
   
   private func initBottomView() {
@@ -236,13 +286,6 @@ extension OrderDetailViewController {
 
 extension OrderDetailViewController {
   private func addProgressView(model: OrderDetail) {
-    progressView = UIView()
-    orderView.addSubview(progressView)
-    progressView.snp.makeConstraints { (make) in
-      make.leading.trailing.height.equalTo(0)
-      make.top.equalTo(topView.snp.bottom)
-    }
-    
     let total = model.progresses.count
     for i in 0 ..< total {
       let wrapper = UIView()
@@ -310,17 +353,6 @@ extension OrderDetailViewController {
           make.centerX.equalTo(iconView)
         }
       }
-      
-      // current progress indicator
-      if i == model.progress - 1 && total != 1 {
-        let indicator = UIImageView(image: UIImage(named: "progress"))
-        wrapper.addSubview(indicator)
-        indicator.snp.makeConstraints { (make) in
-          make.size.equalTo(CGSize(width: 8, height: 14))
-          make.bottom.equalTo(-3)
-          make.centerX.equalTo(iconView)
-        }
-      }
     }
   }
   
@@ -356,6 +388,7 @@ extension OrderDetailViewController {
     }
     
     let orderViewHeight = 40 + top + 87 + OMGetSafeArea().bottom
+    calculatedOrderViewHeight = orderViewHeight
     
     mapView.snp.updateConstraints { (make) in
       make.bottom.equalTo(-orderViewHeight)
@@ -376,23 +409,32 @@ extension OrderDetailViewController {
     }
   }
   
-  private func updateMapView() {
-    guard let orderDetail = self.orderDetail else { return }
+  private func updateMapView(_ index: Int) {
+    guard let orderDetail = self.orderDetail, let location = locationService?.currentLocation else { return }
     
-    let annotations = [orderDetail.startPoint, orderDetail.currentReceiverPoint]
+    // Clear last route
+    mapView.removeAnnotations(mapView.annotations)
+    mapView.removeOverlays(mapView.overlays)
+    
+    // Add current points and route
+    let startPoint = OrderDetail.Point(location.coordinate)
+    startPoint.isDriver = true
+    let endPoint = orderDetail.pointAt(index)!
+
+    let annotations = [startPoint, endPoint]
     mapView.addAnnotations(annotations)
     mapView.showAnnotations(annotations, animated: true)
-    
+
     // Show Route
     if #available(iOS 10.0, *) {
-      let sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.startPoint.coordinate))
-      let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: orderDetail.currentReceiverPoint.coordinate))
-      
+      let sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: startPoint.coordinate))
+      let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: endPoint.coordinate))
+
       let directionRequest = MKDirections.Request()
       directionRequest.source = sourceItem
       directionRequest.destination = destinationItem
       directionRequest.transportType = .automobile
-      
+
       let directions = MKDirections(request: directionRequest)
       directions.calculate { (response, error) in
         guard let response = response else {
@@ -401,12 +443,43 @@ extension OrderDetailViewController {
           }
           return
         }
-        
+
         let route = response.routes[0]
         self.mapView.addOverlay(route.polyline, level: .aboveRoads)
       }
     } else {
       // Fallback on earlier versions
+    }
+  }
+  
+  func collapseOrderView() {
+    mapView.snp.updateConstraints { (make) in
+      make.bottom.equalTo(-100)
+    }
+    orderView.snp.updateConstraints { (make) in
+      make.height.equalTo(100)
+    }
+    view.setNeedsUpdateConstraints()
+    
+    
+    UIView.animate(withDuration: 0.2) {
+      self.view.layoutIfNeeded()
+    }
+  }
+  
+  func expandOrderView() {
+    guard let height = calculatedOrderViewHeight else { return }
+    mapView.snp.updateConstraints { (make) in
+      make.bottom.equalTo(-height)
+    }
+    orderView.snp.updateConstraints { (make) in
+      make.height.equalTo(height)
+    }
+    view.setNeedsUpdateConstraints()
+    
+    
+    UIView.animate(withDuration: 0.2) {
+      self.view.layoutIfNeeded()
     }
   }
 }
@@ -417,7 +490,7 @@ extension OrderDetailViewController : MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard let annotation = annotation as? OrderDetail.Point, let orderDetail = self.orderDetail else { return nil }
     let view = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
-    view.image = annotation == orderDetail.startPoint ? UIImage(named: "driver") : UIImage(named: "receiver")
+    view.image = annotation.isDriver ? UIImage(named: "driver") : UIImage(named: "receiver")
     return view
   }
 }

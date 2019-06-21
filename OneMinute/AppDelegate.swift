@@ -25,8 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
     UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .highlighted)
     
+    // Global service register
+    
     Config.storage = KeychainStorage.shared
     OneMinuteAPI.networkService = NetworkServiceImpl.shared
+    
+    // Request important permission
+    LBSServiceImpl.shared.requestAuthorization()
     
     if let token = User.signInfo.token, token.count > 0 {
       self.window?.rootViewController = LauncherViewController()

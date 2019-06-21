@@ -221,17 +221,6 @@ extension OrderCell {
           make.centerX.equalTo(iconView)
         }
       }
-      
-      // current progress indicator
-      if i == model.progress - 1 && total != 1 {
-        let indicator = UIImageView(image: UIImage(named: "progress"))
-        wrapper.addSubview(indicator)
-        indicator.snp.makeConstraints { (make) in
-          make.size.equalTo(CGSize(width: 8, height: 14))
-          make.bottom.equalTo(-3)
-          make.centerX.equalTo(iconView)
-        }
-      }
     }
   }
   

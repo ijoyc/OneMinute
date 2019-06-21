@@ -14,7 +14,6 @@ class OrderDetail {
   let type: OrderType
   var state: OrderState
   let progresses: [OrderProgress]
-  let progress: Int
   let orderID: Int
   let orderNo: String
   let note: String
@@ -22,6 +21,7 @@ class OrderDetail {
   
   public class Point : NSObject, MKAnnotation {
     public var coordinate: CLLocationCoordinate2D
+    public var isDriver = false
     
     override init() {
       self.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -29,6 +29,10 @@ class OrderDetail {
     
     init(_ progress: OrderProgress?) {
       self.coordinate = CLLocationCoordinate2D(latitude: progress?.latitude ?? 0, longitude: progress?.longitude ?? 0)
+    }
+    
+    init(_ coordinate: CLLocationCoordinate2D) {
+      self.coordinate = coordinate
     }
   }
   
@@ -45,7 +49,6 @@ class OrderDetail {
       progresses.append(OrderProgress(json: progress))
     }
     self.progresses = progresses
-    self.progress = 1
     
     self.orderID = json["id"] as? Int ?? 0
     self.orderNo = json["orderNo"] as? String ?? ""
@@ -54,14 +57,9 @@ class OrderDetail {
     self.startPoint = Point(self.progresses.first)
   }
   
-  var currentReceiverTelephone: String {
-    guard progress < progresses.count else { return "" }
-    return progresses[progress].contactPhone
-  }
-  
-  var currentReceiverPoint: Point {
-    guard progress < progresses.count else { return Point() }
-    return Point(progresses[progress])
+  var telephone: String {
+    guard let last = progresses.last else { return "" }
+    return last.contactPhone
   }
   
   var currentOperationTitle: String {
@@ -94,5 +92,10 @@ class OrderDetail {
     }
     
     return false
+  }
+  
+  func pointAt(_ index: Int) -> Point? {
+    guard index >= 0 && index < progresses.count else { return nil }
+    return Point(progresses[index])
   }
 }

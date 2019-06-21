@@ -15,7 +15,6 @@ class OrderDetailViewModel {
   var queryResult: Driver<(orderDetail: OrderDetail?, result: Result)>
   let operationText = BehaviorRelay<String>(value: "")
   let stateText = BehaviorRelay<String>(value: "")
-  let currentProgress = BehaviorRelay<Int>(value: 0)
   let orderState = BehaviorRelay<OrderState>(value: .paying)
   let changingOrderState: Driver<Bool>
   let errorMessage = BehaviorRelay<String>(value: "")
@@ -39,7 +38,6 @@ class OrderDetailViewModel {
       
       self.operationText.accept(orderDetail.currentOperationTitle)
       self.stateText.accept(orderDetail.state.description)
-      self.currentProgress.accept(orderDetail.progress)
       self.orderState.accept(orderDetail.state)
     })
     
@@ -47,7 +45,6 @@ class OrderDetailViewModel {
       return api.changeOrderState(with: orderID, state: state.rawValue).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty).do(onNext: { result in
         guard result.success else { return }
         
-        self.currentProgress.accept(self.currentProgress.value + 1)
         self.orderState.accept(state)
         
         switch state {
