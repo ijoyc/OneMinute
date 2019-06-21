@@ -18,44 +18,23 @@ class ProfileAPIImplementation : ProfileAPI {
   }
   
   func queryRecords(withPage page: Int, size: Int) -> Observable<(records: [Record], hasMore: Bool)> {
-    return Observable.just((records: [
-      Record(json: [
-        "amount": 8,
-        "createTime": "05.21 15:38",
-        "orderNo": "A20190415293841",
-        "orderType": 1
-        ]),
-      Record(json: [
-        "amount": 18.74,
-        "createTime": "05.21 15:38",
-        "orderNo": "A20190415293841",
-        "orderType": 2
-        ]),
-      Record(json: [
-        "amount": 24.95,
-        "createTime": "05.21 15:38",
-        "orderNo": "A20190415293841",
-        "orderType": 3
-        ]),
-      Record(json: [
-        "amount": 56,
-        "createTime": "05.21 15:38",
-        "orderNo": "A20190415293841",
-        "orderType": 4
-        ]),
-      Record(json: [
-        "amount": 8.97,
-        "createTime": "05.21 15:38",
-        "orderNo": "A20190415293841",
-        "orderType": 5,
-        "remark": "现金收款扣除"
-        ]),
-      Record(json: [
-        "amount": 2000,
-        "createTime": "05.21 15:38",
-        "orderNo": "A20190415293841",
-        "orderType": 6,
-        ])
-      ], hasMore: true)).delay(.seconds(1), scheduler: MainScheduler.instance)
+    return OneMinuteAPI.get(.records, parameters: ["pageNum": page, "pageSize": size]).map { json in
+      var hasMore = true
+      guard let data = json["data"] as? [String: Any] else {
+        return (records: [], hasMore: hasMore)
+      }
+      
+      guard let list = data["list"] as? [[String: Any]], list.count > 0 else {
+        return (records: [], hasMore: hasMore)
+      }
+      
+      let records = list.map { Record(json: $0) }
+      
+      if let pages = data["pages"] as? Int, page >= pages {
+        hasMore = false
+      }
+      
+      return (records: records, hasMore: hasMore)
+    }
   }
 }

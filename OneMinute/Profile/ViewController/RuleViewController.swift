@@ -9,7 +9,7 @@
 
 import UIKit
 
-class RuleViewController : UIViewController {
+class RuleViewController : BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "员工守则"

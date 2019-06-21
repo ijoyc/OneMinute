@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LanguageViewController : UIViewController {
+class LanguageViewController : BaseViewController {
   struct LanguageOption {
     let title: String
     let language: Language

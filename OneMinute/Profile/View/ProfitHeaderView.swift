@@ -51,18 +51,18 @@ class ProfitHeaderView : UIView {
       make.centerX.equalTo(contentView).multipliedBy(0.5)
     }
     
-    let dollarLabel = ViewFactory.label(withText: "$", font: .systemFont(ofSize: 20))
-    contentView.addSubview(dollarLabel)
-    dollarLabel.snp.makeConstraints { (make) in
-      make.leading.equalTo(33)
-      make.top.equalTo(profitTipLabel.snp.bottom).offset(15)
-    }
-    
     profitLabel = ViewFactory.label(withText: "00.00", font: .boldSystemFont(ofSize: 24))
     contentView.addSubview(profitLabel)
     profitLabel.snp.makeConstraints { (make) in
-      make.leading.equalTo(dollarLabel.snp.trailing).offset(2)
-      make.bottom.equalTo(dollarLabel)
+      make.centerX.equalTo(profitTipLabel)
+      make.top.equalTo(profitTipLabel.snp.bottom).offset(15)
+    }
+    
+    let dollarLabel = ViewFactory.label(withText: "$", font: .systemFont(ofSize: 20))
+    contentView.addSubview(dollarLabel)
+    dollarLabel.snp.makeConstraints { (make) in
+      make.trailing.equalTo(profitLabel.snp.leading).offset(-2)
+      make.bottom.equalTo(profitLabel.snp.bottom)
     }
     
     let line = UIView()

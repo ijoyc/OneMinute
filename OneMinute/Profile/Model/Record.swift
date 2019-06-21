@@ -17,8 +17,31 @@ class Record {
   let remark: String
   let amount: Double
   
+  private static var fromFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    formatter.timeZone = .current
+    formatter.locale = Locale(identifier: "en_GB")
+    formatter.calendar = Calendar(identifier: .gregorian)
+    return formatter
+  }
+  
+  private static var toFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MM.dd HH:mm"
+    formatter.timeZone = .current
+    formatter.locale = Locale(identifier: "en_GB")
+    formatter.calendar = Calendar(identifier: .gregorian)
+    return formatter
+  }
+  
+  var timeString: String {
+    guard let date = Record.fromFormatter.date(from: time) else { return "00.00 00:00" }
+    return Record.toFormatter.string(from: date)
+  }
+  
   init(json: [String: Any]) {
-    self.type = OrderType(rawValue: json["orderType"] as? Int ?? 1) ?? .buy
+    self.type = OrderType(rawValue: json["orderType"] as? Int ?? 0) ?? .buy
     self.time = json["createTime"] as? String ?? ""
     self.orderID = json["orderNo"] as? String ?? ""
     self.remark = json["remark"] as? String ?? ""

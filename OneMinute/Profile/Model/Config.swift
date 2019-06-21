@@ -43,6 +43,7 @@ struct Config {
     case grabOrder = "driver/catchOrder"
     case changeOrderState = "order/updateOrderStatus"
     case finishOrder = "order/completeOrder"
+    case records = "driver/findIncome"
     
     private var baseURL: String { return "http://47.252.8.20:8080/api/" }
     var url: String {

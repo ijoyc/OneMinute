@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ProfileViewController : UIViewController {
+class ProfileViewController : BaseViewController {
   private var tableView: UITableView!
   private var headerView: ProfileHeaderView!
   private var loadingView: UIActivityIndicatorView!
@@ -70,16 +70,24 @@ class ProfileViewController : UIViewController {
       switch indexPath.row {
       case 0:
         // My Profits
-        self.navigationController?.pushViewController(ProfitViewController(), animated: true)
+        let vc = ProfitViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
       case 1:
         // Change Language
-        self.navigationController?.pushViewController(LanguageViewController(), animated: true)
+        let vc = LanguageViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
       case 2:
         // Rules
-        self.navigationController?.pushViewController(RuleViewController(), animated: true)
+        let vc = RuleViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
       case 3:
         // About one minute
-        self.navigationController?.pushViewController(AboutViewController(), animated: true)
+        let vc = AboutViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
       default:
         return
       }

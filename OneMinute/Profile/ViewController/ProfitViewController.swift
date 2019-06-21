@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ProfitViewController : UIViewController {
+class ProfitViewController : BaseViewController {
   private var tableView: UITableView!
   private var headerView: ProfitHeaderView!
   private var settings: [SettingItem]!
