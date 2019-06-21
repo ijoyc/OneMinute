@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F2CD85922BC84DA00137CFE /* LBSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85822BC84DA00137CFE /* LBSService.swift */; };
 		4F2CD85B22BC865300137CFE /* LBSServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85A22BC865300137CFE /* LBSServiceImpl.swift */; };
+		4F2CD85D22BCD1A900137CFE /* GradientPolylineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */; };
 		4F527E4522B31BAE00BF875C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4422B31BAE00BF875C /* NetworkService.swift */; };
 		4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */; };
 		4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */; };
@@ -76,6 +77,7 @@
 /* Begin PBXFileReference section */
 		4F2CD85822BC84DA00137CFE /* LBSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSService.swift; sourceTree = "<group>"; };
 		4F2CD85A22BC865300137CFE /* LBSServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSServiceImpl.swift; sourceTree = "<group>"; };
+		4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPolylineRenderer.swift; sourceTree = "<group>"; };
 		4F527E4422B31BAE00BF875C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneMinuteAPI.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			children = (
 				4F7E0A0D22AB5C6600857FF6 /* CategoryView.swift */,
 				4FB4745422AFC94000130B9C /* DealPopupView.swift */,
+				4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				4FB4746122B096BD00130B9C /* ProfitViewController.swift in Sources */,
 				4FB4747022B11FD200130B9C /* ProfileViewModel.swift in Sources */,
 				4F7E0A1722AC13EC00857FF6 /* OrderBaseViewController.swift in Sources */,
+				4F2CD85D22BCD1A900137CFE /* GradientPolylineRenderer.swift in Sources */,
 				4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */,
 				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
 				4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */,

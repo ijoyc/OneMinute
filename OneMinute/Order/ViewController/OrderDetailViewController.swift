@@ -488,10 +488,16 @@ extension OrderDetailViewController {
 
 extension OrderDetailViewController : MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard let annotation = annotation as? OrderDetail.Point, let orderDetail = self.orderDetail else { return nil }
+    guard let annotation = annotation as? OrderDetail.Point else { return nil }
     let view = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
     view.image = annotation.isDriver ? UIImage(named: "driver") : UIImage(named: "receiver")
     return view
+  }
+  
+  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    let renderer = GradientPolylineRenderer(overlay: overlay, startColor: .red, endColor: .themeGreen)
+    renderer.lineWidth = 5
+    return renderer
   }
 }
 
