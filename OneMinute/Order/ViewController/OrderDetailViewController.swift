@@ -82,8 +82,13 @@ class OrderDetailViewController : BaseViewController {
       self?.updateUI()
     }).drive().disposed(by: bag)
     
-    viewModel.orderState.subscribe(onNext: { [weak self] state in
+    viewModel.orderState.skip(2).subscribe(onNext: { [weak self] state in
       self?.orderDetail?.state = state
+      
+      if case .finished = state {
+        DealPopupView.dismiss()
+        ViewFactory.showAlert("订单已完成", message: nil)
+      }
     }).disposed(by: bag)
     viewModel.operationText.bind(to: dealButton.rx.title()).disposed(by: bag)
     viewModel.stateText.map { "\($0) >" }.bind(to: stateLabel.rx.text).disposed(by: bag)

@@ -47,14 +47,11 @@ class OrderDetailViewModel {
         
         self.orderState.accept(state)
         
+        // finish order is another api...
         switch state {
         case .doing:
           self.operationText.accept(OrderState.reached.description)
           self.stateText.accept(OrderState.doing.description)
-          break
-        case .finished:
-          self.operationText.accept(OrderState.finished.description)
-          self.stateText.accept(OrderState.finished.description)
           break
         default:
           break
@@ -65,6 +62,14 @@ class OrderDetailViewModel {
     
     finishSignal.flatMapLatest { code in
       return api.finishOrder(with: orderID, code: code).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty)
-    }.drive(onNext: { self.errorMessage.accept($0.message) }).disposed(by: bag)
+    }.drive(onNext: {
+      if $0.success {
+        self.operationText.accept(OrderState.finished.description)
+        self.stateText.accept(OrderState.finished.description)
+        self.orderState.accept(.finished)
+      } else {
+        self.errorMessage.accept($0.message)
+      }
+    }).disposed(by: bag)
   }
 }
