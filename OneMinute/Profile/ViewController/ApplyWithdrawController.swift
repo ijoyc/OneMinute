@@ -10,16 +10,42 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum WithdrawAccount: Int, CaseIterable, CustomStringConvertible {
+  case paypal = 0
+  case scotiabank
+  case td
+  case bmo
+  case royal
+  case imperial
+  
+  var description: String {
+    switch self {
+    case .paypal:
+      return "Paypal"
+    case .scotiabank:
+      return "Scotiabank"
+    case .td:
+      return "TD bank"
+    case .bmo:
+      return "BMO Bank of Montreal"
+    case .royal:
+      return "Royal Bank of Canada"
+    case .imperial:
+      return "Canadian Imperial Bank of Commerce"
+    }
+  }
+}
+
 class ApplyWithdrawController : UIViewController {
   private var tableView: UITableView!
   private var amountLabel: UILabel!
   private var submitButton: UIButton!
   
-  private var amountField: UITextField!
+  private let amountField = UITextField()
   private var withdrawAllButton: UIButton!
   private var accountTypeField: UITextField!
   private var accountTypePicker: UIPickerView!
-  private var cardNumberField: UITextField!
+  private let cardNumberField = UITextField()
   
   private let bag = DisposeBag()
   
@@ -126,6 +152,14 @@ class ApplyWithdrawController : UIViewController {
   
   private func bindViewModel() {
     User.current.map { "\(String(format: "%.2f", $0.withdraw))" }.bind(to: amountLabel.rx.text).disposed(by: bag)
+    
+    Observable.combineLatest(amountField.rx.text, cardNumberField.rx.text) { amount, cardNumber in
+      (amount?.count ?? 0) > 0 && (cardNumber?.count ?? 0) > 0
+    }.bind(to: submitButton.rx.isEnabled).disposed(by: bag)
+    
+    submitButton.rx.tap.subscribe(onNext: {
+      ViewFactory.showAlert("TODO", message: nil)
+    }).disposed(by: bag)
   }
 }
 
@@ -143,7 +177,7 @@ extension ApplyWithdrawController : UITableViewDataSource {
     case 0:
       cell.textLabel?.text = "提现金额"
       
-      amountField = UITextField(frame: CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 96, height: 50))
+      amountField.frame = CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 96, height: 50)
       amountField.placeholder = "请输入提现金额"
       amountField.font = .systemFont(ofSize: 15)
       amountField.keyboardType = .numberPad
@@ -172,7 +206,7 @@ extension ApplyWithdrawController : UITableViewDataSource {
     case 2:
       cell.textLabel?.text = "卡号/账户"
       
-      cardNumberField = UITextField(frame: CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 16, height: 50))
+      cardNumberField.frame = CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 16, height: 50)
       cardNumberField.placeholder = "请输入卡号/账户号"
       cell.contentView.addSubview(cardNumberField)
     default:
@@ -195,17 +229,17 @@ extension ApplyWithdrawController : UIPickerViewDataSource {
   }
   
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return 1
+    return WithdrawAccount.allCases.count
   }
 }
 
 extension ApplyWithdrawController : UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return "PAYPAL"
+    return WithdrawAccount.allCases[row].description
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    accountTypeField.text = "PAYPAL"
+    accountTypeField.text = WithdrawAccount.allCases[row].description
   }
 }
 

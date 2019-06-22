@@ -9,6 +9,11 @@
 import RxSwift
 import RxCocoa
 
+struct OrderCache {
+  var hasMore = true
+  var models: [OrderCellModel] = []
+}
+
 class OrderViewModel {
   // - Output
   let cellModels = BehaviorRelay<[OrderCellModel]>(value: [])
@@ -19,6 +24,7 @@ class OrderViewModel {
   let refreshing: Driver<Bool>
   
   private let resetPage = BehaviorRelay<Bool>(value: false)
+  private var orderCache: [Int: OrderCache] = [:]
   
   let bag = DisposeBag()
   
@@ -42,6 +48,10 @@ class OrderViewModel {
       // After refreshing, the next page should be the second one.
       .scan(0) { [weak self] (page, _) in (self?.resetPage.value ?? true) ? 2 : page + 1 }
       .withLatestFrom(categoryTrigger) { (page: $0, category: $1) }
+      .filter { [weak self] pairs in
+        guard let self = self else { return false }
+        return self.orderCache[pairs.category]?.hasMore ?? true
+      }
       .do(onNext: { [weak self] pair in
         print("Request grab orders for page \(pair.page) of category \(pair.category).")
         self?.resetPage.accept(false)
@@ -52,18 +62,34 @@ class OrderViewModel {
           .do(onNext: { [weak self] pairs in
             self?.hasMore.accept(pairs.hasMore)
           })
-          .map { [weak self] pairs in
-            guard let `self` = self else { return [] }
-            return self.cellModels.value + pairs.orders.map { order in OrderCellModel(model: order) }
+          .map { [weak self] pairs -> (models: [OrderCellModel], category: Int, hasMore: Bool) in
+            guard let `self` = self else { return (models: [], category: pair.category, hasMore: true) }
+            return (models: self.cellModels.value + pairs.orders.map { order in OrderCellModel(model: order) }, category: pair.category, hasMore: pairs.hasMore)
           }
-          .asDriver(onErrorJustReturn: [])
+          .do(onNext: { [weak self] pairs in
+            self?.cacheOrders(pairs.models, with: pairs.category, hasMore: pairs.hasMore)
+          })
+          .map { $0.models }
+          .asDriver(onErrorJustReturn: self.cellModels.value)
       }
       .drive(cellModels)
       .disposed(by: bag)
     
     // Refresh
     
-    let refreshTrigger = Signal.merge(loadTrigger.filter { !$0 }.withLatestFrom(categoryTrigger.startWith(0)), categoryTrigger)
+    let refreshTrigger = Signal.merge(
+      loadTrigger
+        .filter { !$0 }
+        .withLatestFrom(categoryTrigger.startWith(0)),
+      categoryTrigger.do(onNext: { [weak self] category in
+        guard let self = self,
+          let cache = self.orderCache[category],
+          cache.models.count > 0 else { return }
+        self.cellModels.accept(cache.models)
+      }).filter { [weak self] category in
+        (self?.orderCache[category]?.models.count ?? 0) == 0
+      }
+    )
     
     refreshTrigger.flatMapLatest { category in
       return api.queryOrders(withCategory: category, page: 1, size: Order.numberOfOrdersPerPage)
@@ -74,11 +100,25 @@ class OrderViewModel {
           self?.resetPage.accept(true)
         })
         .map { pairs in
-          pairs.orders.map { order in OrderCellModel(model: order) }
+          (models: pairs.orders.map { order in OrderCellModel(model: order) }, hasMore: pairs.hasMore)
         }
+        .do(onNext: { [weak self] pairs in
+          self?.cacheOrders(pairs.models, with: category, hasMore: pairs.hasMore, isAppend: false)
+        })
+        .map { $0.models }
         .asDriver(onErrorJustReturn: [])
       }
       .drive(cellModels)
       .disposed(by: bag)
+  }
+  
+  private func cacheOrders(_ orders: [OrderCellModel], with category: Int, hasMore: Bool, isAppend: Bool = true) {
+    var current = orderCache[category]
+    if let count = current?.models.count, count > 0 && isAppend {
+      current!.models.append(contentsOf: orders)
+      current!.hasMore = hasMore
+    } else {
+      orderCache[category] = OrderCache(hasMore: hasMore, models: orders)
+    }
   }
 }
