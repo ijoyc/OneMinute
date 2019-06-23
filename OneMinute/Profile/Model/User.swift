@@ -83,7 +83,7 @@ class User {
     sex = Sex(rawValue: json["sex"] as? Int ?? 0) ?? .male
     type = UserType(rawValue: json["type"] as? Int ?? 0) ?? .parttime
     dailyProfit = json["dailyProfit"] as? Double ?? 0
-    withdraw = json["withdraw"] as? Double ?? 0
+    withdraw = json["balance"] as? Double ?? 0
   }
   
   func update(_ user: User) {

@@ -43,14 +43,16 @@ class OrderAPIImplementation : OrderAPI {
   }
   
   func changeOrderState(with id: Int, state: Int) -> Observable<Result> {
-    return OneMinuteAPI.post(.changeOrderState, parameters: ["lat": 0, "lng": 0, "orderFlag": state, "orderId": id]).map { json in
-      Result(success: json["data"] as? Bool ?? false, message: json["message"] as? String ?? "")
-    }
+    return OneMinuteAPI
+      .post(.changeOrderState,
+            parameters: ["lat": 0, "lng": 0, "orderFlag": state, "orderId": id])
+      .map { Result(json: $0) }
   }
   
   func finishOrder(with id: Int, code: String) -> Observable<Result> {
-    return OneMinuteAPI.post(.finishOrder, parameters: ["lat": 0, "lng": 0, "orderId": id, "completeCode": code]).map { json in
-      Result(success: json["data"] as? Bool ?? false, message: json["message"] as? String ?? "")
-    }
+    return OneMinuteAPI
+      .post(.finishOrder,
+            parameters: ["lat": 0, "lng": 0, "orderId": id, "completeCode": code])
+      .map { Result(json: $0) }
   }
 }

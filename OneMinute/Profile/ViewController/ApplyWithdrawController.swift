@@ -10,43 +10,19 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-enum WithdrawAccount: Int, CaseIterable, CustomStringConvertible {
-  case paypal = 0
-  case scotiabank
-  case td
-  case bmo
-  case royal
-  case imperial
-  
-  var description: String {
-    switch self {
-    case .paypal:
-      return "Paypal"
-    case .scotiabank:
-      return "Scotiabank"
-    case .td:
-      return "TD bank"
-    case .bmo:
-      return "BMO Bank of Montreal"
-    case .royal:
-      return "Royal Bank of Canada"
-    case .imperial:
-      return "Canadian Imperial Bank of Commerce"
-    }
-  }
-}
-
 class ApplyWithdrawController : UIViewController {
   private var tableView: UITableView!
   private var amountLabel: UILabel!
   private var submitButton: UIButton!
   
   private let amountField = UITextField()
-  private var withdrawAllButton: UIButton!
+  private let withdrawAllButton = ViewFactory.button(withTitle: "全部提现", font: .boldSystemFont(ofSize: 15))
   private var accountTypeField: UITextField!
   private var accountTypePicker: UIPickerView!
   private let cardNumberField = UITextField()
+  private var loadingView: UIActivityIndicatorView!
   
+  private let available = BehaviorRelay<String>(value: "")
   private let bag = DisposeBag()
   
   override func viewDidLoad() {
@@ -141,6 +117,14 @@ class ApplyWithdrawController : UIViewController {
       make.height.equalTo(44)
     }
     
+    loadingView = UIActivityIndicatorView(style: .gray)
+    loadingView.hidesWhenStopped = true
+    view.addSubview(loadingView)
+    loadingView.snp.makeConstraints { (make) in
+      make.size.equalTo(CGSize(width: 40, height: 40))
+      make.center.equalTo(submitButton.snp.center)
+    }
+    
     let tipLabel = ViewFactory.label(withText: "申请后的三个工作日内完成提现", font: .systemFont(ofSize: 12))
     tipLabel.textColor = .secondaryTextColor
     footerView.addSubview(tipLabel)
@@ -151,14 +135,43 @@ class ApplyWithdrawController : UIViewController {
   }
   
   private func bindViewModel() {
-    User.current.map { "\(String(format: "%.2f", $0.withdraw))" }.bind(to: amountLabel.rx.text).disposed(by: bag)
+    let withdraw = User.current.map { "\(String(format: "%.2f", $0.withdraw))" }
+    withdraw.bind(to: amountLabel.rx.text).disposed(by: bag)
+    withdraw.bind(to: available).disposed(by: bag)
     
     Observable.combineLatest(amountField.rx.text, cardNumberField.rx.text) { amount, cardNumber in
       (amount?.count ?? 0) > 0 && (cardNumber?.count ?? 0) > 0
     }.bind(to: submitButton.rx.isEnabled).disposed(by: bag)
     
-    submitButton.rx.tap.subscribe(onNext: {
-      ViewFactory.showAlert("TODO", message: nil)
+    withdrawAllButton.rx.tap.subscribe(onNext: { [weak self] in
+      self?.amountField.text = self?.available.value
+    }).disposed(by: bag)
+    
+    let amount = amountField.rx.text.map { Double(($0 as NSString?)?.floatValue ?? 0) }.asDriver(onErrorJustReturn: 0.0)
+    let account = cardNumberField.rx.text.filter { $0?.count == 0 }.map { $0! }.asDriver(onErrorJustReturn: "")
+    let accountType = accountTypePicker.rx.itemSelected.map { (row, component) in 
+      WithdrawAccount.allCases[row]
+    }.asDriver(onErrorJustReturn: .paypal)
+    let withdrawTrigger = PublishSubject<Void>()
+    
+    let viewModel = ApplyWithdrawViewModel(input: (amount: amount, account: account, accountType: accountType, withdrawTrigger: withdrawTrigger.asSignal(onErrorJustReturn: ())), api: ProfileAPIImplementation.shared)
+    
+    viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
+    viewModel.message.filter { $0.count > 0 }.subscribe(onNext: { message in
+      ViewFactory.showAlert(message, message: "")
+    }).disposed(by: bag)
+    
+    submitButton.rx.tap.subscribe(onNext: { [weak self] in
+      // check amount
+      guard let self = self else { return }
+      let available = (self.available.value as NSString).floatValue
+      let amount = (self.amountField.text as NSString?)?.floatValue ?? 0
+      if amount > available {
+        ViewFactory.showAlert("余额不足", message: nil)
+        return
+      }
+      
+      withdrawTrigger.onNext(())
     }).disposed(by: bag)
   }
 }
@@ -183,7 +196,6 @@ extension ApplyWithdrawController : UITableViewDataSource {
       amountField.keyboardType = .numberPad
       cell.contentView.addSubview(amountField)
       
-      withdrawAllButton = ViewFactory.button(withTitle: "全部提现", font: .boldSystemFont(ofSize: 15))
       withdrawAllButton.sizeToFit()
       withdrawAllButton.frame.origin = CGPoint(x: UIScreen.main.bounds.width - 16 - withdrawAllButton.bounds.width, y: 25 - withdrawAllButton.bounds.height / 2)
       withdrawAllButton.setTitleColor(.themeGreen, for: .normal)

@@ -13,4 +13,14 @@ struct Result {
   let message: String
   
   static let empty = Result(success: false, message: "网络连接失败")
+  
+  init(success: Bool, message: String) {
+    self.success = success
+    self.message = message
+  }
+  
+  init(json: [String: Any]) {
+    self.success = json["data"] as? Bool ?? false
+    self.message = json["message"] as? String ?? ""
+  }
 }

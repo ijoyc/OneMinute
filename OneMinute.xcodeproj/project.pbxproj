@@ -10,6 +10,8 @@
 		4F2CD85922BC84DA00137CFE /* LBSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85822BC84DA00137CFE /* LBSService.swift */; };
 		4F2CD85B22BC865300137CFE /* LBSServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85A22BC865300137CFE /* LBSServiceImpl.swift */; };
 		4F2CD85D22BCD1A900137CFE /* GradientPolylineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */; };
+		4F2CD85F22BE794700137CFE /* ApplyWithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85E22BE794700137CFE /* ApplyWithdrawViewModel.swift */; };
+		4F2CD86122BE79F900137CFE /* WithdrawAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD86022BE79F900137CFE /* WithdrawAccount.swift */; };
 		4F527E4522B31BAE00BF875C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4422B31BAE00BF875C /* NetworkService.swift */; };
 		4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */; };
 		4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */; };
@@ -78,6 +80,8 @@
 		4F2CD85822BC84DA00137CFE /* LBSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSService.swift; sourceTree = "<group>"; };
 		4F2CD85A22BC865300137CFE /* LBSServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSServiceImpl.swift; sourceTree = "<group>"; };
 		4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPolylineRenderer.swift; sourceTree = "<group>"; };
+		4F2CD85E22BE794700137CFE /* ApplyWithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyWithdrawViewModel.swift; sourceTree = "<group>"; };
+		4F2CD86022BE79F900137CFE /* WithdrawAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawAccount.swift; sourceTree = "<group>"; };
 		4F527E4422B31BAE00BF875C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneMinuteAPI.swift; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 			children = (
 				4FB4746F22B11FD200130B9C /* ProfileViewModel.swift */,
 				4FB4747D22B1E66500130B9C /* RecordsViewModel.swift */,
+				4F2CD85E22BE794700137CFE /* ApplyWithdrawViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				4FB4746A22B11CEC00130B9C /* User.swift */,
 				4FB4747B22B1E1A400130B9C /* Record.swift */,
 				4FB4748322B27C0700130B9C /* StorageError.swift */,
+				4F2CD86022BE79F900137CFE /* WithdrawAccount.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -642,6 +648,7 @@
 				4F7E09D922A91DAF00857FF6 /* LauncherViewController.swift in Sources */,
 				4F7E09F322A9EDE200857FF6 /* Order.swift in Sources */,
 				4F7E09E722A91F0200857FF6 /* OrderViewController.swift in Sources */,
+				4F2CD86122BE79F900137CFE /* WithdrawAccount.swift in Sources */,
 				4F7E09E022A91EB200857FF6 /* GrabViewController.swift in Sources */,
 				4FB4748222B27AD800130B9C /* StorageService.swift in Sources */,
 				4FB4745D22B0954F00130B9C /* RuleViewController.swift in Sources */,
@@ -693,6 +700,7 @@
 				4F2CD85922BC84DA00137CFE /* LBSService.swift in Sources */,
 				4FB4747C22B1E1A400130B9C /* Record.swift in Sources */,
 				4FB4747A22B149E600130B9C /* RecordCell.swift in Sources */,
+				4F2CD85F22BE794700137CFE /* ApplyWithdrawViewModel.swift in Sources */,
 				4F7E0A1422ABAF0E00857FF6 /* OrderViewModel.swift in Sources */,
 				4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */,
 				4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */,

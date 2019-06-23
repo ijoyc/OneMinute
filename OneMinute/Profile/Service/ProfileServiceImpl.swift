@@ -37,4 +37,13 @@ class ProfileAPIImplementation : ProfileAPI {
       return (records: records, hasMore: hasMore)
     }
   }
+  
+  func withdraw(with amount: Double, account: String, accountType: WithdrawAccount) -> Observable<Result> {
+    return OneMinuteAPI
+      .post(.withdraw,
+            parameters: ["amount": amount,
+                         "account": account,
+                         "accountType": accountType.rawValue])
+      .map { Result(json: $0) }
+  }
 }
