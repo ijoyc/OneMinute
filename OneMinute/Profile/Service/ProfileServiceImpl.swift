@@ -44,6 +44,8 @@ class ProfileAPIImplementation : ProfileAPI {
             parameters: ["amount": amount,
                          "account": account,
                          "accountType": accountType.rawValue])
-      .map { Result(json: $0) }
+      .map { json in
+        Result(success: (json["code"] as? String ?? "") == "200", message: json["message"] as? String ?? "")
+      }
   }
 }

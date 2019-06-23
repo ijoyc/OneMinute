@@ -15,9 +15,19 @@ class ProfitViewController : BaseViewController {
   private var headerView: ProfitHeaderView!
   private var settings: [SettingItem]!
   
+  private var profileViewModel: ProfileViewModel?
   private let bag = DisposeBag()
   
   private static let cellID = "ProfitCellID"
+  
+  init(viewModel: ProfileViewModel?) {
+    self.profileViewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -60,7 +70,7 @@ class ProfitViewController : BaseViewController {
       switch indexPath.row {
       case 0:
         // Apply withdraw
-        self.navigationController?.pushViewController(ApplyWithdrawController(), animated: true)
+        self.navigationController?.pushViewController(ApplyWithdrawController(viewModel: self.profileViewModel), animated: true)
       case 1:
         // Records
         self.navigationController?.pushViewController(RecordsViewController(), animated: true)

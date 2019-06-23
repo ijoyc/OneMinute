@@ -15,6 +15,7 @@ class ProfileViewController : BaseViewController {
   private var headerView: ProfileHeaderView!
   private var loadingView: UIActivityIndicatorView!
   
+  private var viewModel: ProfileViewModel?
   private var settings: [SettingItem]!
   private let bag = DisposeBag()
   
@@ -70,7 +71,7 @@ class ProfileViewController : BaseViewController {
       switch indexPath.row {
       case 0:
         // My Profits
-        let vc = ProfitViewController()
+        let vc = ProfitViewController(viewModel: self.viewModel)
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
       case 1:
@@ -102,18 +103,19 @@ class ProfileViewController : BaseViewController {
       dependency: (profileAPI: ProfileAPIImplementation.shared,
                    signinAPI: SigninServiceImplementation.shared))
     
-    viewModel.currentUser.drive(onNext: { user in
+    viewModel.currentUser.asDriver().drive(onNext: { user in
+      guard let user = user else { return }
       User.current.accept(user)
     }).disposed(by: bag)
     
-    viewModel.currentUser.map { $0.avatar }.drive(onNext: { [weak self] urlString in
-      guard let self = self else { return }
+    viewModel.currentUser.asDriver().map { $0?.avatar }.drive(onNext: { [weak self] urlString in
+      guard let self = self, let urlString = urlString else { return }
       
       self.headerView.profileView.rx.setImage(with: urlString).disposed(by: self.bag)
     }).disposed(by: bag)
     
-    viewModel.currentUser.map { "\($0.firstName) \($0.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
-    viewModel.currentUser.map { "\($0.completeOrderNum) 笔" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
+    viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.firstName) \($0!.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
+    viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.completeOrderNum) 笔" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
     
     viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     
@@ -124,6 +126,8 @@ class ProfileViewController : BaseViewController {
       User.signInfo.signout()
       self.present(SigninViewController(), animated: true, completion: nil)
     }).disposed(by: bag)
+    
+    self.viewModel = viewModel
   }
 }
 

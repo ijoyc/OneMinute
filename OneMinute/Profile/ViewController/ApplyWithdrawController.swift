@@ -18,12 +18,23 @@ class ApplyWithdrawController : UIViewController {
   private let amountField = UITextField()
   private let withdrawAllButton = ViewFactory.button(withTitle: "全部提现", font: .boldSystemFont(ofSize: 15))
   private var accountTypeField: UITextField!
-  private var accountTypePicker: UIPickerView!
+  private let accountTypePicker = UIPickerView()
   private let cardNumberField = UITextField()
   private var loadingView: UIActivityIndicatorView!
   
+  private var profileViewModel: ProfileViewModel?
+  private var viewModel: ApplyWithdrawViewModel!
   private let available = BehaviorRelay<String>(value: "")
   private let bag = DisposeBag()
+  
+  init(viewModel: ProfileViewModel?) {
+    self.profileViewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -151,14 +162,17 @@ class ApplyWithdrawController : UIViewController {
     let account = cardNumberField.rx.text.filter { $0?.count == 0 }.map { $0! }.asDriver(onErrorJustReturn: "")
     let accountType = accountTypePicker.rx.itemSelected.map { (row, component) in 
       WithdrawAccount.allCases[row]
-    }.asDriver(onErrorJustReturn: .paypal)
+    }.asDriver(onErrorJustReturn: .paypal).startWith(.paypal)
     let withdrawTrigger = PublishSubject<Void>()
     
-    let viewModel = ApplyWithdrawViewModel(input: (amount: amount, account: account, accountType: accountType, withdrawTrigger: withdrawTrigger.asSignal(onErrorJustReturn: ())), api: ProfileAPIImplementation.shared)
+    viewModel = ApplyWithdrawViewModel(input: (amount: amount, account: account, accountType: accountType, withdrawTrigger: withdrawTrigger.asSignal(onErrorJustReturn: ())), api: ProfileAPIImplementation.shared)
     
     viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     viewModel.message.filter { $0.count > 0 }.subscribe(onNext: { message in
       ViewFactory.showAlert(message, message: "")
+    }).disposed(by: bag)
+    viewModel.success.filter { $0 }.subscribe(onNext: { [weak self] _ in
+      self?.profileViewModel?.updateUserInfo()
     }).disposed(by: bag)
     
     submitButton.rx.tap.subscribe(onNext: { [weak self] in
@@ -210,7 +224,6 @@ extension ApplyWithdrawController : UITableViewDataSource {
       accountTypeField.delegate = self
       cell.contentView.addSubview(accountTypeField)
       
-      accountTypePicker = UIPickerView()
       accountTypePicker.delegate = self
       accountTypePicker.dataSource = self
       accountTypeField.inputView = accountTypePicker

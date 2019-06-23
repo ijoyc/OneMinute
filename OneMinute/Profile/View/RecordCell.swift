@@ -67,7 +67,7 @@ class RecordCell : UITableViewCell {
     
     titleLabel.text = "\(record.type.description)" + (record.remark.count > 0 ? " * \(record.remark)" : "")
     idLabel.text = record.orderID
-    amountLabel.text = "+$\(String(format: "%.2f", record.amount))"
+    amountLabel.text = "\(record.amount >= 0 ? "+" : "-")$\(String(format: "%.2f", fabs(record.amount)))"
     timeLabel.text = record.timeString
   }
 }

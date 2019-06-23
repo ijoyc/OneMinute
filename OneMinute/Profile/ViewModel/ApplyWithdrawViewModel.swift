@@ -12,6 +12,7 @@ import RxCocoa
 class ApplyWithdrawViewModel {
   var loading: Driver<Bool>
   var message = BehaviorRelay<String>(value: "")
+  var success = BehaviorRelay<Bool>(value: false)
   
   private let bag = DisposeBag()
   
@@ -27,15 +28,15 @@ class ApplyWithdrawViewModel {
     let parameters = Driver.combineLatest(amount, account, accountType) {
       (amount: $0, account: $1, accountType: $2)
     }
-    withdrawTrigger.withLatestFrom(parameters).flatMapLatest { pair in
+    let withdraw = withdrawTrigger.withLatestFrom(parameters).flatMapLatest { pair in
       return api.withdraw(with: pair.amount,
                           account: pair.account,
                           accountType: pair.accountType)
         .trackActivity(activityIndicator)
         .asDriver(onErrorJustReturn: .empty)
-      }
-      .map { $0.message }
-      .drive(message)
-      .disposed(by: bag)
+    }
+    
+    withdraw.map { $0.message }.drive(message).disposed(by: bag)
+    withdraw.map { $0.success }.drive(success).disposed(by: bag)
   }
 }

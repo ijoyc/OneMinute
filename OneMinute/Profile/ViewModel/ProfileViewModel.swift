@@ -10,24 +10,34 @@ import RxSwift
 import RxCocoa
 
 class ProfileViewModel {
+  private let loadingUserInfo = ActivityIndicator()
+  private var profileAPI: ProfileAPI?
+  
+  private let bag = DisposeBag()
+  
   // - Output
   
-  let currentUser: Driver<User>
+  let currentUser = BehaviorRelay<User?>(value: nil)
   let loading: Driver<Bool>
   let signedOut: Driver<Bool>
   
   init(signoutTap: Signal<Void>, dependency: (profileAPI: ProfileAPI, signinAPI: SigninAPI)) {
-    let profileAPI = dependency.profileAPI
+    profileAPI = dependency.profileAPI
     let signinAPI = dependency.signinAPI
     
-    let loadingUserInfo = ActivityIndicator()
     let signingOut = ActivityIndicator()
     loading = Driver.merge(loadingUserInfo.asDriver(), signingOut.asDriver())
-    
-    currentUser = profileAPI.queryUserInfo().trackActivity(loadingUserInfo).asDriver(onErrorJustReturn: User.current.value)
     
     signedOut = signoutTap.flatMapLatest { _ in
       signinAPI.signout().trackActivity(signingOut).asDriver(onErrorJustReturn: false)
     }
+    
+    updateUserInfo()
+  }
+  
+  func updateUserInfo() {
+    guard let profileAPI = self.profileAPI else { return }
+    
+    profileAPI.queryUserInfo().trackActivity(loadingUserInfo).asDriver(onErrorJustReturn: User.current.value).drive(currentUser).disposed(by: bag)
   }
 }
