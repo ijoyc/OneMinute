@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 struct ViewFactory {
   static func label(withText text: String = "", font: UIFont = .systemFont(ofSize: 12)) -> UILabel {
@@ -29,18 +30,30 @@ struct ViewFactory {
     return button
   }
   
-  static func showAlert(_ title: String?, message: String?) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-    
-    var currentVC = UIApplication.shared.keyWindow?.rootViewController
-    if let presented = currentVC?.presentedViewController {
-      currentVC = presented
+  static func showAlert(_ title: String?, message: String? = nil, success: Bool = true) {
+    let hud = JGProgressHUD(style: .dark)
+    hud.indicatorView = success ? JGProgressHUDSuccessIndicatorView() : JGProgressHUDErrorIndicatorView()
+    hud.textLabel.text = title
+    if let message = message {
+      hud.detailTextLabel.text = message
     }
-    if let _ = currentVC?.presentedViewController {
-      return
+    hud.show(in: currentViewController.view)
+    hud.dismiss(afterDelay: 1.5)
+  }
+  
+  private static var currentViewController: UIViewController {
+    return topController(with: UIApplication.shared.keyWindow!.rootViewController!)
+  }
+  
+  private static func topController(with controller: UIViewController) -> UIViewController {
+    if let tabVC = controller as? UITabBarController {
+      return topController(with: tabVC.selectedViewController!)
+    } else if let naviVC = controller as? UINavigationController {
+      return topController(with: naviVC.visibleViewController!)
+    } else if let presentedVC = controller.presentedViewController {
+      return topController(with: presentedVC)
+    } else {
+      return controller
     }
-    
-    currentVC?.present(alert, animated: true, completion: nil)
   }
 }

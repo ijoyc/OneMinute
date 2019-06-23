@@ -13,5 +13,7 @@ target 'OneMinute' do
   pod 'RxCocoa', '~> 5'
   pod 'RxAlamofire', '~> 5'
   pod 'RxGesture', '~> 3'
+  
+  pod 'JGProgressHUD'
 
 end

@@ -168,11 +168,11 @@ class ApplyWithdrawController : UIViewController {
     viewModel = ApplyWithdrawViewModel(input: (amount: amount, account: account, accountType: accountType, withdrawTrigger: withdrawTrigger.asSignal(onErrorJustReturn: ())), api: ProfileAPIImplementation.shared)
     
     viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
-    viewModel.message.filter { $0.count > 0 }.subscribe(onNext: { message in
-      ViewFactory.showAlert(message, message: "")
-    }).disposed(by: bag)
-    viewModel.success.filter { $0 }.subscribe(onNext: { [weak self] _ in
-      self?.profileViewModel?.updateUserInfo()
+    viewModel.result.skip(1).subscribe(onNext: { [weak self] result in
+      ViewFactory.showAlert(result.message, success: result.success)
+      if result.success {
+        self?.profileViewModel?.updateUserInfo()
+      }
     }).disposed(by: bag)
     
     submitButton.rx.tap.subscribe(onNext: { [weak self] in
@@ -181,7 +181,7 @@ class ApplyWithdrawController : UIViewController {
       let available = (self.available.value as NSString).floatValue
       let amount = (self.amountField.text as NSString?)?.floatValue ?? 0
       if amount > available {
-        ViewFactory.showAlert("余额不足", message: nil)
+        ViewFactory.showAlert("余额不足", success: false)
         return
       }
       

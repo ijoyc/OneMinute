@@ -87,7 +87,7 @@ class OrderDetailViewController : BaseViewController {
       
       if case .finished = state {
         DealPopupView.dismiss()
-        ViewFactory.showAlert("订单已完成", message: nil)
+        ViewFactory.showAlert("订单已完成")
       }
     }).disposed(by: bag)
     viewModel.operationText.bind(to: dealButton.rx.title()).disposed(by: bag)
@@ -100,10 +100,10 @@ class OrderDetailViewController : BaseViewController {
     // show error message if any
     
     viewModel.queryResult.map { $0.result }.filter { !$0.success }.drive(onNext: { result in
-      ViewFactory.showAlert(result.message, message: nil)
+      ViewFactory.showAlert(result.message, success: result.success)
     }).disposed(by: bag)
     viewModel.errorMessage.filter { $0.count > 0 }.subscribe(onNext: {
-      ViewFactory.showAlert($0, message: nil)
+      ViewFactory.showAlert($0, success: false)
     }).disposed(by: bag)
     
     telButton.rx.tap.subscribe(onNext: { [weak self] _ in

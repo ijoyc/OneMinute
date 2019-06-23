@@ -67,7 +67,7 @@ class GrabViewController : OrderBaseViewController {
       }.disposed(by: bag)
     
     viewModel?.grabResult.drive(onNext: { result in
-      ViewFactory.showAlert(result.message, message: nil)
+      ViewFactory.showAlert(result.message, success: result.success)
       if result.success {
         automaticRefresh.onNext(())
       }
