@@ -1,0 +1,98 @@
+/* 
+  Localizable.strings
+  OneMinute
+
+  Created by yizhuo.cyz on 2019/6/26.
+  Copyright © 2019 yizhuo.cyz. All rights reserved.
+*/
+
+"buy" = "代买";
+"take" = "代取";
+"send" = "代送";
+"transfer" = "接送";
+"withdraw" = "提现";
+
+"paying" = "代付配送费";
+"grabing" = "待接单（已付配送费）";
+"grabed" = "正前往商家";
+"doing" = "正前往收货地";
+"reached" = "已到达目的地"
+"finished" = "已完成";
+"timeout" = "支付超时";
+"canceled" = "已取消";
+"chargeback" = "已退单";
+
+"progress_buy" = "买";
+"progress_receive" = "收";
+"progress_get" = "取";
+"progress_take" = "接";
+"progress_send" = "送";
+
+"error_network" = "网络连接失败"
+"error_invalid_username" = "账号不正确";
+"error_invalid_password" = "密码不正确";
+"error_banned_user" = "账号已被禁用";
+
+"order_predict_profit" = "预计收益";
+"order_distance" = "距离我";
+"order_grab" = "确认抢单";
+"order_detail" = "订单详情";
+"order_tel" = "联系下单人";
+"order_note" = "备注";
+
+"tab_grab" = "抢单";
+"tab_order" = "订单";
+"tab_profile" = "我的";
+
+"pull_refresh" = "下拉刷新";
+
+"signin_title" = "One Minute 司机端";
+"signin_username" = "登录账号";
+"signin_username_placeholder" = "请输入您的账号";
+"signin_password" = "登录密码";
+"signin_password_placeholder" = "请输入您的密码";
+"signin_button_text" = "马上登录";
+
+"operation_bought" = "已买到商品";
+"operation_take" = "已到达取货地";
+"operation_transfer" = "已到达出发地";
+"operation_reached" = "已到达目的地";
+
+"deal_text" = "订单完成";
+"deal_tip" = "请向对方索要确认码,正确输入后完成订单";
+"deal_submit" = "提交";
+
+"category_all" = "全部";
+"category_doing" = "进行中";
+"category_finished" = "已完成";
+"category_canceled" = "已取消";
+
+"alert_order_finish" = "订单已完成";
+"alert_insufficient_balance" = "余额不足";
+
+"user_fulltime" = "全职";
+"user_parttime" = "兼职";
+"user_desc" = "司机";
+"user_order_unit" = "笔";
+"user_daily_profit" = "今日收益";
+"user_withdrawable" = "可提现收益";
+
+"setting_profit" = "我的收益";
+"setting_language" = "切换中英文";
+"setting_rule" = "员工守则";
+"setting_about" = "关于one minute";
+"setting_signout" = "退出登录";
+
+"about" = "关于";
+
+"profit_apply" = "申请提现";
+"profit_records" = "明细记录";
+"profit_withdraw_all" = "全部提现";
+"profit_withdraw_title" = "提现";
+"profit_tip" = "申请后的三个工作日内完成提现";
+"profit_amount_text" = "提现金额";
+"profit_amount_placeholder" = "请输入提现金额";
+"profit_account_type_text" = "提现账户";
+"profit_account_text" = "卡号/账户";
+"profit_account_placeholder" = "请输入卡号/账户号";
+
