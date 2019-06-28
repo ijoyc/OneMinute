@@ -16,7 +16,7 @@
 "grabing" = "待接单（已付配送费）";
 "grabed" = "正前往商家";
 "doing" = "正前往收货地";
-"reached" = "已到达目的地"
+"reached" = "已到达目的地";
 "finished" = "已完成";
 "timeout" = "支付超时";
 "canceled" = "已取消";
@@ -28,7 +28,7 @@
 "progress_take" = "接";
 "progress_send" = "送";
 
-"error_network" = "网络连接失败"
+"error_network" = "网络连接失败";
 "error_invalid_username" = "账号不正确";
 "error_invalid_password" = "密码不正确";
 "error_banned_user" = "账号已被禁用";

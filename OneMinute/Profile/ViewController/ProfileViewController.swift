@@ -51,11 +51,11 @@ class ProfileViewController : BaseViewController {
   
   private func bindViewModel() {
     settings = [
-      SettingItem(iconName: "wallet", title: "我的收益"),
-      SettingItem(iconName: "change", title: "切换中英文"),
-      SettingItem(iconName: "question", title: "员工守则"),
-      SettingItem(iconName: "about", title: "关于one minute"),
-      SettingItem(iconName: "shutdown", title: "退出登录")
+      SettingItem(iconName: "wallet", title: Config.localizedText(for: "setting_profit")),
+      SettingItem(iconName: "change", title: Config.localizedText(for: "setting_language")),
+      SettingItem(iconName: "question", title: Config.localizedText(for: "setting_rule")),
+      SettingItem(iconName: "about", title: Config.localizedText(for: "setting_about")),
+      SettingItem(iconName: "shutdown", title: Config.localizedText(for: "setting_signout"))
     ]
     
     Driver.just(settings).drive(tableView.rx.items(cellIdentifier: ProfileViewController.cellID, cellType: UITableViewCell.self)) { (row, element, cell) in
@@ -115,7 +115,7 @@ class ProfileViewController : BaseViewController {
     }).disposed(by: bag)
     
     viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.firstName) \($0!.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
-    viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.completeOrderNum) 笔" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
+    viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.completeOrderNum) \(Config.localizedText(for: "user_order_unit"))" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
     
     viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     

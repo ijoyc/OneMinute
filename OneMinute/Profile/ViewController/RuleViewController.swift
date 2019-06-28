@@ -12,7 +12,7 @@ import UIKit
 class RuleViewController : BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "员工守则"
+    title = Config.localizedText(for: "setting_rule")
     view.backgroundColor = .white
   }
 }

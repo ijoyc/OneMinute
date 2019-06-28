@@ -26,7 +26,7 @@ class LanguageViewController : BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "切换中英文"
+    title = Config.localizedText(for: "setting_language")
     
     options.append(LanguageOption(title: "中文", language: .Chinese))
     options.append(LanguageOption(title: "English", language: .English))

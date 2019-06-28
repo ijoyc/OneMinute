@@ -16,7 +16,7 @@ class ApplyWithdrawController : UIViewController {
   private var submitButton: UIButton!
   
   private let amountField = UITextField()
-  private let withdrawAllButton = ViewFactory.button(withTitle: "全部提现", font: .boldSystemFont(ofSize: 15))
+  private let withdrawAllButton = ViewFactory.button(withTitle: Config.localizedText(for: "profit_withdraw_all"), font: .boldSystemFont(ofSize: 15))
   private var accountTypeField: UITextField!
   private let accountTypePicker = UIPickerView()
   private let cardNumberField = UITextField()
@@ -38,7 +38,7 @@ class ApplyWithdrawController : UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "提现"
+    title = Config.localizedText(for: "profit_withdraw_title")
     initSubviews()
     bindViewModel()
   }
@@ -89,7 +89,7 @@ class ApplyWithdrawController : UIViewController {
       make.leading.trailing.equalTo(0)
     }
     
-    let tipLabel = ViewFactory.label(withText: "可提现收益", font: .systemFont(ofSize: 12))
+    let tipLabel = ViewFactory.label(withText: Config.localizedText(for: "user_withdrawable"), font: .systemFont(ofSize: 12))
     contentView.addSubview(tipLabel)
     tipLabel.snp.makeConstraints { (make) in
       make.centerX.equalTo(contentView)
@@ -116,7 +116,7 @@ class ApplyWithdrawController : UIViewController {
     footerView.backgroundColor = .white
     tableView.tableFooterView = footerView
     
-    submitButton = ViewFactory.button(withTitle: "申请提现", font: .boldSystemFont(ofSize: 16))
+    submitButton = ViewFactory.button(withTitle: Config.localizedText(for: "profit_apply"), font: .boldSystemFont(ofSize: 16))
     submitButton.backgroundColor = .themeGreen
     submitButton.setTitleColor(.white, for: .normal)
     submitButton.layer.cornerRadius = 5
@@ -136,7 +136,7 @@ class ApplyWithdrawController : UIViewController {
       make.center.equalTo(submitButton.snp.center)
     }
     
-    let tipLabel = ViewFactory.label(withText: "申请后的三个工作日内完成提现", font: .systemFont(ofSize: 12))
+    let tipLabel = ViewFactory.label(withText: Config.localizedText(for: "profit_tip"), font: .systemFont(ofSize: 12))
     tipLabel.textColor = .secondaryTextColor
     footerView.addSubview(tipLabel)
     tipLabel.snp.makeConstraints { (make) in
@@ -181,7 +181,7 @@ class ApplyWithdrawController : UIViewController {
       let available = (self.available.value as NSString).floatValue
       let amount = (self.amountField.text as NSString?)?.floatValue ?? 0
       if amount > available {
-        ViewFactory.showAlert("余额不足", success: false)
+        ViewFactory.showAlert(Config.localizedText(for: "alert_insufficient_balance"), success: false)
         return
       }
       
@@ -202,10 +202,10 @@ extension ApplyWithdrawController : UITableViewDataSource {
     
     switch indexPath.row {
     case 0:
-      cell.textLabel?.text = "提现金额"
+      cell.textLabel?.text = Config.localizedText(for: "profit_amount_text")
       
       amountField.frame = CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 96, height: 50)
-      amountField.placeholder = "请输入提现金额"
+      amountField.placeholder = Config.localizedText(for: "profit_amount_placeholder")
       amountField.font = .systemFont(ofSize: 15)
       amountField.keyboardType = .numberPad
       cell.contentView.addSubview(amountField)
@@ -217,7 +217,7 @@ extension ApplyWithdrawController : UITableViewDataSource {
       
       break
     case 1:
-      cell.textLabel?.text = "提现账户"
+      cell.textLabel?.text = Config.localizedText(for: "profit_account_type_text")
       
       accountTypeField = UITextField(frame: CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 16, height: 50))
       accountTypeField.font = .boldSystemFont(ofSize: 15)
@@ -229,10 +229,10 @@ extension ApplyWithdrawController : UITableViewDataSource {
       accountTypeField.inputView = accountTypePicker
       pickerView(accountTypePicker, didSelectRow: 0, inComponent: 0)
     case 2:
-      cell.textLabel?.text = "卡号/账户"
+      cell.textLabel?.text = Config.localizedText(for: "profit_account_text")
       
       cardNumberField.frame = CGRect(x: 94, y: 0, width: UIScreen.main.bounds.width - 94 - 16, height: 50)
-      cardNumberField.placeholder = "请输入卡号/账户号"
+      cardNumberField.placeholder = Config.localizedText(for: "profit_account_placeholder")
       cell.contentView.addSubview(cardNumberField)
     default:
       break

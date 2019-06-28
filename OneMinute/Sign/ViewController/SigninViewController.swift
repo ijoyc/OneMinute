@@ -39,14 +39,14 @@ class SigninViewController : UIViewController {
       make.top.equalTo(82)
     }
     
-    let titleLabel = ViewFactory.label(withText: "One Minute 司机端", font: .boldSystemFont(ofSize: 17))
+    let titleLabel = ViewFactory.label(withText: Config.localizedText(for: "signin_title"), font: .boldSystemFont(ofSize: 17))
     view.addSubview(titleLabel)
     titleLabel.snp.makeConstraints { (make) in
       make.top.equalTo(logoImageView.snp_bottom).offset(28)
       make.centerX.equalTo(logoImageView)
     }
     
-    usernameField = InputField(logo: "phone", title: "登录账号", placeholder: "请输入您的账号")
+    usernameField = InputField(logo: "phone", title: Config.localizedText(for: "signin_username"), placeholder: Config.localizedText(for: "signin_username_placeholder"))
     usernameField.textField.keyboardType = .phonePad
     view.addSubview(usernameField)
     usernameField.snp.makeConstraints { (make) in
@@ -55,7 +55,7 @@ class SigninViewController : UIViewController {
       make.height.equalTo(InputField.height)
     }
     
-    passwordField = InputField(logo: "lock", title: "登录密码", placeholder: "请输入您的密码")
+    passwordField = InputField(logo: "lock", title: Config.localizedText(for: "signin_password"), placeholder: Config.localizedText(for: "signin_password_placeholder"))
     passwordField.textField.isSecureTextEntry = true
     view.addSubview(passwordField)
     passwordField.snp.makeConstraints { (make) in
@@ -64,7 +64,7 @@ class SigninViewController : UIViewController {
       make.height.equalTo(InputField.height)
     }
     
-    loginButton = ViewFactory.button(withTitle: "马上登录", font: .systemFont(ofSize: 18))
+    loginButton = ViewFactory.button(withTitle: Config.localizedText(for: "signin_button_text"), font: .systemFont(ofSize: 18))
     loginButton.backgroundColor = .themeGreen
     loginButton.layer.cornerRadius = 5
     loginButton.layer.masksToBounds = true

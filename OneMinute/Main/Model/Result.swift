@@ -12,7 +12,7 @@ struct Result {
   let success: Bool
   let message: String
   
-  static let empty = Result(success: false, message: "网络连接失败")
+  static let empty = Result(success: false, message: Config.localizedText(for: "error_network"))
   
   init(success: Bool, message: String) {
     self.success = success

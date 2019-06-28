@@ -14,15 +14,15 @@ enum OrderType : Int, CustomStringConvertible {
   var description: String {
     switch self {
     case .buy:
-      return "代买"
+      return Config.localizedText(for: "buy")
     case .take:
-      return "代取"
+      return Config.localizedText(for: "take")
     case .send:
-      return "代送"
+      return Config.localizedText(for: "send")
     case .transfer:
-      return "接送"
+      return Config.localizedText(for: "transfer")
     case .withdraw:
-      return "提现"
+      return Config.localizedText(for: "withdraw")
     }
   }
 }
@@ -33,23 +33,23 @@ enum OrderState : Int, CustomStringConvertible {
   public var description: String {
     switch self {
     case .paying:
-      return "待付配送费"
+      return Config.localizedText(for: "paying")
     case .grabing:
-      return "待接单(已付配送费)"
+      return Config.localizedText(for: "grabing")
     case .grabed:
-      return "正前往商家"
+      return Config.localizedText(for: "grabed")
     case .doing:
-      return "正前往收货地"
+      return Config.localizedText(for: "doing")
     case .reached:
-      return "已到达目的地"
+      return Config.localizedText(for: "reached")
     case .finished:
-      return "已完成"
+      return Config.localizedText(for: "finished")
     case .timeout:
-      return "支付超时"
+      return Config.localizedText(for: "timeout")
     case .canceled:
-      return "已取消"
+      return Config.localizedText(for: "canceled")
     case .chargeback:
-      return "已退单"
+      return Config.localizedText(for: "chargeback")
     }
   }
   

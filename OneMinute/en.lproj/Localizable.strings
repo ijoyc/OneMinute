@@ -1,7 +1,98 @@
-/* 
-  Localizable.strings
-  OneMinute
+/*
+ Localizable.strings
+ OneMinute
+ 
+ Created by yizhuo.cyz on 2019/6/26.
+ Copyright © 2019 yizhuo.cyz. All rights reserved.
+ */
 
-  Created by yizhuo.cyz on 2019/6/26.
-  Copyright © 2019 yizhuo.cyz. All rights reserved.
-*/
+"buy" = "Agent Buy";
+"take" = "Agent Take";
+"send" = "Agent Send";
+"transfer" = "Take and Send";
+"withdraw" = "Withdraw";
+
+"paying" = "Paying Delivery Fee";
+"grabing" = "Waiting Order(delivery paid)";
+"grabed" = "on the way to merchant";
+"doing" = "on the way to receiving place";
+"reached" = "arrived at destination";
+"finished" = "Finished";
+"timeout" = "Pay Overtime";
+"canceled" = "Canceled";
+"chargeback" = "Chargeback Finish";
+
+"progress_bug" = "Buy";
+"progress_receive" = "Receive";
+"progress_get" = "Get";
+"progress_take" = "Take";
+"progress_send" = "Send";
+
+"error_network" = "Network connection fails";
+"error_invalid_username" = "Wrong Username";
+"error_invalid_password" = "Wrong Password";
+"error_banned_user" = "Username is disabled";
+
+"order_predict_profit" = "Expected Income";
+"order_grab" = "Confirm to grab order";
+"order_detail" = "Order Detail";
+"order_tel" = "Contact User";
+"order_note" = "Remark";
+
+"tab_grab" = "Grab Order";
+"tab_order" = "Order";
+"tab_profile" = "My";
+
+"pull_refresh" = "pull to refresh";
+
+"signin_title" = "One Minute Driver-side";
+"signin_username" = "Login";
+"signin_username_placeholder" = "Enter your ID";
+"signin_password" = "Login Password";
+"signin_password_placeholder" = "Enter Password";
+"signin_button_text" = "Login Now";
+
+"operation_bought" = "Bought goods";
+"operation_take" = "Arrived at the receiving place";
+"operation_transfer" = "Arrived at the starting place";
+"operation_reached" = "Arrived at the destination";
+
+"deal_text" = "Order Finished";
+"deal_tip" = "Ask for the confirmation code and enter it correctly, the order is completed";
+"deal_submit" = "Submit";
+
+"category_all" = "All";
+"category_doing" = "Ongoing";
+"category_finished" = "Finished";
+"category_canceled" = "Canceled";
+
+"alert_order_finish" = "Order Finished";
+"alert_insufficient_balance" = "Insufficient Balance";
+
+"user_fulltime" = "Full-time";
+"user_parttime" = "Part-time";
+"user_desc" = "Driver";
+"user_order_unit" = "Order Unit";
+"user_daily_profit" = "Today Income";
+"user_withdrawable" = "Withdrawable Income";
+
+"setting_profit" = "My Income";
+"setting_language" = "Chinese-English Shift";
+"setting_rule" = "Code of Conduct";
+"setting_about" = "About one minute";
+"setting_signout" = "Logout";
+
+"about" = "About";
+
+"profit_apply" = "Request Withdrawal";
+"profit_records" = "Detail Record";
+"profit_withdraw_all" = "All Withdraw";
+"profit_withdraw_title" = "Withdraw";
+"profit_tip" = "withdrawal completed within 3 working days after the application";
+"profit_amount_text" = "Withdrawal Amount";
+"profit_amount_placeholder" = "Enter Withdrawal Amount";
+"profit_account_type_text" = "Withdraw Account";
+"profit_account_text" = "Card/Account";
+"profit_account_placeholder" = "Enter Card/Account No.";
+
+

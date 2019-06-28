@@ -35,6 +35,12 @@ struct Config {
     }
   }
   
+  static func localizedText(for key: String) -> String {
+    let lan = language == .Chinese ? "zh-Hans" : "en"
+    let path = Bundle.main.path(forResource: lan, ofType: "lproj")!
+    return Bundle(path: path)?.localizedString(forKey: key, value: nil, table: nil) ?? key
+  }
+  
   enum Address: String {
     case signin = "driver/login"
     case userInfo = "driver/getDriverInfo"

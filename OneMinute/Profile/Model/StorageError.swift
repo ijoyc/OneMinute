@@ -18,11 +18,11 @@ extension StorageError: LocalizedError {
   public var errorDescription: String? {
     switch self {
     case .string2DataConversionError:
-      return NSLocalizedString("String to Data conversion error", comment: "")
+      return Config.localizedText(for: "String to Data conversion error")
     case .data2StringConversionError:
-      return NSLocalizedString("Data to String conversion error", comment: "")
+      return Config.localizedText(for: "Data to String conversion error")
     case .unhandledError(let message):
-      return NSLocalizedString(message, comment: "")
+      return Config.localizedText(for: message)
     }
   }
 }

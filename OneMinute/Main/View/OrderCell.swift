@@ -67,10 +67,10 @@ class OrderCell : UITableViewCell {
     
     typeLabel.text = model.type.description
     timeLabel.text = model.timeString
-    profitLabel.text = "预计收益: \(String(format: "$%.2f", model.profit))"
+    profitLabel.text = "\(Config.localizedText(for: "order_predict_profit")): \(String(format: "$%.2f", model.profit))"
     
     if model.isGrabable {
-      distanceLabel.text = String(format: "距离我%.1fkm", model.distance)
+      distanceLabel.text = String(format: "\(Config.localizedText(for: "order_distance"))%.1fkm", model.distance)
       distanceLabel.textColor = .secondaryTextColor
     } else {
       distanceLabel.text = model.state.description
@@ -237,7 +237,7 @@ extension OrderCell {
       make.centerY.equalTo(bottomView)
     }
     
-    grabButton = ViewFactory.button(withTitle: "确认抢单", font: .boldSystemFont(ofSize: 14))
+    grabButton = ViewFactory.button(withTitle: Config.localizedText(for: "order_grab"), font: .boldSystemFont(ofSize: 14))
     grabButton.backgroundColor = .white
     grabButton.setTitleColor(.themeGreen, for: .normal)
     grabButton.layer.cornerRadius = 5

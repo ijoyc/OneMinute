@@ -20,7 +20,7 @@ class RecordsViewController : UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "明细记录"
+    title = Config.localizedText(for: "profit_records")
     
     initSubviews()
     bindViewModel()

@@ -21,13 +21,13 @@ class LauncherViewController : UITabBarController {
     UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.themeGreen], for: .selected)
     
     let grabController = GrabViewController()
-    addChild(grabController, title: "抢单", image: "tab_grab")
+    addChild(grabController, title: Config.localizedText(for: "tab_grab"), image: "tab_grab")
     
     let orderController = OrderViewController()
-    addChild(orderController, title: "订单", image: "tab_order")
+    addChild(orderController, title: Config.localizedText(for: "tab_order"), image: "tab_order")
     
     let profileController = ProfileViewController()
-    addChild(profileController, title: "我的", image: "tab_profile")
+    addChild(profileController, title: Config.localizedText(for: "tab_profile"), image: "tab_profile")
   }
   
   private func addChild(_ childController: UIViewController, title: String, image: String) {

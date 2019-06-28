@@ -31,7 +31,7 @@ class ProfitViewController : BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "我的收益"
+    title = Config.localizedText(for: "setting_profit")
     
     initSubviews()
     bindViewModel()
@@ -53,8 +53,8 @@ class ProfitViewController : BaseViewController {
   
   private func bindViewModel() {
     settings = [
-      SettingItem(iconName: "withdraw", title: "申请提现"),
-      SettingItem(iconName: "records", title: "明细记录")
+      SettingItem(iconName: "withdraw", title: Config.localizedText(for: "profit_apply")),
+      SettingItem(iconName: "records", title: Config.localizedText(for: "profit_records"))
     ]
     
     Driver.just(settings).drive(tableView.rx.items(cellIdentifier: ProfitViewController.cellID, cellType: UITableViewCell.self)) { (row, element, cell) in

@@ -66,16 +66,16 @@ class OrderDetail {
     if case .grabed = state {
       switch type {
       case .buy:
-        return "已买到商品"
+        return Config.localizedText(for: "operation_bought")
       case .take, .send:
-        return "已到达取货地"
+        return Config.localizedText(for: "operation_take")
       case .transfer:
-        return "已到达出发地"
+        return Config.localizedText(for: "operation_transfer")
       default:
         break
       }
     } else if case .doing = state {
-      return "已到达目的地"
+      return Config.localizedText(for: "operation_reached")
     }
     
     return state.description

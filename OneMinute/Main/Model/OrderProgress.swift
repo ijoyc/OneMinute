@@ -19,15 +19,15 @@ public enum ProgressType : Int, CustomStringConvertible {
   public var description: String {
     switch self {
     case .buy:
-      return "买"
+      return Config.localizedText(for: "progress_buy")
     case .receive:
-      return "收"
+      return Config.localizedText(for: "progress_receive")
     case .get:
-      return "取"
+      return Config.localizedText(for: "progress_get")
     case .take:
-      return "接"
+      return Config.localizedText(for: "progress_take")
     case .send:
-      return "送"
+      return Config.localizedText(for: "progress_send")
     }
   }
   

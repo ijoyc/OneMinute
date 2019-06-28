@@ -11,7 +11,7 @@ import UIKit
 class AboutViewController : BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "关于"
+    title = Config.localizedText(for: "about")
     view.backgroundColor = .white
   }
 }

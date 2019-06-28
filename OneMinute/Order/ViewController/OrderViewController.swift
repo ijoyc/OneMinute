@@ -18,7 +18,7 @@ class OrderViewController : OrderBaseViewController {
   override func initSubviews() {
     super.initSubviews()
     
-    categoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45), categories: ["全部", "进行中", "已完成", "已取消"])
+    categoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45), categories: [Config.localizedText(for: "category_all"), Config.localizedText(for: "category_doing"), Config.localizedText(for: "category_finished"), Config.localizedText(for: "category_canceled")])
     tableView.tableHeaderView = categoryView
     
     refreshLoadingView = UIActivityIndicatorView(style: .gray)

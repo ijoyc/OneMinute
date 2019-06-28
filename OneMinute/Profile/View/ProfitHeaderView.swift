@@ -44,7 +44,7 @@ class ProfitHeaderView : UIView {
       make.edges.equalTo(0)
     }
     
-    let profitTipLabel = ViewFactory.label(withText: "今日收益", font: .systemFont(ofSize: 12))
+    let profitTipLabel = ViewFactory.label(withText: Config.localizedText(for: "user_daily_profit"), font: .systemFont(ofSize: 12))
     contentView.addSubview(profitTipLabel)
     profitTipLabel.snp.makeConstraints { (make) in
       make.top.equalTo(42)
@@ -74,7 +74,7 @@ class ProfitHeaderView : UIView {
       make.height.equalTo(34)
     }
     
-    let withdrawTipLabel = ViewFactory.label(withText: "可提现收益", font: .systemFont(ofSize: 12))
+    let withdrawTipLabel = ViewFactory.label(withText: Config.localizedText(for: "user_withdrawable"), font: .systemFont(ofSize: 12))
     contentView.addSubview(withdrawTipLabel)
     withdrawTipLabel.snp.makeConstraints { (make) in
       make.centerX.equalTo(contentView.snp.trailing).multipliedBy(0.75)

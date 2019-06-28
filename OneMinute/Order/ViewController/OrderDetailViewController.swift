@@ -48,7 +48,7 @@ class OrderDetailViewController : BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "订单详情"
+    title = Config.localizedText(for: "order_detail")
     
     initSubviews()
     bindViewModel()
@@ -87,7 +87,7 @@ class OrderDetailViewController : BaseViewController {
       
       if case .finished = state {
         DealPopupView.dismiss()
-        ViewFactory.showAlert("订单已完成")
+        ViewFactory.showAlert(Config.localizedText(for: "alert_order_finish"))
       }
     }).disposed(by: bag)
     viewModel.operationText.bind(to: dealButton.rx.title()).disposed(by: bag)
@@ -258,7 +258,7 @@ extension OrderDetailViewController {
       make.top.equalTo(0)
     }
     
-    telButton = ViewFactory.button(withTitle: "联系下单人", font: .boldSystemFont(ofSize: 17))
+    telButton = ViewFactory.button(withTitle: Config.localizedText(for: "order_tel"), font: .boldSystemFont(ofSize: 17))
     telButton.backgroundColor = .white
     telButton.setTitleColor(.themeGreen, for: .normal)
     telButton.layer.cornerRadius = 5
@@ -369,7 +369,7 @@ extension OrderDetailViewController {
     
     addProgressView(model: orderDetail)
     
-    noteLabel.text = "备注:\(orderDetail.note)"
+    noteLabel.text = "\(Config.localizedText(for: "order_note")):\(orderDetail.note)"
     
     var top: CGFloat = 0
     let maxWidth = topView.frame.width - 41 - 16

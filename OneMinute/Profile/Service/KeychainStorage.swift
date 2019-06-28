@@ -98,7 +98,7 @@ class KeychainStorage : StorageService {
   
   
   private func error(from status: OSStatus) -> StorageError {
-    let message = NSLocalizedString("Unhandled Error: \(status)", comment: "")
+    let message = Config.localizedText(for: "Unhandled Error: \(status)")
     return .unhandledError(message: message)
   }
 }
