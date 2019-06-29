@@ -9,6 +9,8 @@
 import Foundation
 import MapKit
 import CoreLocation
+import RxSwift
+import RxCocoa
 
 class OrderDetail {
   let type: OrderType
@@ -62,7 +64,7 @@ class OrderDetail {
     return last.contactPhone
   }
   
-  var currentOperationTitle: String {
+  var currentOperationTitle: BehaviorRelay<String> {
     if case .grabed = state {
       switch type {
       case .buy:
@@ -78,7 +80,7 @@ class OrderDetail {
       return Config.localizedText(for: "operation_reached")
     }
     
-    return state.description
+    return BehaviorRelay(value: state.localizedText.value)
   }
   
   var shouldOpenCodePanel: Bool {

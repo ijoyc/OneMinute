@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LauncherViewController : UITabBarController {
+  
+  private let bag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,10 +34,11 @@ class LauncherViewController : UITabBarController {
     addChild(profileController, title: Config.localizedText(for: "tab_profile"), image: "tab_profile")
   }
   
-  private func addChild(_ childController: UIViewController, title: String, image: String) {
-    let item = UITabBarItem(title: title, image: UIImage(named: image)?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "\(image)_highlight")?.withRenderingMode(.alwaysOriginal))
+  private func addChild(_ childController: UIViewController, title: BehaviorRelay<String>, image: String) {
+    let item = UITabBarItem(title: "", image: UIImage(named: image)?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "\(image)_highlight")?.withRenderingMode(.alwaysOriginal))
+    title.bind(to: item.rx.title).disposed(by: bag)
     childController.tabBarItem = item
-    childController.title = title
+    title.bind(to: childController.rx.title).disposed(by: bag)
     let navigationController = UINavigationController(rootViewController: childController)
     addChild(navigationController)
   }

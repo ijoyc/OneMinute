@@ -8,15 +8,17 @@
 
 import UIKit
 import CoreLocation
+import RxSwift
+import RxCocoa
 
-public enum ProgressType : Int, CustomStringConvertible {
+public enum ProgressType : Int {
   case buy = 1
   case receive
   case get
   case take
   case send
 
-  public var description: String {
+  public var localizedText: BehaviorRelay<String> {
     switch self {
     case .buy:
       return Config.localizedText(for: "progress_buy")

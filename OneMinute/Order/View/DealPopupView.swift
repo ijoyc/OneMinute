@@ -85,7 +85,8 @@ class DealPopupView : UIView {
       DealPopupView.dismiss()
     }).disposed(by: bag)
     
-    let titleLabel = ViewFactory.label(withText: Config.localizedText(for: "deal_text"), font: .boldSystemFont(ofSize: 16))
+    let titleLabel = ViewFactory.label(withText: "", font: .boldSystemFont(ofSize: 16))
+    Config.localizedText(for: "deal_text").bind(to: titleLabel.rx.text).disposed(by: bag)
     titleLabel.textAlignment = .center
     contentView.addSubview(titleLabel)
     titleLabel.snp.makeConstraints { (make) in
@@ -101,7 +102,8 @@ class DealPopupView : UIView {
       make.top.equalTo(titleLabel.snp.bottom)
     }
     
-    let tipLabel = ViewFactory.label(withText: Config.localizedText(for: "deal_tip"), font: .systemFont(ofSize: 11))
+    let tipLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 11))
+    Config.localizedText(for: "deal_tip").bind(to: tipLabel.rx.text).disposed(by: bag)
     tipLabel.textColor = .secondaryTextColor
     tipLabel.textAlignment = .center
     contentView.addSubview(tipLabel)
@@ -137,7 +139,8 @@ class DealPopupView : UIView {
       lastView = inputView
     }
     
-    submitButton = ViewFactory.button(withTitle: Config.localizedText(for: "deal_submit"), font: .boldSystemFont(ofSize: 17))
+    submitButton = ViewFactory.button(withTitle: "", font: .boldSystemFont(ofSize: 17))
+    Config.localizedText(for: "deal_submit").bind(to: submitButton.rx.title(for: .normal)).disposed(by: bag)
     submitButton.backgroundColor = .themeGreen
     submitButton.setTitleColor(.white, for: .normal)
     submitButton.layer.cornerRadius = 4

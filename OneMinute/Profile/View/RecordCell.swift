@@ -65,7 +65,7 @@ class RecordCell : UITableViewCell {
     
     guard let record = self.record else { return }
     
-    titleLabel.text = "\(record.type.description)" + (record.remark.count > 0 ? " * \(record.remark)" : "")
+    titleLabel.text = "\(record.type.localizedText.value)" + (record.remark.count > 0 ? " * \(record.remark)" : "")
     idLabel.text = record.orderID
     amountLabel.text = "\(record.amount >= 0 ? "+" : "-")$\(String(format: "%.2f", fabs(record.amount)))"
     timeLabel.text = record.timeString

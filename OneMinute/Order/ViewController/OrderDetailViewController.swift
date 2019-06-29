@@ -48,7 +48,7 @@ class OrderDetailViewController : BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = Config.localizedText(for: "order_detail")
+    Config.localizedText(for: "order_detail").bind(to: rx.title).disposed(by: bag)
     
     initSubviews()
     bindViewModel()
@@ -87,7 +87,7 @@ class OrderDetailViewController : BaseViewController {
       
       if case .finished = state {
         DealPopupView.dismiss()
-        ViewFactory.showAlert(Config.localizedText(for: "alert_order_finish"))
+        ViewFactory.showAlert(Config.localizedText(for: "alert_order_finish").value)
       }
     }).disposed(by: bag)
     viewModel.operationText.bind(to: dealButton.rx.title()).disposed(by: bag)
@@ -258,7 +258,8 @@ extension OrderDetailViewController {
       make.top.equalTo(0)
     }
     
-    telButton = ViewFactory.button(withTitle: Config.localizedText(for: "order_tel"), font: .boldSystemFont(ofSize: 17))
+    telButton = ViewFactory.button(withTitle: "", font: .boldSystemFont(ofSize: 17))
+    Config.localizedText(for: "order_tel").bind(to: telButton.rx.title(for: .normal)).disposed(by: bag)
     telButton.backgroundColor = .white
     telButton.setTitleColor(.themeGreen, for: .normal)
     telButton.layer.cornerRadius = 5
@@ -298,7 +299,7 @@ extension OrderDetailViewController {
       
       let progress = model.progresses[i]
       let progressType = ProgressType.create(with: model.type, index: i)
-      let iconView = ViewFactory.label(withText: progressType.description, font: .systemFont(ofSize: 10))
+      let iconView = ViewFactory.label(withText: progressType.localizedText.value, font: .systemFont(ofSize: 10))
       iconView.textColor = .white
       iconView.textAlignment = .center
       iconView.backgroundColor = progressType.iconColor
@@ -364,12 +365,12 @@ extension OrderDetailViewController {
   private func updateUI() {
     guard let orderDetail = self.orderDetail else { return }
     
-    typeLabel.text = orderDetail.type.description
+    typeLabel.text = orderDetail.type.localizedText.value
     idLabel.text = "| \(orderDetail.orderNo)"
     
     addProgressView(model: orderDetail)
     
-    noteLabel.text = "\(Config.localizedText(for: "order_note")):\(orderDetail.note)"
+    noteLabel.text = "\(Config.localizedText(for: "order_note").value):\(orderDetail.note)"
     
     var top: CGFloat = 0
     let maxWidth = topView.frame.width - 41 - 16

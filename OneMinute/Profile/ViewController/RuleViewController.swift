@@ -8,11 +8,14 @@
 
 
 import UIKit
+import RxSwift
 
 class RuleViewController : BaseViewController {
+  private let bag = DisposeBag()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = Config.localizedText(for: "setting_rule")
+    Config.localizedText(for: "setting_rule").bind(to: rx.title).disposed(by: bag)
     view.backgroundColor = .white
   }
 }

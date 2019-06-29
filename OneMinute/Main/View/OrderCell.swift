@@ -24,6 +24,8 @@ class OrderCell : UITableViewCell {
   private var profitLabel: UILabel!
   fileprivate var grabButton: UIButton!
   
+  private let bag = DisposeBag()
+  
   var cellModel: OrderCellModel? {
     didSet {
       setNeedsLayout()
@@ -65,15 +67,15 @@ class OrderCell : UITableViewCell {
       bottomView.isHidden = true
     }
     
-    typeLabel.text = model.type.description
+    typeLabel.text = model.type.localizedText.value
     timeLabel.text = model.timeString
-    profitLabel.text = "\(Config.localizedText(for: "order_predict_profit")): \(String(format: "$%.2f", model.profit))"
+    profitLabel.text = "\(Config.localizedText(for: "order_predict_profit").value): \(String(format: "$%.2f", model.profit))"
     
     if model.isGrabable {
-      distanceLabel.text = String(format: "\(Config.localizedText(for: "order_distance"))%.1fkm", model.distance)
+      distanceLabel.text = String(format: "\(Config.localizedText(for: "order_distance").value)%.1fkm", model.distance)
       distanceLabel.textColor = .secondaryTextColor
     } else {
-      distanceLabel.text = model.state.description
+      distanceLabel.text = model.state.localizedText.value
       distanceLabel.textColor = model.state.color
     }
   }
@@ -161,7 +163,8 @@ extension OrderCell {
       
       let progress = model.progresses[i]
       let progressType = ProgressType.create(with: model.type, index: i)
-      let iconView = ViewFactory.label(withText: progressType.description, font: .systemFont(ofSize: 10))
+      let iconView = ViewFactory.label(withText: "", font: .systemFont(ofSize: 10))
+      progressType.localizedText.bind(to: iconView.rx.text).disposed(by: bag)
       iconView.textColor = .white
       iconView.textAlignment = .center
       iconView.backgroundColor = progressType.iconColor
@@ -237,7 +240,8 @@ extension OrderCell {
       make.centerY.equalTo(bottomView)
     }
     
-    grabButton = ViewFactory.button(withTitle: Config.localizedText(for: "order_grab"), font: .boldSystemFont(ofSize: 14))
+    grabButton = ViewFactory.button(withTitle: "", font: .boldSystemFont(ofSize: 14))
+    Config.localizedText(for: "order_grab").bind(to: grabButton.rx.title(for: .normal)).disposed(by: bag)
     grabButton.backgroundColor = .white
     grabButton.setTitleColor(.themeGreen, for: .normal)
     grabButton.layer.cornerRadius = 5

@@ -6,9 +6,10 @@
 //  Copyright © 2019 yizhuo.cyz. All rights reserved.
 //
 
-import Foundation
+import RxSwift
+import RxCocoa
 
 struct SettingItem {
   let iconName: String
-  let title: String
+  let title: BehaviorRelay<String>
 }

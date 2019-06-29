@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 enum Language : Int {
   case Chinese = 1, English
@@ -22,6 +24,7 @@ struct Config {
     set {
       UserDefaults.standard.set(newValue.rawValue, forKey: Config.languageKey)
       UserDefaults.standard.synchronize()
+      updateStrings()
     }
   }
   
@@ -35,10 +38,28 @@ struct Config {
     }
   }
   
-  static func localizedText(for key: String) -> String {
+  private static var langDict: [String: BehaviorRelay<String>] = [:]
+  
+  static func localizedText(for key: String) -> BehaviorRelay<String> {
+    if let value = langDict[key] {
+      return value
+    }
+    
     let lan = language == .Chinese ? "zh-Hans" : "en"
     let path = Bundle.main.path(forResource: lan, ofType: "lproj")!
-    return Bundle(path: path)?.localizedString(forKey: key, value: nil, table: nil) ?? key
+    let string = Bundle(path: path)?.localizedString(forKey: key, value: nil, table: nil) ?? key
+    let value = BehaviorRelay<String>(value: string)
+    langDict[key] = value
+    return value
+  }
+  
+  private static func updateStrings() {
+    for (key, value) in langDict {
+      let lan = language == .Chinese ? "zh-Hans" : "en"
+      let path = Bundle.main.path(forResource: lan, ofType: "lproj")!
+      let string = Bundle(path: path)?.localizedString(forKey: key, value: nil, table: nil) ?? key
+      value.accept(string)
+    }
   }
   
   enum Address: String {

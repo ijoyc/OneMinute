@@ -31,7 +31,7 @@ class ProfitViewController : BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = Config.localizedText(for: "setting_profit")
+    Config.localizedText(for: "setting_profit").bind(to: rx.title).disposed(by: bag)
     
     initSubviews()
     bindViewModel()
@@ -58,7 +58,9 @@ class ProfitViewController : BaseViewController {
     ]
     
     Driver.just(settings).drive(tableView.rx.items(cellIdentifier: ProfitViewController.cellID, cellType: UITableViewCell.self)) { (row, element, cell) in
-      cell.textLabel?.text = element.title
+      if let label = cell.textLabel {
+        element.title.bind(to: label.rx.text).disposed(by: self.bag)
+      }
       cell.imageView?.image = UIImage(named: element.iconName)
       cell.accessoryView = UIImageView(image: UIImage(named: "right_arrow"))
     }.disposed(by: bag)

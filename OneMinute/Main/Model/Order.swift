@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-enum OrderType : Int, CustomStringConvertible {
+enum OrderType : Int {
   case buy, take, send, transfer, withdraw
   
-  var description: String {
+  var localizedText: BehaviorRelay<String> {
     switch self {
     case .buy:
       return Config.localizedText(for: "buy")
@@ -27,10 +29,10 @@ enum OrderType : Int, CustomStringConvertible {
   }
 }
 
-enum OrderState : Int, CustomStringConvertible {
+enum OrderState : Int {
   case paying, grabing, grabed, doing, reached, finished, timeout = -1, canceled = -2, chargeback = -3
   
-  public var description: String {
+  public var localizedText: BehaviorRelay<String> {
     switch self {
     case .paying:
       return Config.localizedText(for: "paying")

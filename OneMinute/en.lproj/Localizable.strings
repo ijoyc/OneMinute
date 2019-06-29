@@ -89,10 +89,10 @@
 "profit_withdraw_all" = "All Withdraw";
 "profit_withdraw_title" = "Withdraw";
 "profit_tip" = "withdrawal completed within 3 working days after the application";
-"profit_amount_text" = "Withdrawal Amount";
+"profit_amount_text" = "Amount";
 "profit_amount_placeholder" = "Enter Withdrawal Amount";
-"profit_account_type_text" = "Withdraw Account";
-"profit_account_text" = "Card/Account";
+"profit_account_type_text" = "Account";
+"profit_account_text" = "No.";
 "profit_account_placeholder" = "Enter Card/Account No.";
 
 

@@ -15,8 +15,8 @@ class InputField : UIView {
   static let height = 85
   
   private let logo: String
-  private let title: String
-  private let placeholder: String
+  private let title: BehaviorRelay<String>
+  private let placeholder: BehaviorRelay<String>
   
   public let textField = UITextField()
   fileprivate let errorLabel = UILabel()
@@ -24,7 +24,9 @@ class InputField : UIView {
   private let logoImageView = UIImageView()
   private let nameLabel = UILabel()
   
-  init(logo: String, title: String, placeholder: String) {
+  private let bag = DisposeBag()
+  
+  init(logo: String, title: BehaviorRelay<String>, placeholder: BehaviorRelay<String>) {
     self.logo = logo
     self.title = title
     self.placeholder = placeholder
@@ -46,7 +48,7 @@ class InputField : UIView {
       make.leading.equalTo(34)
     }
 
-    nameLabel.text = title
+    title.bind(to: nameLabel.rx.text).disposed(by: bag)
     nameLabel.font = .systemFont(ofSize: 16.0)
     addSubview(nameLabel)
     nameLabel.snp.makeConstraints { (make) in
@@ -54,7 +56,7 @@ class InputField : UIView {
       make.leading.equalTo(logoImageView.snp_trailing).offset(10)
     }
     
-    textField.placeholder = placeholder
+    placeholder.bind(to: textField.rx.placeholder).disposed(by: bag)
     addSubview(textField)
     textField.snp.makeConstraints { (make) in
       make.top.equalTo(logoImageView.snp_bottom).offset(20)

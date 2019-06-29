@@ -74,6 +74,7 @@
 		4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4DB22A7F50900F42C47 /* SigninServiceImpl.swift */; };
 		4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4DD22A8086200F42C47 /* ActivityIndicator.swift */; };
 		4FD6F5A922C39FBF0075B912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FD6F5AB22C39FBF0075B912 /* Localizable.strings */; };
+		4FF9B6E422C712EA006E0A60 /* UIKit+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B6E322C712EA006E0A60 /* UIKit+Rx.swift */; };
 		EE87A069BCFCC5137B4145E7 /* Pods_OneMinute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55756C80612AB771DE26544 /* Pods_OneMinute.framework */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +150,7 @@
 		4FD6F5A622C39F5A0075B912 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		4FD6F5AA22C39FBF0075B912 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4FD6F5AC22C39FC70075B912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4FF9B6E322C712EA006E0A60 /* UIKit+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Rx.swift"; sourceTree = "<group>"; };
 		A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.debug.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.debug.xcconfig"; sourceTree = "<group>"; };
 		AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.release.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.release.xcconfig"; sourceTree = "<group>"; };
 		E55756C80612AB771DE26544 /* Pods_OneMinute.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneMinute.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -519,6 +521,7 @@
 				4FB4747122B120F600130B9C /* UIImageView+Common.swift */,
 				4F7E0A0322AA126F00857FF6 /* ViewFactory.swift */,
 				4F7E0A0922AA589C00857FF6 /* UIScrollView+Common.swift */,
+				4FF9B6E322C712EA006E0A60 /* UIKit+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				4F7E0A1222AB696300857FF6 /* OrderServiceImpl.swift in Sources */,
 				4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */,
 				4FB4747222B120F600130B9C /* UIImageView+Common.swift in Sources */,
+				4FF9B6E422C712EA006E0A60 /* UIKit+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

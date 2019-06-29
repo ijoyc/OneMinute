@@ -36,8 +36,8 @@ class OrderDetailViewModel {
     queryResult = queryResult.do(onNext: { [weak self] pair in
       guard let self = self, let orderDetail = pair.orderDetail else { return }
       
-      self.operationText.accept(orderDetail.currentOperationTitle)
-      self.stateText.accept(orderDetail.state.description)
+      orderDetail.currentOperationTitle.bind(to: self.operationText).disposed(by: self.bag)
+      orderDetail.state.localizedText.bind(to: self.stateText).disposed(by: self.bag)
       self.orderState.accept(orderDetail.state)
     })
     
@@ -50,8 +50,8 @@ class OrderDetailViewModel {
         // finish order is another api...
         switch state {
         case .doing:
-          self.operationText.accept(OrderState.reached.description)
-          self.stateText.accept(OrderState.doing.description)
+          self.operationText.accept(OrderState.reached.localizedText.value)
+          self.stateText.accept(OrderState.doing.localizedText.value)
           break
         default:
           break
@@ -64,8 +64,8 @@ class OrderDetailViewModel {
       return api.finishOrder(with: orderID, code: code).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty)
     }.drive(onNext: {
       if $0.success {
-        self.operationText.accept(OrderState.finished.description)
-        self.stateText.accept(OrderState.finished.description)
+        self.operationText.accept(OrderState.finished.localizedText.value)
+        self.stateText.accept(OrderState.finished.localizedText.value)
         self.orderState.accept(.finished)
       } else {
         self.errorMessage.accept($0.message)

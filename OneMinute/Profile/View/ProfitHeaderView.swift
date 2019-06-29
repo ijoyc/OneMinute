@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
 class ProfitHeaderView : UIView {
   var profitLabel: UILabel!
   var withdrawLabel: UILabel!
+  
+  private let bag = DisposeBag()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -44,7 +47,8 @@ class ProfitHeaderView : UIView {
       make.edges.equalTo(0)
     }
     
-    let profitTipLabel = ViewFactory.label(withText: Config.localizedText(for: "user_daily_profit"), font: .systemFont(ofSize: 12))
+    let profitTipLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
+    Config.localizedText(for: "user_daily_profit").bind(to: profitTipLabel.rx.text).disposed(by: bag)
     contentView.addSubview(profitTipLabel)
     profitTipLabel.snp.makeConstraints { (make) in
       make.top.equalTo(42)
@@ -74,7 +78,8 @@ class ProfitHeaderView : UIView {
       make.height.equalTo(34)
     }
     
-    let withdrawTipLabel = ViewFactory.label(withText: Config.localizedText(for: "user_withdrawable"), font: .systemFont(ofSize: 12))
+    let withdrawTipLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
+    Config.localizedText(for: "user_withdrawable").bind(to: withdrawTipLabel.rx.text).disposed(by: bag)
     contentView.addSubview(withdrawTipLabel)
     withdrawTipLabel.snp.makeConstraints { (make) in
       make.centerX.equalTo(contentView.snp.trailing).multipliedBy(0.75)

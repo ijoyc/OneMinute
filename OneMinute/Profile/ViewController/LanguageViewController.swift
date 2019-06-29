@@ -26,7 +26,7 @@ class LanguageViewController : BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = Config.localizedText(for: "setting_language")
+    Config.localizedText(for: "setting_language").bind(to: rx.title).disposed(by: bag)
     
     options.append(LanguageOption(title: "中文", language: .Chinese))
     options.append(LanguageOption(title: "English", language: .English))

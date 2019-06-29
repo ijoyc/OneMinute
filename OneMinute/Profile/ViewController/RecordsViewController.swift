@@ -20,7 +20,7 @@ class RecordsViewController : UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = Config.localizedText(for: "profit_records")
+    Config.localizedText(for: "profit_records").bind(to: rx.title).disposed(by: bag)
     
     initSubviews()
     bindViewModel()

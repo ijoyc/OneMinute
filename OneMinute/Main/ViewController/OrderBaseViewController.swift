@@ -49,7 +49,9 @@ class OrderBaseViewController : BaseViewController {
     
     refreshControl = UIRefreshControl()
     refreshControl.backgroundColor = .separateLine
-    refreshControl.attributedTitle = NSAttributedString(string: Config.localizedText(for: "pull_refresh"), attributes: [.foregroundColor: UIColor.black])
+    Config.localizedText(for: "pull_refresh")
+      .bind(to: refreshControl.rx.title)
+      .disposed(by: bag)
     tableView.addSubview(refreshControl)
   }
   

@@ -59,7 +59,7 @@ class ProfileViewController : BaseViewController {
     ]
     
     Driver.just(settings).drive(tableView.rx.items(cellIdentifier: ProfileViewController.cellID, cellType: UITableViewCell.self)) { (row, element, cell) in
-      cell.textLabel?.text = element.title
+      element.title.bind(to: cell.textLabel!.rx.text).disposed(by: self.bag)
       cell.imageView?.image = UIImage(named: element.iconName)
       cell.accessoryView = UIImageView(image: UIImage(named: "right_arrow"))
     }.disposed(by: bag)
@@ -115,7 +115,13 @@ class ProfileViewController : BaseViewController {
     }).disposed(by: bag)
     
     viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.firstName) \($0!.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
-    viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.completeOrderNum) \(Config.localizedText(for: "user_order_unit"))" }.drive(headerView.ordersLabel.rx.text).disposed(by: bag)
+    viewModel.currentUser
+      .asDriver()
+      .filter { $0 != nil }
+      .withLatestFrom(Config.localizedText(for: "user_order_unit").asDriver()) { ($0, $1) }
+      .map { "\($0.0!.completeOrderNum) \($0.1)" }
+      .drive(headerView.ordersLabel.rx.text)
+      .disposed(by: bag)
     
     viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     

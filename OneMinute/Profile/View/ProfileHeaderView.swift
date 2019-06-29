@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import RxSwift
 
 class ProfileHeaderView : UIView {
   var profileView: UIImageView!
   var nameLabel: UILabel!
   var ordersLabel: UILabel!
+  
+  private let bag = DisposeBag()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -67,7 +70,8 @@ class ProfileHeaderView : UIView {
       make.bottom.equalTo(contentView.snp.centerY).offset(-6)
     }
     
-    let descLabel = ViewFactory.label(withText: Config.localizedText(for: "user_desc"), font: .systemFont(ofSize: 14))
+    let descLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 14))
+    Config.localizedText(for: "user_desc").bind(to: descLabel.rx.text).disposed(by: bag)
     descLabel.textColor = .white
     contentView.addSubview(descLabel)
     descLabel.snp.makeConstraints { (make) in
@@ -75,7 +79,7 @@ class ProfileHeaderView : UIView {
       make.top.equalTo(nameLabel.snp.bottom).offset(12)
     }
     
-    ordersLabel = ViewFactory.label(withText: "2983 \(Config.localizedText(for: "user_order_unit"))", font: .boldSystemFont(ofSize: 14))
+    ordersLabel = ViewFactory.label(withText: "", font: .boldSystemFont(ofSize: 14))
     ordersLabel.textColor = .white
     contentView.addSubview(ordersLabel)
     ordersLabel.snp.makeConstraints { (make) in

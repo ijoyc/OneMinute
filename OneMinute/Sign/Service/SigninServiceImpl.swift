@@ -22,19 +22,19 @@ class SigninServiceImplementation : SigninAPI {
       let code = json["code"] as? String ?? ""
       switch code {
       case "60011":
-        result.result = .failed(message: Config.localizedText(for: "error_invalid_username"))
+        result.result = .failed(message: Config.localizedText(for: "error_invalid_username").value)
       case "60012":
-        result.result = .failed(message: Config.localizedText(for: "error_invalid_password"))
+        result.result = .failed(message: Config.localizedText(for: "error_invalid_password").value)
         result.isUsername = false
       case "60013":
-        result.result = .failed(message: Config.localizedText(for: "error_banned_user"))
+        result.result = .failed(message: Config.localizedText(for: "error_banned_user").value)
       case "200":
         result.result = .ok
         if let token = json["data"] as? String {
           result.token = token
         }
       default:
-        result.result = .failed(message: Config.localizedText(for: "error_network"))
+        result.result = .failed(message: Config.localizedText(for: "error_network").value)
       }
       
       return result

@@ -8,6 +8,8 @@
 
 import UIKit
 import JGProgressHUD
+import RxCocoa
+import RxSwift
 
 struct ViewFactory {
   static func label(withText text: String = "", font: UIFont = .systemFont(ofSize: 12)) -> UILabel {

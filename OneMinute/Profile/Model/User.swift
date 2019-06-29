@@ -54,8 +54,8 @@ class User {
     
     var description: String {
       switch self {
-      case .fulltime: return Config.localizedText(for: "user_fulltime")
-      case .parttime: return Config.localizedText(for: "user_parttime")
+      case .fulltime: return Config.localizedText(for: "user_fulltime").value
+      case .parttime: return Config.localizedText(for: "user_parttime").value
       }
     }
   }

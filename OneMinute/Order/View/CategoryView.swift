@@ -14,13 +14,13 @@ import RxGesture
 class CategoryView : UIView {
   var selectedIndex = BehaviorRelay<Int>(value: 0)
   
-  private let categories: [String]
+  private let categories: [BehaviorRelay<String>]
   private var labels = [UILabel]()
   private var line: UIView!
   
   private let bag = DisposeBag()
   
-  init(frame: CGRect, categories: [String]) {
+  init(frame: CGRect, categories: [BehaviorRelay<String>]) {
     self.categories = categories
     super.init(frame: frame)
     
@@ -36,7 +36,8 @@ class CategoryView : UIView {
     
     let itemWidth = bounds.width / CGFloat(categories.count)
     for i in 0 ..< categories.count {
-      let label = ViewFactory.label(withText: categories[i], font: .systemFont(ofSize: 14))
+      let label = ViewFactory.label(withText: "", font: .systemFont(ofSize: 14))
+      categories[i].bind(to: label.rx.text).disposed(by: bag)
       label.frame = CGRect(x: CGFloat(i) * itemWidth, y: 0, width: itemWidth, height: bounds.height)
       label.textAlignment = .center
       labels.append(label)

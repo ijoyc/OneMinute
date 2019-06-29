@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import RxSwift
 
 class AboutViewController : BaseViewController {
+  private let bag = DisposeBag()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = Config.localizedText(for: "about")
+    Config.localizedText(for: "about").bind(to: rx.title).disposed(by: bag)
     view.backgroundColor = .white
   }
 }

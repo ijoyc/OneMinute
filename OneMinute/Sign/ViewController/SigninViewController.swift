@@ -39,7 +39,8 @@ class SigninViewController : UIViewController {
       make.top.equalTo(82)
     }
     
-    let titleLabel = ViewFactory.label(withText: Config.localizedText(for: "signin_title"), font: .boldSystemFont(ofSize: 17))
+    let titleLabel = ViewFactory.label(withText: "", font: .boldSystemFont(ofSize: 17))
+    Config.localizedText(for: "signin_title").bind(to: titleLabel.rx.text).disposed(by: bag)
     view.addSubview(titleLabel)
     titleLabel.snp.makeConstraints { (make) in
       make.top.equalTo(logoImageView.snp_bottom).offset(28)
@@ -64,7 +65,8 @@ class SigninViewController : UIViewController {
       make.height.equalTo(InputField.height)
     }
     
-    loginButton = ViewFactory.button(withTitle: Config.localizedText(for: "signin_button_text"), font: .systemFont(ofSize: 18))
+    loginButton = ViewFactory.button(withTitle: "", font: .systemFont(ofSize: 18))
+    Config.localizedText(for: "signin_button_text").bind(to: loginButton.rx.title(for: .normal)).disposed(by: bag)
     loginButton.backgroundColor = .themeGreen
     loginButton.layer.cornerRadius = 5
     loginButton.layer.masksToBounds = true
