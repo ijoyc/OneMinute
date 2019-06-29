@@ -69,6 +69,7 @@
 
 "alert_order_finish" = "订单已完成";
 "alert_insufficient_balance" = "余额不足";
+"alert_invalid_balance" = "请输入正确的提现金额";
 
 "user_fulltime" = "全职";
 "user_parttime" = "兼职";

@@ -188,6 +188,9 @@ class ApplyWithdrawController : UIViewController {
       if amount > available {
         ViewFactory.showAlert(Config.localizedText(for: "alert_insufficient_balance").value, success: false)
         return
+      } else if amount <= 0 {
+        ViewFactory.showAlert(Config.localizedText(for: "alert_invalid_balance").value, success: false)
+        return
       }
       
       withdrawTrigger.onNext(())
