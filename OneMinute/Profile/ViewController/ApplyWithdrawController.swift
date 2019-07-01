@@ -155,12 +155,17 @@ class ApplyWithdrawController : UIViewController {
     withdraw.bind(to: amountLabel.rx.text).disposed(by: bag)
     withdraw.bind(to: available).disposed(by: bag)
     
-    Observable.combineLatest(amountField.rx.text, cardNumberField.rx.text) { amount, cardNumber in
-      (amount?.count ?? 0) > 0 && (cardNumber?.count ?? 0) > 0
-    }.bind(to: submitButton.rx.isEnabled).disposed(by: bag)
-    
     withdrawAllButton.rx.tap.subscribe(onNext: { [weak self] in
-      self?.amountField.text = self?.available.value
+      self?.amountField.rx.text.onNext(self?.available.value)
+    }).disposed(by: bag)
+    
+    amountField.rx.text.subscribe(onNext: { [weak self] text in
+      guard let self = self else { return }
+      let available = (self.available.value as NSString).floatValue
+      let amount = (self.amountField.text as NSString?)?.floatValue ?? 0
+      if amount > available {
+        self.amountField.text = "\(available)"
+      }
     }).disposed(by: bag)
     
     let amount = amountField.rx.text.map { Double(($0 as NSString?)?.floatValue ?? 0) }.asDriver(onErrorJustReturn: 0.0)
@@ -177,6 +182,7 @@ class ApplyWithdrawController : UIViewController {
       ViewFactory.showAlert(result.message, success: result.success)
       if result.success {
         self?.profileViewModel?.updateUserInfo()
+        self?.navigationController?.popViewController(animated: true)
       }
     }).disposed(by: bag)
     
@@ -191,6 +197,8 @@ class ApplyWithdrawController : UIViewController {
       } else if amount <= 0 {
         ViewFactory.showAlert(Config.localizedText(for: "alert_invalid_balance").value, success: false)
         return
+      } else if self.cardNumberField.text == nil {
+        ViewFactory.showAlert(Config.localizedText(for: "alert_invalid_card").value, success: false)
       }
       
       withdrawTrigger.onNext(())

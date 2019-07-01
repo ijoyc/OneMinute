@@ -68,7 +68,8 @@
 
 "alert_order_finish" = "Order Finished";
 "alert_insufficient_balance" = "Insufficient Balance";
-"alert_invalid_balance" = "Please check your input balance.";
+"alert_invalid_balance" = "Please check your balance";
+"alert_invalid_card" = "Please input your Card/Account No.";
 
 "user_fulltime" = "Full-time";
 "user_parttime" = "Part-time";
