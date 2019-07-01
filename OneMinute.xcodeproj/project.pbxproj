@@ -88,6 +88,8 @@
 		4F527E4622B31CE000BF875C /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		4F527E4822B3258A00BF875C /* OneMinuteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneMinuteAPI.swift; sourceTree = "<group>"; };
 		4F527E6022B4B93D00BF875C /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		4F7B3B3422C9921A00C1DFAE /* OneMinute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneMinute.entitlements; sourceTree = "<group>"; };
+		4F7B3B3522C9931D00C1DFAE /* OneMinute-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OneMinute-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F7E09D822A91DAF00857FF6 /* LauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherViewController.swift; sourceTree = "<group>"; };
 		4F7E09DF22A91EB200857FF6 /* GrabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabViewController.swift; sourceTree = "<group>"; };
 		4F7E09E622A91F0200857FF6 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 		4FC0220122A13E6600C4899A /* OneMinute */ = {
 			isa = PBXGroup;
 			children = (
+				4F7B3B3422C9921A00C1DFAE /* OneMinute.entitlements */,
 				4F7E09D422A91D8300857FF6 /* Main */,
 				4FC0221122A13EBE00C4899A /* Sign */,
 				4FC0221222A1477900C4899A /* Grab */,
@@ -419,6 +422,7 @@
 				4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */,
 				4FC0220922A13E6800C4899A /* Info.plist */,
 				4FD6F5AB22C39FBF0075B912 /* Localizable.strings */,
+				4F7B3B3522C9931D00C1DFAE /* OneMinute-Bridging-Header.h */,
 			);
 			path = OneMinute;
 			sourceTree = "<group>";
@@ -569,6 +573,12 @@
 				TargetAttributes = {
 					4FC021FE22A13E6600C4899A = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -866,6 +876,8 @@
 			baseConfigurationReference = A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = OneMinute/OneMinute.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T7FYUZX44L;
 				INFOPLIST_FILE = OneMinute/Info.plist;
@@ -876,6 +888,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexliu.OneMinute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "OneMinute/OneMinute-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -886,6 +901,8 @@
 			baseConfigurationReference = AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = OneMinute/OneMinute.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T7FYUZX44L;
 				INFOPLIST_FILE = OneMinute/Info.plist;
@@ -896,6 +913,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexliu.OneMinute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "OneMinute/OneMinute-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

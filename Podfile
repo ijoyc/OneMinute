@@ -15,5 +15,6 @@ target 'OneMinute' do
   pod 'RxGesture', '~> 3'
   
   pod 'JGProgressHUD'
+  pod 'JPush'
 
 end

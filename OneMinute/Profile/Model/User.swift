@@ -74,6 +74,23 @@ class User {
   
   static let current = BehaviorRelay(value: User(json: [String: Any]()))
   
+  static func isSignedIn() -> Bool {
+    return (User.signInfo.token?.count ?? 0) > 0
+  }
+  
+  static func reportAlias() {
+    guard isSignedIn() else { return }
+    JPUSHService.setAlias("\(current.value.id)", completion: { (code, alias, sequence) in
+      print("Report alias with code: \(code), alias: \(String(describing: alias)), sequence: \(sequence)")
+    }, seq: 0)
+  }
+  
+  static func deleteAlias() {
+    JPUSHService.deleteAlias({ (code, alias, sequence) in
+      print("Report alias with code: \(code), alias: \(String(describing: alias)), sequence: \(sequence)")
+    }, seq: 0)
+  }
+  
   init(json: [String: Any]) {
     id = json["driverId"] as? Int ?? 0
     avatar = json["avatarUrl"] as? String ?? ""

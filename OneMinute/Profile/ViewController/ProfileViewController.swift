@@ -106,6 +106,7 @@ class ProfileViewController : BaseViewController {
     viewModel.currentUser.asDriver().drive(onNext: { user in
       guard let user = user else { return }
       User.current.accept(user)
+      User.reportAlias()
     }).disposed(by: bag)
     
     viewModel.currentUser.asDriver().map { $0?.avatar }.drive(onNext: { [weak self] urlString in
@@ -130,6 +131,7 @@ class ProfileViewController : BaseViewController {
       
       // Sign out
       User.signInfo.signout()
+      User.deleteAlias()
       self.present(SigninViewController(), animated: true, completion: nil)
     }).disposed(by: bag)
     
