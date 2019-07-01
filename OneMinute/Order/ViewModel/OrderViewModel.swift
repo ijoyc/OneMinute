@@ -43,6 +43,8 @@ class OrderViewModel {
     let loadNextPage = Driver.combineLatest(loading, hasMore.asDriver()) { !$0 && $1 }
     
     loadTrigger.filter { $0 }
+      .withLatestFrom(cellModels.asDriver())
+      .filter { $0.count > 0 }
       .withLatestFrom(loadNextPage)
       .filter { $0 }
       // After refreshing, the next page should be the second one.

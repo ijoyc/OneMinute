@@ -83,6 +83,9 @@ class GrabViewController : OrderBaseViewController {
         automaticRefresh.onNext(())
       }
     }).disposed(by: bag)
+    
+    // load first page
+    automaticRefresh.onNext(())
   }
 }
 

@@ -31,15 +31,16 @@ class OrderViewController : OrderBaseViewController {
   }
   
   override func bindViewModel() {
+    let automaticRefresh = PublishSubject<Void>()
     let tableView: UITableView = self.tableView
     let loadMoreTrigger = tableView.rx.contentOffset
       .asDriver()
       .distinctUntilChanged()
       .filter({ _ in tableView.isNearBottomEdge() }).map { _ in true }
-    let refreshTrigger = refreshControl.rx
-      .controlEvent(.valueChanged)
-      .asSignal()
-      .map { _ in false }
+    let refreshTrigger = Signal.merge(
+        refreshControl.rx.controlEvent(.valueChanged).asSignal(),
+        automaticRefresh.asSignal(onErrorJustReturn: ())
+      ).map { _ in false }
     let categoryTrigger = categoryView.selectedIndex.asSignal(onErrorJustReturn: 0)
     
     let loadTrigger = Signal.merge(loadMoreTrigger.asSignal(onErrorJustReturn: false), refreshTrigger)
@@ -67,6 +68,9 @@ class OrderViewController : OrderBaseViewController {
     }).disposed(by: bag)
     
     tableView.rx.setDelegate(self).disposed(by: bag)
+    
+    // load first page
+    automaticRefresh.onNext(())
   }
 }
 
