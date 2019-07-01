@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Request important permission
     LBSServiceImpl.shared.requestAuthorization()
+    LBSServiceImpl.shared.start()
     
     // Push Notification
     if #available(iOS 10, *) {
@@ -48,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     JPUSHService.setup(withOption: launchOptions, appKey: Config.jpushAppKey, channel: Config.jpushChannel, apsForProduction: Config.isProduction)
     
     if User.isSignedIn() {
+      LBSServiceImpl.shared.startUploadLocation()
       self.window?.rootViewController = LauncherViewController()
     } else {
       self.window?.rootViewController = SigninViewController()
@@ -73,6 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     JPUSHService.handleRemoteNotification(userInfo)
   }
 
+  
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    LBSServiceImpl.shared.stop()
+  }
+  
+  func applicationWillEnterForeground(_ application: UIApplication) {
+    LBSServiceImpl.shared.start()
+  }
 }
 
 extension AppDelegate: JPUSHRegisterDelegate {

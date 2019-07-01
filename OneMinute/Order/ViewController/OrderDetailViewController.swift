@@ -54,16 +54,6 @@ class OrderDetailViewController : BaseViewController {
     bindViewModel()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    locationService?.start()
-  }
-  
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-    locationService?.stop()
-  }
-  
   private func bindViewModel() {
     let changeStateTrigger = PublishSubject<OrderState>()
     let finishTrigger = PublishSubject<String>()

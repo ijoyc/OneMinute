@@ -26,9 +26,20 @@ class GrabViewController : OrderBaseViewController {
   }
   
   override func bindViewModel() {
+    tableView.rx.modelSelected(OrderCellModel.self).subscribe(onNext: { (value) in
+      print("clicked \(value)")
+    }).disposed(by: bag)
+    
+    tableView.rx.setDelegate(self).disposed(by: bag)
+    
+    LBSServiceImpl.shared.uploadSuccess.filter { $0 }.take(1).subscribe(onNext: { _ in
+      self.bindGrabViewModel()
+    }).disposed(by: bag)
+  }
+  
+  func bindGrabViewModel() {
     let grabTrigger = PublishSubject<Int>()
     let automaticRefresh = PublishSubject<Void>()
-    
     let tableView: UITableView = self.tableView
     
     let loadMoreTrigger = tableView.rx.contentOffset
@@ -36,8 +47,8 @@ class GrabViewController : OrderBaseViewController {
       .distinctUntilChanged()
       .filter({ _ in tableView.isNearBottomEdge() }).map { _ in true }
     let refreshTrigger = Signal.merge(
-        refreshControl.rx.controlEvent(.valueChanged).asSignal(),
-        automaticRefresh.asSignal(onErrorJustReturn: ()))
+      refreshControl.rx.controlEvent(.valueChanged).asSignal(),
+      automaticRefresh.asSignal(onErrorJustReturn: ()))
       .map { _ in false }
     
     let loadTrigger = Signal.merge(loadMoreTrigger.asSignal(onErrorJustReturn: false), refreshTrigger)
@@ -72,12 +83,6 @@ class GrabViewController : OrderBaseViewController {
         automaticRefresh.onNext(())
       }
     }).disposed(by: bag)
-    
-    tableView.rx.modelSelected(OrderCellModel.self).subscribe(onNext: { (value) in
-      print("clicked \(value)")
-    }).disposed(by: bag)
-    
-    tableView.rx.setDelegate(self).disposed(by: bag)
   }
 }
 

@@ -43,16 +43,20 @@ class OrderAPIImplementation : OrderAPI {
   }
   
   func changeOrderState(with id: Int, state: Int) -> Observable<Result> {
+    let latitude = LBSServiceImpl.shared.currentLocation?.coordinate.latitude ?? 0
+    let longitude = LBSServiceImpl.shared.currentLocation?.coordinate.longitude ?? 0
     return OneMinuteAPI
       .post(.changeOrderState,
-            parameters: ["lat": 0, "lng": 0, "orderFlag": state, "orderId": id])
+            parameters: ["lat": latitude, "lng": longitude, "orderFlag": state, "orderId": id])
       .map { Result(json: $0) }
   }
   
   func finishOrder(with id: Int, code: String) -> Observable<Result> {
+    let latitude = LBSServiceImpl.shared.currentLocation?.coordinate.latitude ?? 0
+    let longitude = LBSServiceImpl.shared.currentLocation?.coordinate.longitude ?? 0
     return OneMinuteAPI
       .post(.finishOrder,
-            parameters: ["lat": 0, "lng": 0, "orderId": id, "completeCode": code])
+            parameters: ["lat": latitude, "lng": longitude, "orderId": id, "completeCode": code])
       .map { Result(json: $0) }
   }
 }

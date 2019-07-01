@@ -132,6 +132,7 @@ class ProfileViewController : BaseViewController {
       // Sign out
       User.signInfo.signout()
       User.deleteAlias()
+      LBSServiceImpl.shared.stopUploadLocation()
       self.present(SigninViewController(), animated: true, completion: nil)
     }).disposed(by: bag)
     

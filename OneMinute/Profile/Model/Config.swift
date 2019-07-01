@@ -72,6 +72,7 @@ struct Config {
     case finishOrder = "order/completeOrder"
     case records = "driver/findIncome"
     case withdraw = "driver/withdraw"
+    case uploadLocation = "driver/uploadLocation"
     
     private var baseURL: String { return "http://47.252.8.20:8080/api/" }
     var url: String {
