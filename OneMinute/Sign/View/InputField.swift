@@ -46,6 +46,7 @@ class InputField : UIView {
     logoImageView.snp.makeConstraints { (make) in
       make.width.height.equalTo(24)
       make.leading.equalTo(34)
+      make.top.equalTo(0)
     }
 
     title.bind(to: nameLabel.rx.text).disposed(by: bag)
