@@ -115,4 +115,10 @@ class User {
     withdraw = user.withdraw
   }
   
+  static func signout() {
+    signInfo.signout()
+    deleteAlias()
+    LBSServiceImpl.shared.stopUploadLocation()
+  }
+  
 }

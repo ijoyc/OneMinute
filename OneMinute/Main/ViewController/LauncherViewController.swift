@@ -18,6 +18,14 @@ class LauncherViewController : UITabBarController {
     super.viewDidLoad()
     
     setup()
+    
+    _ = NotificationCenter.default.rx
+      .notification(OneMinuteAPI.notSigninNotification)
+      .takeUntil(self.rx.deallocated)
+      .subscribe(onNext: { _ in
+        User.signout()
+        self.present(SigninViewController(), animated: true, completion: nil)
+      });
   }
   
   func setup() {

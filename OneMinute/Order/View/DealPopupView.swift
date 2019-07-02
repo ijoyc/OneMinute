@@ -103,6 +103,7 @@ class DealPopupView : UIView {
     }
     
     let tipLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 11))
+    tipLabel.numberOfLines = 2;
     Config.localizedText(for: "deal_tip").bind(to: tipLabel.rx.text).disposed(by: bag)
     tipLabel.textColor = .secondaryTextColor
     tipLabel.textAlignment = .center

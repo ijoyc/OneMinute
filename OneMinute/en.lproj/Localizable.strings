@@ -34,7 +34,8 @@
 "error_banned_user" = "Username is disabled";
 
 "order_predict_profit" = "Expected Income";
-"order_grab" = "Confirm to grab order";
+"order_distance" = "Distance:";
+"order_grab" = "Grab";
 "order_detail" = "Order Detail";
 "order_tel" = "Contact User";
 "order_note" = "Remark";
