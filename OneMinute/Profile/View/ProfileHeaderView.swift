@@ -94,6 +94,13 @@ class ProfileHeaderView : UIView {
       make.centerY.equalTo(contentView)
       make.trailing.equalTo(ordersLabel.snp.leading).offset(-4)
     }
+    
+    // !!!: for debug
+    rx.tapGesture { (tap, _) in
+      tap.numberOfTapsRequired = 3
+    }.skip(1).subscribe(onNext: { _ in
+      ViewFactory.showAlert("Version: 1.1.0")
+    }).disposed(by: bag)
   }
   
   override func updateConstraints() {
