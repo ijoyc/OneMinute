@@ -88,6 +88,14 @@ class GrabViewController : OrderBaseViewController {
     
     // load first page
     automaticRefresh.onNext(())
+    
+    // new order comes, refresh.
+    _ = NotificationCenter.default.rx
+      .notification(.newOrder)
+      .takeUntil(self.rx.deallocated)
+      .subscribe(onNext: { _ in
+        automaticRefresh.onNext(())
+      });
   }
 }
 

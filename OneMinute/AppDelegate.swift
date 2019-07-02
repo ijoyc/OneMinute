@@ -72,6 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
     print("Receive remote notification: \(userInfo)")
+    if let aps = userInfo["aps"] as? [String: Any], let alert = aps["alert"] as? String {
+      ViewFactory.showAlert(alert)
+      NotificationCenter.default.post(name: .newOrder, object: nil)
+    }
     JPUSHService.handleRemoteNotification(userInfo)
   }
 
@@ -82,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func applicationWillEnterForeground(_ application: UIApplication) {
     LBSServiceImpl.shared.start()
+    application.applicationIconBadgeNumber = 0
   }
 }
 
@@ -93,7 +98,9 @@ extension AppDelegate: JPUSHRegisterDelegate {
     if let trigger = notification.request.trigger, trigger.isKind(of: UNPushNotificationTrigger.self) {
       JPUSHService.handleRemoteNotification(userInfo)
     }
-    completionHandler(Int(UNNotificationPresentationOptions.alert.rawValue))
+    completionHandler(Int(UNNotificationPresentationOptions.alert.rawValue | UNNotificationPresentationOptions.sound.rawValue))
+    
+    NotificationCenter.default.post(name: .newOrder, object: nil)
   }
   
   @available(iOS 10.0, *)

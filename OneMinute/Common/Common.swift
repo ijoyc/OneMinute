@@ -8,6 +8,11 @@
 
 import UIKit
 
+extension Notification.Name {
+  static let newOrder = Notification.Name("newOrder")
+  static let deliverOrder = Notification.Name("deliverOrder")
+}
+
 func OMGetSafeArea() -> UIEdgeInsets {
   if #available(iOS 11.0, *) {
     return UIApplication.shared.keyWindow?.safeAreaInsets ?? UIEdgeInsets.zero
