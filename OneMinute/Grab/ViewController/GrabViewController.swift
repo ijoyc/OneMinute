@@ -17,6 +17,8 @@ class GrabViewController : OrderBaseViewController {
   override func initSubviews() {
     super.initSubviews()
     
+    loadingView.startAnimating()
+    
     grabingView = UIActivityIndicatorView(style: .gray)
     view.addSubview(grabingView)
     grabingView.snp.makeConstraints { (make) in

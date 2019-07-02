@@ -58,7 +58,7 @@ class LBSServiceImpl: NSObject, LBSService {
     
     timer = DisposeBag()
     Observable
-      .merge(.interval(.seconds(30), scheduler: MainScheduler.instance),
+      .merge(.interval(.seconds(60), scheduler: MainScheduler.instance),
         location.filter { $0 != nil }.take(1).map { _ in 0 })
       .subscribe(onNext: { _ in
         self.uploadLocation()
