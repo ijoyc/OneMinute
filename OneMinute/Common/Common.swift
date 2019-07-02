@@ -11,6 +11,9 @@ import UIKit
 extension Notification.Name {
   static let newOrder = Notification.Name("newOrder")
   static let deliverOrder = Notification.Name("deliverOrder")
+  
+  static let grabOrder = Notification.Name("grabOrder")
+  static let changeState = Notification.Name("changeState")
 }
 
 func OMGetSafeArea() -> UIEdgeInsets {

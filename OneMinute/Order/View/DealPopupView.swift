@@ -14,6 +14,7 @@ import SnapKit
 class DealPopupView : UIView {
   
   var submitButton: UIButton!
+  var loadingView: UIActivityIndicatorView!
   var code: String {
     return inputViews.map { $0.text ?? "" }.joined()
   }
@@ -29,9 +30,18 @@ class DealPopupView : UIView {
     dismiss()
     
     view.addSubview(shared)
+    
+    // clear original code
+    for inputView in shared.inputViews {
+      inputView.text = ""
+    }
+    shared.currentCodeLength = 0
+    
     shared.snp.makeConstraints { (make) in
       make.edges.equalTo(0)
     }
+    
+    shared.inputViews.first?.becomeFirstResponder()
   }
   
   class func dismiss() {
@@ -153,6 +163,19 @@ class DealPopupView : UIView {
       make.top.equalTo(lastView?.snp.bottom ?? 0).offset(25)
       make.bottom.equalTo(-26)
     }
+    
+    loadingView = UIActivityIndicatorView(style: .gray)
+    loadingView.hidesWhenStopped = true
+    loadingView.tintColor = .themeGreen
+    submitButton.addSubview(loadingView)
+    loadingView.snp.makeConstraints { (make) in
+      make.width.height.equalTo(40)
+      make.center.equalTo(submitButton)
+    }
+    
+    rx.tapGesture().subscribe(onNext: { _ in
+      self.endEditing(true)
+    }).disposed(by: bag)
   }
 }
 
@@ -181,10 +204,10 @@ extension DealPopupView : UITextFieldDelegate {
     return false
   }
   
+  
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
     let index = inputViews.firstIndex(of: textField)
     return index == currentCodeLength
   }
-  
   
 }

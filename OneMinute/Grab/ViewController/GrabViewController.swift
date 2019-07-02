@@ -83,6 +83,7 @@ class GrabViewController : OrderBaseViewController {
       ViewFactory.showAlert(result.message, success: result.success)
       if result.success {
         automaticRefresh.onNext(())
+        NotificationCenter.default.post(name: .grabOrder, object: nil)
       }
     }).disposed(by: bag)
     

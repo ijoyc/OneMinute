@@ -17,9 +17,11 @@ class OrderDetailViewModel {
   let stateText = BehaviorRelay<String>(value: "")
   let orderState = BehaviorRelay<OrderState>(value: .paying)
   let changingOrderState: Driver<Bool>
-  let errorMessage = BehaviorRelay<String>(value: "")
+  let finishingOrder: Driver<Bool>
+  let result = BehaviorRelay<Result>(value: .empty)
   
-  let bag = DisposeBag()
+  private let orderDetail = BehaviorRelay<OrderDetail?>(value: nil)
+  private let bag = DisposeBag()
   
   init(input: (orderID: Int,
                changeStateSignal: Signal<OrderState>,
@@ -32,6 +34,9 @@ class OrderDetailViewModel {
     let activityIndicator = ActivityIndicator()
     changingOrderState = activityIndicator.asDriver()
     
+    let finishingIndicator = ActivityIndicator()
+    finishingOrder = finishingIndicator.asDriver()
+    
     queryResult = api.queryOrderDetail(with: orderID).asDriver(onErrorJustReturn: (orderDetail: nil, result: Result.empty))
     queryResult = queryResult.do(onNext: { [weak self] pair in
       guard let self = self, let orderDetail = pair.orderDetail else { return }
@@ -40,6 +45,7 @@ class OrderDetailViewModel {
       orderDetail.state.localizedText.bind(to: self.stateText).disposed(by: self.bag)
       self.orderState.accept(orderDetail.state)
     })
+    queryResult.map { $0.orderDetail }.drive(orderDetail).disposed(by: bag)
     
     changeStateSignal.flatMapLatest { state in
       return api.changeOrderState(with: orderID, state: state.rawValue).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty).do(onNext: { result in
@@ -58,17 +64,22 @@ class OrderDetailViewModel {
         }
         
       })
-    }.drive(onNext: { self.errorMessage.accept($0.message) }).disposed(by: bag)
+    }.drive(result).disposed(by: bag)
     
     finishSignal.flatMapLatest { code in
-      return api.finishOrder(with: orderID, code: code).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty)
+      return api.finishOrder(with: orderID, code: code).trackActivity(finishingIndicator).asDriver(onErrorJustReturn: .empty)
     }.drive(onNext: {
       if $0.success {
-        self.operationText.accept(OrderState.finished.localizedText.value)
-        self.stateText.accept(OrderState.finished.localizedText.value)
-        self.orderState.accept(.finished)
+        var state = OrderState.finished
+        if let type = self.orderDetail.value?.type, case .buy = type {
+          state = .reached
+        }
+        self.operationText.accept(state.localizedText.value)
+        self.stateText.accept(state.localizedText.value)
+        self.orderState.accept(state)
       } else {
-        self.errorMessage.accept($0.message)
+        // There will be a custom toast when success
+        self.result.accept($0)
       }
     }).disposed(by: bag)
   }

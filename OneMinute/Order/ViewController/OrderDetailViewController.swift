@@ -73,9 +73,19 @@ class OrderDetailViewController : BaseViewController {
     }).drive().disposed(by: bag)
     
     viewModel.orderState.skip(2).subscribe(onNext: { [weak self] state in
-      self?.orderDetail?.state = state
+      guard let self = self, let orderDetail = self.orderDetail else { return }
       
+      orderDetail.state = state
+      
+      var shouldDismiss = false
+      if case .reached = state, case .buy = orderDetail.type {
+        shouldDismiss = true
+      }
       if case .finished = state {
+        shouldDismiss = true
+      }
+      
+      if shouldDismiss {
         DealPopupView.dismiss()
         ViewFactory.showAlert(Config.localizedText(for: "alert_order_finish").value)
       }
@@ -86,14 +96,18 @@ class OrderDetailViewController : BaseViewController {
     // Disable deal button when changing state of order
     
     viewModel.changingOrderState.map(!).drive(dealButton.rx.isEnabled).disposed(by: bag)
+    viewModel.finishingOrder
+      .drive(DealPopupView.shared.loadingView.rx.isAnimating).disposed(by: bag)
+    viewModel.finishingOrder.map(!)
+      .drive(DealPopupView.shared.submitButton.rx.isEnabled).disposed(by: bag)
     
     // show error message if any
     
     viewModel.queryResult.map { $0.result }.filter { !$0.success }.drive(onNext: { result in
       ViewFactory.showAlert(result.message, success: result.success)
     }).disposed(by: bag)
-    viewModel.errorMessage.filter { $0.count > 0 }.subscribe(onNext: {
-      ViewFactory.showAlert($0, success: false)
+    viewModel.result.filter { $0 != .empty }.subscribe(onNext: {
+      ViewFactory.showAlert($0.message, success: $0.success)
     }).disposed(by: bag)
     
     telButton.rx.tap.subscribe(onNext: { [weak self] _ in
@@ -117,6 +131,8 @@ class OrderDetailViewController : BaseViewController {
           nextState = .finished
         }
         changeStateTrigger.onNext(nextState)
+        
+        NotificationCenter.default.post(name: .changeState, object: nil)
       }
     }).disposed(by: bag)
     

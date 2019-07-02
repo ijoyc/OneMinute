@@ -71,6 +71,19 @@ class OrderViewController : OrderBaseViewController {
     
     // load first page
     automaticRefresh.onNext(())
+    
+    // auto refresh after grab order
+    _ = Observable.merge(
+        NotificationCenter.default.rx.notification(.grabOrder),
+        NotificationCenter.default.rx.notification(.changeState)
+      )
+      .takeUntil(self.rx.deallocated)
+      .subscribe(onNext: { _ in
+        if self.categoryView.selectedIndex.value != 0 {
+          self.categoryView.selectedIndex.accept(0)
+        }
+        automaticRefresh.onNext(())
+      })
   }
 }
 

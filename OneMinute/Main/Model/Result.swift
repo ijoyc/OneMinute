@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Result {
+struct Result: Equatable {
   let success: Bool
   let message: String
   
@@ -22,5 +22,9 @@ struct Result {
   init(json: [String: Any]) {
     self.success = json["data"] as? Bool ?? false
     self.message = json["message"] as? String ?? ""
+  }
+  
+  static func == (lhs: Result, rhs: Result) -> Bool {
+    return lhs.success == rhs.success && lhs.message == rhs.message
   }
 }
