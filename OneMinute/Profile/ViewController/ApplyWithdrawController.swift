@@ -179,10 +179,14 @@ class ApplyWithdrawController : UIViewController {
     
     viewModel.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     viewModel.result.skip(1).subscribe(onNext: { [weak self] result in
-      ViewFactory.showAlert(result.message, success: result.success)
+      ViewFactory.showAlert(result.message, success: result.success) {
+        if result.success {
+          self?.navigationController?.popViewController(animated: true)
+        }
+      }
+      
       if result.success {
         self?.profileViewModel?.updateUserInfo()
-        self?.navigationController?.popViewController(animated: true)
       }
     }).disposed(by: bag)
     

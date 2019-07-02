@@ -109,18 +109,17 @@ class ProfileViewController : BaseViewController {
       User.reportAlias()
     }).disposed(by: bag)
     
-    viewModel.currentUser.asDriver().map { $0?.avatar }.drive(onNext: { [weak self] urlString in
-      guard let self = self, let urlString = urlString else { return }
+    User.current.asDriver().map { $0.avatar }.drive(onNext: { [weak self] urlString in
+      guard let self = self else { return }
       
       self.headerView.profileView.rx.setImage(with: urlString).disposed(by: self.bag)
     }).disposed(by: bag)
     
-    viewModel.currentUser.asDriver().filter { $0 != nil }.map { "\($0!.firstName) \($0!.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
-    viewModel.currentUser
+    User.current.asDriver().map { "\($0.firstName) \($0.lastName)" }.drive(headerView.nameLabel.rx.text).disposed(by: bag)
+    User.current
       .asDriver()
-      .filter { $0 != nil }
       .withLatestFrom(Config.localizedText(for: "user_order_unit").asDriver()) { ($0, $1) }
-      .map { "\($0.0!.completeOrderNum) \($0.1)" }
+      .map { "\($0.0.completeOrderNum) \($0.1)" }
       .drive(headerView.ordersLabel.rx.text)
       .disposed(by: bag)
     

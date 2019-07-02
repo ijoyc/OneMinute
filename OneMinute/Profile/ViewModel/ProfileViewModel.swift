@@ -31,8 +31,6 @@ class ProfileViewModel {
     signedOut = signoutTap.flatMapLatest { _ in
       signinAPI.signout().trackActivity(signingOut).asDriver(onErrorJustReturn: false)
     }
-    
-    updateUserInfo()
   }
   
   func updateUserInfo() {

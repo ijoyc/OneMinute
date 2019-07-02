@@ -32,7 +32,7 @@ struct ViewFactory {
     return button
   }
   
-  static func showAlert(_ title: String?, message: String? = nil, success: Bool = true) {
+  static func showAlert(_ title: String?, message: String? = nil, success: Bool = true, completion: (() -> ())? = nil) {
     let hud = JGProgressHUD(style: .dark)
     hud.indicatorView = success ? JGProgressHUDSuccessIndicatorView() : JGProgressHUDErrorIndicatorView()
     hud.textLabel.text = title
@@ -41,6 +41,9 @@ struct ViewFactory {
     }
     hud.show(in: currentViewController.view)
     hud.dismiss(afterDelay: 1.5)
+    if let completion = completion {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: completion)
+    }
   }
   
   private static var currentViewController: UIViewController {

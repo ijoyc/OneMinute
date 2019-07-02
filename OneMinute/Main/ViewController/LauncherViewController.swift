@@ -13,6 +13,7 @@ import RxCocoa
 class LauncherViewController : UITabBarController {
   
   private let bag = DisposeBag()
+  private var viewModel: ProfileViewModel?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,6 +27,15 @@ class LauncherViewController : UITabBarController {
         User.signout()
         self.present(SigninViewController(), animated: true, completion: nil)
       });
+    
+    if User.isSignedIn() {
+      viewModel = ProfileViewModel(signoutTap: Signal.empty(), dependency: (profileAPI: ProfileAPIImplementation.shared, signinAPI: SigninServiceImplementation.shared))
+      viewModel?.currentUser.filter { $0 != nil }.subscribe(onNext: { user in
+        User.current.accept(user!)
+        User.reportAlias()
+      }).disposed(by: bag)
+      viewModel?.updateUserInfo()
+    }
   }
   
   func setup() {

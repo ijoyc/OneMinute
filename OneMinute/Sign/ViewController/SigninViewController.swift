@@ -136,7 +136,6 @@ class SigninViewController : UIViewController {
       guard case .ok = result.result else { return }
       
       LBSServiceImpl.shared.startUploadLocation()
-      User.reportAlias()
       UIApplication.shared.delegate?.window??.rootViewController = LauncherViewController()
     }).drive(onNext: { signedIn in
       print("User signed in \(signedIn)")
