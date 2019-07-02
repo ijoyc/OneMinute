@@ -17,30 +17,6 @@ public enum ProgressType : Int {
   case get
   case take
   case send
-
-  public var localizedText: BehaviorRelay<String> {
-    switch self {
-    case .buy:
-      return Config.localizedText(for: "progress_buy")
-    case .receive:
-      return Config.localizedText(for: "progress_receive")
-    case .get:
-      return Config.localizedText(for: "progress_get")
-    case .take:
-      return Config.localizedText(for: "progress_take")
-    case .send:
-      return Config.localizedText(for: "progress_send")
-    }
-  }
-  
-  var iconColor: UIColor {
-    switch self {
-    case .buy, .get, .take:
-      return UIColor.RGBA(238, 54, 0, 1)
-    case .receive, .send:
-      return UIColor.RGBA(129, 215, 207, 1)
-    }
-  }
   
   static func create(with orderType: OrderType, index: Int) -> ProgressType {
     switch orderType {

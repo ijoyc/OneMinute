@@ -304,11 +304,10 @@ extension OrderDetailViewController {
       progressView.addSubview(wrapper)
       
       let progress = model.progresses[i]
-      let progressType = ProgressType.create(with: model.type, index: i)
-      let iconView = ViewFactory.label(withText: progressType.localizedText.value, font: .systemFont(ofSize: 10))
-      iconView.textColor = .white
-      iconView.textAlignment = .center
-      iconView.backgroundColor = progressType.iconColor
+      let iconView = UIView()
+      iconView.backgroundColor = .white
+      iconView.layer.borderColor = i == 0 ? UIColor.RGBA(129, 215, 207, 1).cgColor : UIColor.RGBA(238, 54, 0, 1).cgColor
+      iconView.layer.borderWidth = 2.0
       iconView.layer.masksToBounds = true
       iconView.layer.cornerRadius = 15 / 2
       wrapper.addSubview(iconView)
@@ -500,14 +499,20 @@ extension OrderDetailViewController {
 
 extension OrderDetailViewController : MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    if annotation.isEqual(mapView.userLocation) {
+      let view = MKAnnotationView(annotation: annotation, reuseIdentifier: "userLocation")
+      view.image = UIImage(named: "driver")
+      return view
+    }
+    
     guard let annotation = annotation as? OrderDetail.Point else { return nil }
     let view = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
-    view.image = annotation.isDriver ? UIImage(named: "driver") : UIImage(named: "receiver")
+    view.image = annotation.isDriver ? UIImage(named: "startPoint") : UIImage(named: "endPoint")
     return view
   }
   
   func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-    let renderer = GradientPolylineRenderer(overlay: overlay, startColor: .red, endColor: .themeGreen)
+    let renderer = GradientPolylineRenderer(overlay: overlay, startColor: .themeGreen, endColor: .red)
     renderer.lineWidth = 5
     return renderer
   }

@@ -162,12 +162,10 @@ extension OrderCell {
       progressView.addSubview(wrapper)
       
       let progress = model.progresses[i]
-      let progressType = ProgressType.create(with: model.type, index: i)
-      let iconView = ViewFactory.label(withText: "", font: .systemFont(ofSize: 10))
-      progressType.localizedText.bind(to: iconView.rx.text).disposed(by: bag)
-      iconView.textColor = .white
-      iconView.textAlignment = .center
-      iconView.backgroundColor = progressType.iconColor
+      let iconView = UIView()
+      iconView.backgroundColor = .white
+      iconView.layer.borderColor = i == 0 ? UIColor.RGBA(129, 215, 207, 1).cgColor : UIColor.RGBA(238, 54, 0, 1).cgColor
+      iconView.layer.borderWidth = 2.0
       iconView.layer.masksToBounds = true
       iconView.layer.cornerRadius = 15 / 2
       wrapper.addSubview(iconView)

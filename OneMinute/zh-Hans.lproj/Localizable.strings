@@ -22,12 +22,6 @@
 "canceled" = "已取消";
 "chargeback" = "已退单";
 
-"progress_buy" = "买";
-"progress_receive" = "收";
-"progress_get" = "取";
-"progress_take" = "接";
-"progress_send" = "送";
-
 "error_network" = "网络连接失败";
 "error_invalid_username" = "账号不正确";
 "error_invalid_password" = "密码不正确";

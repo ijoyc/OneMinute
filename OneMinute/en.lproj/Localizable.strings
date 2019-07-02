@@ -22,12 +22,6 @@
 "canceled" = "Canceled";
 "chargeback" = "Chargeback Finish";
 
-"progress_bug" = "Buy";
-"progress_receive" = "Receive";
-"progress_get" = "Get";
-"progress_take" = "Take";
-"progress_send" = "Send";
-
 "error_network" = "Network connection fails";
 "error_invalid_username" = "Wrong Username";
 "error_invalid_password" = "Wrong Password";
