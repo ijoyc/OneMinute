@@ -99,8 +99,8 @@ class User {
     lastName = json["lastname"] as? String ?? ""
     sex = Sex(rawValue: json["sex"] as? Int ?? 0) ?? .male
     type = UserType(rawValue: json["type"] as? Int ?? 0) ?? .parttime
-    dailyProfit = json["dailyProfit"] as? Double ?? 0
-    withdraw = json["balance"] as? Double ?? 0
+    dailyProfit = Double(exactly: json["incomeToday"] as? NSNumber ?? 0) ?? 0
+    withdraw = Double(exactly: json["balance"] as? NSNumber ?? 0) ?? 0
   }
   
   func update(_ user: User) {

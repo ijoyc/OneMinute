@@ -36,7 +36,7 @@ class LBSServiceImpl: NSObject, LBSService {
   private func initLocationManager() {
     locationManager = CLLocationManager()
     locationManager.delegate = self
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
   }
   
   func requestAuthorization() {
