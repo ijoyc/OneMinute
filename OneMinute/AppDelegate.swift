@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import netfox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -54,6 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     } else {
       self.window?.rootViewController = SigninViewController()
     }
+    
+    UIViewController._om_debug_swizzle()
+    NFX.sharedInstance().start()
     
     return true
   }
@@ -125,4 +129,39 @@ extension AppDelegate: JPUSHRegisterDelegate {
   }
   
   
+}
+
+
+private var hasSwizzled = false
+
+extension UIViewController {
+  final public class func _om_debug_swizzle() {
+    guard !hasSwizzled else { return }
+    hasSwizzled = true
+    
+    let original = #selector(viewWillAppear(_:))
+    let swizzled = #selector(newViewWillAppear(_:))
+    
+    let originalMethod = class_getInstanceMethod(self, original)!
+    let swizzledMethod = class_getInstanceMethod(self, swizzled)!
+    
+    let didAddViewDidLoadMethod = class_addMethod(self,
+                                                  original,
+                                                  method_getImplementation(swizzledMethod),
+                                                  method_getTypeEncoding(swizzledMethod))
+    
+    if didAddViewDidLoadMethod {
+      class_replaceMethod(self,
+                          swizzled,
+                          method_getImplementation(originalMethod),
+                          method_getTypeEncoding(originalMethod))
+    } else {
+      method_exchangeImplementations(originalMethod, swizzledMethod)
+    }
+  }
+  
+  @objc private func newViewWillAppear(_ animated: Bool) {
+    newViewWillAppear(animated)
+    self.automaticallyAdjustsScrollViewInsets = true
+  }
 }
