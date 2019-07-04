@@ -99,7 +99,7 @@ class ProfileHeaderView : UIView {
     rx.tapGesture { (tap, _) in
       tap.numberOfTapsRequired = 3
     }.skip(1).subscribe(onNext: { _ in
-      ViewFactory.showAlert("Version: 1.1.0")
+      ViewFactory.showAlert("Version: 1.1.3")
     }).disposed(by: bag)
   }
   

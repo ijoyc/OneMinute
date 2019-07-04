@@ -84,8 +84,15 @@ class LBSServiceImpl: NSObject, LBSService {
         print("Upload Location (\(self.currentLocation?.coordinate.latitude ?? 0), \(self.currentLocation?.coordinate.longitude ?? 0)) result: success = \(result.success), message = \(result.message)")
       })
       .filter { $0.success }
-      .map { _ in true }
-      .bind(to: uploadSuccess)
+      .subscribe(onNext: { result in
+        self.uploadSuccess.accept(true)
+      }, onError: { error in
+        if !self.uploadSuccess.value {
+          ViewFactory.showAlert(Config.localizedText(for: "error_network").value, success: false)
+        }
+        self.uploadSuccess.accept(true)
+        print("Upload location failed with error \(error)")
+      })
       .disposed(by: bag)
   }
   

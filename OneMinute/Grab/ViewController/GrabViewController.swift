@@ -87,6 +87,10 @@ class GrabViewController : OrderBaseViewController {
       }
     }).disposed(by: bag)
     
+    viewModel?.errorMessage.subscribe(onNext: { message in
+      ViewFactory.showAlert(message, success: false)
+    }).disposed(by: bag)
+    
     // load first page
     automaticRefresh.onNext(())
     

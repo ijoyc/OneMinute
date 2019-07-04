@@ -50,6 +50,9 @@ class OrderViewController : OrderBaseViewController {
     viewModel?.loading.drive(loadingView.rx.isAnimating).disposed(by: bag)
     viewModel?.refreshing.drive(refreshLoadingView.rx.isAnimating).disposed(by: bag)
     viewModel?.refreshing.map { !$0 }.drive(view.rx.isUserInteractionEnabled).disposed(by: bag)
+    viewModel?.errorMessage.subscribe(onNext: { message in
+      ViewFactory.showAlert(message, success: false)
+    }).disposed(by: bag)
     
     viewModel?.cellModels
       .skip(1)

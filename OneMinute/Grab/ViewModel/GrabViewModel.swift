@@ -16,6 +16,7 @@ class GrabViewModel {
   let loading: Driver<Bool>
   let grabing: Driver<Bool>
   let grabResult: Driver<Result>
+  let errorMessage = PublishSubject<String>()
   
   private let resetPage = BehaviorRelay<Bool>(value: false)
   
@@ -67,7 +68,10 @@ class GrabViewModel {
             guard let `self` = self else { return [] }
             return self.cellModels.value + pairs.orders.map { order in OrderCellModel(model: order) }
           }
-          .asDriver(onErrorJustReturn: [])
+          .do(onError: { [weak self] _ in
+            self?.errorMessage.onNext(Config.localizedText(for: "error_network").value)
+          })
+          .asDriver(onErrorJustReturn: self.cellModels.value)
       }
       .drive(cellModels)
       .disposed(by: bag)
@@ -81,7 +85,10 @@ class GrabViewModel {
         .map { pairs in
           pairs.orders.map { order in OrderCellModel(model: order) }
         }
-        .asDriver(onErrorJustReturn: [])
+        .do(onError: { [weak self] _ in
+          self?.errorMessage.onNext(Config.localizedText(for: "error_network").value)
+        })
+        .asDriver(onErrorJustReturn: self.cellModels.value)
       }
       .drive(cellModels)
       .disposed(by: bag)

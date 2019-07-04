@@ -22,6 +22,7 @@ class OrderViewModel {
   let loading: Driver<Bool>
   // for refreshing or change category
   let refreshing: Driver<Bool>
+  let errorMessage = PublishSubject<String>()
   
   private let resetPage = BehaviorRelay<Bool>(value: false)
   private var orderCache: [Int: OrderCache] = [:]
@@ -70,6 +71,8 @@ class OrderViewModel {
           }
           .do(onNext: { [weak self] pairs in
             self?.cacheOrders(pairs.models, with: pairs.category, hasMore: pairs.hasMore)
+          }, onError: { [weak self] _ in
+            self?.errorMessage.onNext(Config.localizedText(for: "error_network").value)
           })
           .map { $0.models }
           .asDriver(onErrorJustReturn: self.cellModels.value)
@@ -106,9 +109,11 @@ class OrderViewModel {
         }
         .do(onNext: { [weak self] pairs in
           self?.cacheOrders(pairs.models, with: category, hasMore: pairs.hasMore, isAppend: false)
+        }, onError: { [weak self] _ in
+          self?.errorMessage.onNext(Config.localizedText(for: "error_network").value)
         })
         .map { $0.models }
-        .asDriver(onErrorJustReturn: [])
+        .asDriver(onErrorJustReturn: self.cellModels.value)
       }
       .drive(cellModels)
       .disposed(by: bag)
