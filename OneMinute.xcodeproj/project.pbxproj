@@ -878,7 +878,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OneMinute/OneMinute.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alex Liu (T7FYUZX44L)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T7FYUZX44L;
 				INFOPLIST_FILE = OneMinute/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -888,7 +889,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexliu.OneMinute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = adhoc4oneminute;
 				SWIFT_OBJC_BRIDGING_HEADER = "OneMinute/OneMinute-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -903,7 +904,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OneMinute/OneMinute.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alex Liu (T7FYUZX44L)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T7FYUZX44L;
 				INFOPLIST_FILE = OneMinute/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -913,7 +915,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexliu.OneMinute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = adhoc4oneminute;
 				SWIFT_OBJC_BRIDGING_HEADER = "OneMinute/OneMinute-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

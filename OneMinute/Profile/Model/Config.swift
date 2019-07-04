@@ -82,5 +82,5 @@ struct Config {
   
   public static let jpushAppKey = "7a307a79ca3923791b99a591"
   public static let jpushChannel = "App Store"
-  public static let isProduction = false
+  public static let isProduction = true
 }
