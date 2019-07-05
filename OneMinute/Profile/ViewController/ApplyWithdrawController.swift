@@ -163,7 +163,9 @@ class ApplyWithdrawController : UIViewController {
       guard let self = self else { return }
       let available = (self.available.value as NSString).floatValue
       let amount = (self.amountField.text as NSString?)?.floatValue ?? 0
-      if amount > available {
+      if available <= 0 {
+        self.amountField.text = "0"
+      } else if amount > available {
         self.amountField.text = "\(available)"
       }
     }).disposed(by: bag)
