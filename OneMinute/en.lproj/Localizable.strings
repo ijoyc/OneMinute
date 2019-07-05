@@ -33,6 +33,8 @@
 "order_detail" = "Order Detail";
 "order_tel" = "Contact User";
 "order_note" = "Remark";
+"order_instant" = "Instant Order";
+"order_scheduled" = "Reservation Order";
 
 "tab_grab" = "Grab Order";
 "tab_order" = "Order";

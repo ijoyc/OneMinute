@@ -73,7 +73,10 @@ class Order {
   let id: Int
   let orderNo: String
   let type: OrderType
-  let time: TimeInterval
+  let createTime: TimeInterval
+  let scheduleTime: TimeInterval
+  // 0: Instant Order, 1: Reservation Order
+  let scheduleFlag: Int
   let distance: Double
   let state: OrderState
   let progresses: [OrderProgress]
@@ -89,14 +92,16 @@ class Order {
     return formatter
   }
   
-  var timeString: String {
-    return Order.dateFormatter.string(from: Date(timeIntervalSince1970: time))
+  var scheduleTimeString: String {
+    return Order.dateFormatter.string(from: Date(timeIntervalSince1970: scheduleTime))
   }
   
   init(json: [String: Any]) {
     self.id = json["id"] as? Int ?? 0
     self.type = OrderType(rawValue: (json["orderType"] as? Int) ?? 0) ?? .buy
-    self.time = (TimeInterval(exactly: (json["createTime"] as? NSNumber ?? 0)) ?? 0) / 1000
+    self.createTime = (TimeInterval(exactly: (json["createTime"] as? NSNumber ?? 0)) ?? 0) / 1000
+    self.scheduleTime = (TimeInterval(exactly: (json["scheduleTime"] as? NSNumber ?? 0)) ?? 0) / 1000
+    self.scheduleFlag = json["scheduleFlag"] as? Int ?? 0
     self.orderNo = json["orderNo"] as? String ?? ""
     
     self.state = OrderState(rawValue: (json["orderFlag"] as? Int ?? 0)) ?? .paying

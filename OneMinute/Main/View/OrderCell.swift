@@ -22,6 +22,7 @@ class OrderCell : UITableViewCell {
   private var timeLabel: UILabel!
   private var distanceLabel: UILabel!
   private var profitLabel: UILabel!
+  private var scheduleLabel: UILabel!
   fileprivate var grabButton: UIButton!
   
   private let bag = DisposeBag()
@@ -68,7 +69,8 @@ class OrderCell : UITableViewCell {
     }
     
     typeLabel.text = model.type.localizedText.value
-    timeLabel.text = model.timeString
+    timeLabel.text = model.scheduleTimeString
+    scheduleLabel.text = model.scheduleFlag == 0 ? Config.localizedText(for: "order_instant").value : Config.localizedText(for: "order_scheduled").value
     profitLabel.text = "\(Config.localizedText(for: "order_predict_profit").value): \(String(format: "$%.2f", model.profit))"
     
     if model.isGrabable {
@@ -230,10 +232,27 @@ extension OrderCell {
     bottomView.backgroundColor = .themeGreen
     wrapperView.addSubview(bottomView)
     
+    let labelWrapper = UIView()
+    bottomView.addSubview(labelWrapper)
+    
+    scheduleLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 12))
+    scheduleLabel.textColor = .RGBA(39, 149, 138, 1)
+    labelWrapper.addSubview(scheduleLabel)
+    
     profitLabel = ViewFactory.label(withText: "", font: .systemFont(ofSize: 15))
     profitLabel.textColor = .white
-    bottomView.addSubview(profitLabel)
+    labelWrapper.addSubview(profitLabel)
+    
+    scheduleLabel.snp.makeConstraints { (make) in
+      make.top.leading.trailing.equalTo(0)
+      make.bottom.equalTo(profitLabel.snp.top).offset(-4)
+    }
+    
     profitLabel.snp.makeConstraints { (make) in
+      make.leading.trailing.bottom.equalTo(0)
+    }
+    
+    labelWrapper.snp.makeConstraints { (make) in
       make.leading.equalTo(13)
       make.centerY.equalTo(bottomView)
     }
@@ -248,7 +267,7 @@ extension OrderCell {
     grabButton.snp.makeConstraints { (make) in
       make.width.equalTo(120)
       make.height.equalTo(32)
-      make.centerY.equalTo(profitLabel)
+      make.centerY.equalTo(bottomView)
       make.trailing.equalTo(-13)
     }
   }

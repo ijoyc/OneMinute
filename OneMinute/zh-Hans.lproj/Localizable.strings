@@ -33,6 +33,8 @@
 "order_detail" = "订单详情";
 "order_tel" = "联系下单人";
 "order_note" = "备注";
+"order_instant" = "即时订单";
+"order_scheduled" = "预约订单";
 
 "tab_grab" = "抢单";
 "tab_order" = "订单";
