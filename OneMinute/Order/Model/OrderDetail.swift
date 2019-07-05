@@ -85,12 +85,15 @@ class OrderDetail {
   
   var shouldOpenCodePanel: Bool {
     if case .doing = state {
-      switch type {
-      case .buy, .take, .send:
-        return true
-      default:
-        break
-      }
+//      switch type {
+//      case .buy, .take, .send:
+//        return true
+//      default:
+//        break
+//      }
+      // Although `transfer` should not open code panel in PRD,
+      // the current implementation is different.
+      return true
     }
     
     return false

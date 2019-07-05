@@ -47,7 +47,9 @@ class OrderDetailViewModel {
     })
     queryResult.map { $0.orderDetail }.drive(orderDetail).disposed(by: bag)
     
-    changeStateSignal.flatMapLatest { state in
+    changeStateSignal.flatMapLatest { [weak self] state in
+      guard let self = self else { return Driver.just(.empty) }
+      
       return api.changeOrderState(with: orderID, state: state.rawValue).trackActivity(activityIndicator).asDriver(onErrorJustReturn: .empty).do(onNext: { result in
         guard result.success else { return }
         
@@ -68,7 +70,9 @@ class OrderDetailViewModel {
     
     finishSignal.flatMapLatest { code in
       return api.finishOrder(with: orderID, code: code).trackActivity(finishingIndicator).asDriver(onErrorJustReturn: .empty)
-    }.drive(onNext: {
+    }.drive(onNext: { [weak self] in
+      guard let self = self else { return }
+      
       if $0.success {
         var state = OrderState.finished
         if let type = self.orderDetail.value?.type, case .buy = type {

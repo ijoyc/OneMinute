@@ -34,6 +34,7 @@ class OrderDetailViewController : BaseViewController {
   private var orderDetail: OrderDetail?
   private let endPoint = BehaviorRelay<Int>(value: 0)
   private var calculatedOrderViewHeight: CGFloat?
+  private var viewModel: OrderDetailViewModel?
   
   private let cellID = "orderDetailCellID"
   
@@ -72,10 +73,11 @@ class OrderDetailViewController : BaseViewController {
       self?.updateUI()
     }).drive().disposed(by: bag)
     
-    viewModel.orderState.skip(2).subscribe(onNext: { [weak self] state in
+    viewModel.orderState.skip(1).subscribe(onNext: { [weak self] state in
       guard let self = self, let orderDetail = self.orderDetail else { return }
       
       orderDetail.state = state
+      NotificationCenter.default.post(name: .changeState, object: nil)
       
       var shouldDismiss = false
       if case .reached = state, case .buy = orderDetail.type {
@@ -110,6 +112,8 @@ class OrderDetailViewController : BaseViewController {
       ViewFactory.showAlert($0.message, success: $0.success)
     }).disposed(by: bag)
     
+    self.viewModel = viewModel
+    
     telButton.rx.tap.subscribe(onNext: { [weak self] _ in
       guard let self = self,
         let orderDetail = self.orderDetail,
@@ -131,8 +135,6 @@ class OrderDetailViewController : BaseViewController {
           nextState = .finished
         }
         changeStateTrigger.onNext(nextState)
-        
-        NotificationCenter.default.post(name: .changeState, object: nil)
       }
     }).disposed(by: bag)
     
@@ -143,8 +145,8 @@ class OrderDetailViewController : BaseViewController {
     // default: the last address.
     // tap: change endpoint address
     model.map { $0.progresses.count - 1 }.drive(endPoint).disposed(by: bag)
-    progressView.rx.tapGesture().asLocation().map { location in
-      self.progressView.subviews.firstIndex {
+    progressView.rx.tapGesture().asLocation().map { [weak self] location in
+      self?.progressView.subviews.firstIndex {
         location.y >= $0.frame.minY && location.y <= $0.frame.maxY
       } ?? 0
     }.bind(to: endPoint).disposed(by: bag)
@@ -165,8 +167,8 @@ class OrderDetailViewController : BaseViewController {
       }
     }).disposed(by: bag)
     
-    endPoint.subscribe(onNext: { index in
-      self.updateMapView(index)
+    endPoint.subscribe(onNext: { [weak self] index in
+      self?.updateMapView(index)
     }).disposed(by: bag)
   }
 }
