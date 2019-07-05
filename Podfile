@@ -16,6 +16,5 @@ target 'OneMinute' do
   
   pod 'JGProgressHUD'
   pod 'JPush'
-  pod 'netfox'
 
 end
