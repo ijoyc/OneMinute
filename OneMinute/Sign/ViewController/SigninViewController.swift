@@ -139,7 +139,6 @@ class SigninViewController : UIViewController {
       UIApplication.shared.delegate?.window??.rootViewController = LauncherViewController()
     }).drive(onNext: { signedIn in
       print("User signed in \(signedIn)")
-      self.view.endEditing(true)
     }).disposed(by: bag)
   }
 }

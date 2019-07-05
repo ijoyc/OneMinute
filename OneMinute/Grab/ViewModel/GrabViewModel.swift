@@ -78,6 +78,7 @@ class GrabViewModel {
     
     loadTrigger.filter { !$0 }.flatMapLatest { _ in
       return api.queryGrabOrders(withPage: 1, size: Order.numberOfOrdersPerPage)
+        .trackActivity(activityIndicator)
         .do(onNext: { [weak self] pairs in
           self?.hasMore.accept(pairs.hasMore)
           self?.resetPage.accept(true)

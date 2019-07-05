@@ -26,7 +26,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>如果不给，将无法在地图上显示您的位置</string>
+	<string>如果不给，将无法获取您附近的订单</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

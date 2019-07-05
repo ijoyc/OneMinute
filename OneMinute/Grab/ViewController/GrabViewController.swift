@@ -34,7 +34,10 @@ class GrabViewController : OrderBaseViewController {
     
     tableView.rx.setDelegate(self).disposed(by: bag)
     
-    LBSServiceImpl.shared.uploadSuccess.filter { $0 }.take(1).subscribe(onNext: { _ in
+    let timeout = Observable<Int>.interval(.seconds(3), scheduler: MainScheduler.instance).map { _ in () }
+    let finishUploadLocation = LBSServiceImpl.shared.uploadSuccess.filter { $0 }.map { _ in () }
+    Observable.merge(timeout, finishUploadLocation).take(1).subscribe(onNext: { _ in
+      self.loadingView.stopAnimating()
       self.bindGrabViewModel()
     }).disposed(by: bag)
   }

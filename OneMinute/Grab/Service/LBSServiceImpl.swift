@@ -45,7 +45,7 @@ class LBSServiceImpl: NSObject, LBSService {
   }
   
   func start() {
-    guard hasAuthorization() else { return }
+//    guard hasAuthorization() else { return }
     locationManager.startUpdatingLocation()
   }
   
