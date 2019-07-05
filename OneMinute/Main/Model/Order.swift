@@ -74,7 +74,7 @@ class Order {
   let orderNo: String
   let type: OrderType
   let createTime: TimeInterval
-  let scheduleTime: TimeInterval
+  let scheduleTime: String
   // 0: Instant Order, 1: Reservation Order
   let scheduleFlag: Int
   let distance: Double
@@ -92,15 +92,16 @@ class Order {
     return formatter
   }
   
-  var scheduleTimeString: String {
-    return Order.dateFormatter.string(from: Date(timeIntervalSince1970: scheduleTime))
-  }
+//  var scheduleTimeString: String {
+//    return Order.dateFormatter.string(from: Date(timeIntervalSince1970: scheduleTime))
+//  }
   
   init(json: [String: Any]) {
     self.id = json["id"] as? Int ?? 0
     self.type = OrderType(rawValue: (json["orderType"] as? Int) ?? 0) ?? .buy
     self.createTime = (TimeInterval(exactly: (json["createTime"] as? NSNumber ?? 0)) ?? 0) / 1000
-    self.scheduleTime = (TimeInterval(exactly: (json["scheduleTime"] as? NSNumber ?? 0)) ?? 0) / 1000
+//    self.scheduleTime = (TimeInterval(exactly: (json["scheduleTime"] as? NSNumber ?? 0)) ?? 0) / 1000
+    self.scheduleTime = json["scheduleTime"] as? String ?? ""
     self.scheduleFlag = json["scheduleFlag"] as? Int ?? 0
     self.orderNo = json["orderNo"] as? String ?? ""
     

@@ -69,7 +69,7 @@ class OrderCell : UITableViewCell {
     }
     
     typeLabel.text = model.type.localizedText.value
-    timeLabel.text = model.scheduleTimeString
+    timeLabel.text = model.scheduleTime
     scheduleLabel.text = model.scheduleFlag == 0 ? Config.localizedText(for: "order_instant").value : Config.localizedText(for: "order_scheduled").value
     profitLabel.text = "\(Config.localizedText(for: "order_predict_profit").value): \(String(format: "$%.2f", model.profit))"
     
