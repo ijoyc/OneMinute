@@ -7,16 +7,16 @@
  */
 
 "buy" = "Agent Buy";
-"take" = "Agent Take";
-"send" = "Agent Send";
-"transfer" = "Take and Send";
+"take" = "Pick Up";
+"send" = "Delivery";
+"transfer" = "Ride";
 "withdraw" = "Withdraw";
 
 "paying" = "Paying Delivery Fee";
 "grabing" = "Waiting Order(delivery paid)";
-"grabed" = "on the way to merchant";
-"doing" = "on the way to receiving place";
-"reached" = "arrived at destination";
+"grabed" = "On The Way";
+"doing" = "Way Of Picking Up";
+"reached" = "Arrived";
 "finished" = "Finished";
 "timeout" = "Pay Overtime";
 "canceled" = "Canceled";

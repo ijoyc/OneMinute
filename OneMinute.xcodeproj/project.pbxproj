@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F05E60D22D0696E00B23D71 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F05E60F22D0696E00B23D71 /* InfoPlist.strings */; };
 		4F2CD85922BC84DA00137CFE /* LBSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85822BC84DA00137CFE /* LBSService.swift */; };
 		4F2CD85B22BC865300137CFE /* LBSServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85A22BC865300137CFE /* LBSServiceImpl.swift */; };
 		4F2CD85D22BCD1A900137CFE /* GradientPolylineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */; };
@@ -79,6 +80,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F05E60E22D0696E00B23D71 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4F05E61022D0696F00B23D71 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4F2CD85822BC84DA00137CFE /* LBSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSService.swift; sourceTree = "<group>"; };
 		4F2CD85A22BC865300137CFE /* LBSServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSServiceImpl.swift; sourceTree = "<group>"; };
 		4F2CD85C22BCD1A900137CFE /* GradientPolylineRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPolylineRenderer.swift; sourceTree = "<group>"; };
@@ -419,6 +422,7 @@
 				4FC0221322A1478B00C4899A /* Common */,
 				4FC0220222A13E6600C4899A /* AppDelegate.swift */,
 				4FC0220422A13E6800C4899A /* Assets.xcassets */,
+				4F05E60F22D0696E00B23D71 /* InfoPlist.strings */,
 				4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */,
 				4FC0220922A13E6800C4899A /* Info.plist */,
 				4FD6F5AB22C39FBF0075B912 /* Localizable.strings */,
@@ -607,6 +611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FC0220522A13E6800C4899A /* Assets.xcassets in Resources */,
+				4F05E60D22D0696E00B23D71 /* InfoPlist.strings in Resources */,
 				4FD6F5A922C39FBF0075B912 /* Localizable.strings in Resources */,
 				4FC0220822A13E6800C4899A /* LaunchScreen.storyboard in Resources */,
 			);
@@ -732,6 +737,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		4F05E60F22D0696E00B23D71 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F05E60E22D0696E00B23D71 /* en */,
+				4F05E61022D0696F00B23D71 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		4FC0220622A13E6800C4899A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -915,7 +929,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexliu.OneMinute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = adhoc4oneminute;
+				PROVISIONING_PROFILE_SPECIFIER = appstore4oneminute;
 				SWIFT_OBJC_BRIDGING_HEADER = "OneMinute/OneMinute-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
