@@ -2,8 +2,11 @@
   InfoPlist.strings
   OneMinute
 
-  Created by yizhuo.cyz on 2019/7/6.
+  Created by yizhuo.cyz on 2019/7/9.
   Copyright © 2019 yizhuo.cyz. All rights reserved.
 */
 
-"CFBundleDisplayName" = "One Minute Driver-Side";
+CFBundleName = "One Minute Driver-Side";
+CFBundleDisplayName = "One Minute Driver-Side";
+NSLocationWhenInUseUsageDescription = "Use location to grab near by orders.";
+

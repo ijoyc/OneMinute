@@ -19,7 +19,12 @@ struct Config {
   
   static var language: Language {
     get {
-      return Language(rawValue: UserDefaults.standard.integer(forKey: Config.languageKey)) ?? .Chinese
+      if let language = Language(rawValue: UserDefaults.standard.integer(forKey: Config.languageKey)) {
+        return language
+      } else {
+        let locale = NSLocale.preferredLanguages.first?.prefix(2) ?? "zh"
+        return locale == "zh" ? .Chinese : .English
+      }
     }
     set {
       UserDefaults.standard.set(newValue.rawValue, forKey: Config.languageKey)

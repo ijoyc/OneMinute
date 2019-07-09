@@ -2,8 +2,10 @@
   InfoPlist.strings
   OneMinute
 
-  Created by yizhuo.cyz on 2019/7/6.
+  Created by yizhuo.cyz on 2019/7/9.
   Copyright © 2019 yizhuo.cyz. All rights reserved.
 */
 
-"CFBundleDisplayName" = "OneMinute 司机端";
+CFBundleName = "OneMinute 司机端";
+CFBundleDisplayName = "OneMinute 司机端";
+NSLocationWhenInUseUsageDescription = "如果不给，将无法获取您附近的订单";
