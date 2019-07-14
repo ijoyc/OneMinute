@@ -48,6 +48,14 @@
 "signin_password" = "登录密码";
 "signin_password_placeholder" = "请输入您的密码";
 "signin_button_text" = "马上登录";
+"signup_button_text" = "注册";
+"signup_firstname" = "名称";
+"signup_firstname_placeholder" = "请输入您的名称";
+"signup_lastname" = "姓氏";
+"signup_lastname_placeholder" = "请输入您的姓氏";
+"signup_card" = "身份证";
+"signup_card_placeholder" = "请输入您的身份证号码";
+"signup_back" = "返回";
 
 "operation_bought" = "已买到商品";
 "operation_take" = "已到达取货地";

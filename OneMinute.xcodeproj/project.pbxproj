@@ -75,6 +75,10 @@
 		4FCCA4DE22A8086200F42C47 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCCA4DD22A8086200F42C47 /* ActivityIndicator.swift */; };
 		4FD6F5A922C39FBF0075B912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FD6F5AB22C39FBF0075B912 /* Localizable.strings */; };
 		4FDF6DE722D4A4D100C18D58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FDF6DE922D4A4D100C18D58 /* InfoPlist.strings */; };
+		4FDF6E5D22DB243F00C18D58 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDF6E5C22DB243F00C18D58 /* SignupViewController.swift */; };
+		4FDF6E5F22DB255C00C18D58 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDF6E5E22DB255C00C18D58 /* SignupViewModel.swift */; };
+		4FDF6E6122DB28E000C18D58 /* SignupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDF6E6022DB28E000C18D58 /* SignupInfo.swift */; };
+		4FDF6E6322DB2F7400C18D58 /* InlineField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDF6E6222DB2F7400C18D58 /* InlineField.swift */; };
 		4FF9B6E422C712EA006E0A60 /* UIKit+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF9B6E322C712EA006E0A60 /* UIKit+Rx.swift */; };
 		EE87A069BCFCC5137B4145E7 /* Pods_OneMinute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55756C80612AB771DE26544 /* Pods_OneMinute.framework */; };
 /* End PBXBuildFile section */
@@ -155,6 +159,10 @@
 		4FDF6DE822D4A4D100C18D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4FDF6DEA22D4A4D200C18D58 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4FDF6DEB22D4A56200C18D58 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4FDF6E5C22DB243F00C18D58 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		4FDF6E5E22DB255C00C18D58 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		4FDF6E6022DB28E000C18D58 /* SignupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInfo.swift; sourceTree = "<group>"; };
+		4FDF6E6222DB2F7400C18D58 /* InlineField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineField.swift; sourceTree = "<group>"; };
 		4FF9B6E322C712EA006E0A60 /* UIKit+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Rx.swift"; sourceTree = "<group>"; };
 		A8A5EE6A24F3EA3B769CC15C /* Pods-OneMinute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.debug.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.debug.xcconfig"; sourceTree = "<group>"; };
 		AC752C18C7B1F3C814F0288C /* Pods-OneMinute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneMinute.release.xcconfig"; path = "Target Support Files/Pods-OneMinute/Pods-OneMinute.release.xcconfig"; sourceTree = "<group>"; };
@@ -493,6 +501,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA4C122A74A6C00F42C47 /* SigninViewController.swift */,
+				4FDF6E5C22DB243F00C18D58 /* SignupViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -501,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA4D422A7E97800F42C47 /* SigninViewModel.swift */,
+				4FDF6E5E22DB255C00C18D58 /* SignupViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -509,6 +519,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA4C522A74CF400F42C47 /* InputField.swift */,
+				4FDF6E6222DB2F7400C18D58 /* InlineField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -517,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				4FCCA4D622A7F39300F42C47 /* SigninModel.swift */,
+				4FDF6E6022DB28E000C18D58 /* SignupInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -690,6 +702,7 @@
 				4F7E0A1B22AD585E00857FF6 /* OrderDetail.swift in Sources */,
 				4F7E0A0222AA06EE00857FF6 /* OrderCellModel.swift in Sources */,
 				4FB4746722B1148E00130B9C /* Config.swift in Sources */,
+				4FDF6E5D22DB243F00C18D58 /* SignupViewController.swift in Sources */,
 				4FCCA4D522A7E97800F42C47 /* SigninViewModel.swift in Sources */,
 				4FCCA4C222A74A6C00F42C47 /* SigninViewController.swift in Sources */,
 				4FB4748622B27CB800130B9C /* KeychainStorage.swift in Sources */,
@@ -710,11 +723,13 @@
 				4FB4745B22B094FB00130B9C /* AboutViewController.swift in Sources */,
 				4F7E0A0422AA126F00857FF6 /* ViewFactory.swift in Sources */,
 				4FCCA4DA22A7F3DD00F42C47 /* SigninService.swift in Sources */,
+				4FDF6E6122DB28E000C18D58 /* SignupInfo.swift in Sources */,
 				4FB4746122B096BD00130B9C /* ProfitViewController.swift in Sources */,
 				4FB4747022B11FD200130B9C /* ProfileViewModel.swift in Sources */,
 				4F7E0A1722AC13EC00857FF6 /* OrderBaseViewController.swift in Sources */,
 				4F2CD85D22BCD1A900137CFE /* GradientPolylineRenderer.swift in Sources */,
 				4F527E4722B31CE000BF875C /* NetworkServiceImpl.swift in Sources */,
+				4FDF6E6322DB2F7400C18D58 /* InlineField.swift in Sources */,
 				4FCCA4DC22A7F50900F42C47 /* SigninServiceImpl.swift in Sources */,
 				4F527E4922B3258A00BF875C /* OneMinuteAPI.swift in Sources */,
 				4FB4748422B27C0700130B9C /* StorageError.swift in Sources */,
@@ -731,6 +746,7 @@
 				4F7E0A0E22AB5C6600857FF6 /* CategoryView.swift in Sources */,
 				4FB4747222B120F600130B9C /* UIImageView+Common.swift in Sources */,
 				4FF9B6E422C712EA006E0A60 /* UIKit+Rx.swift in Sources */,
+				4FDF6E5F22DB255C00C18D58 /* SignupViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

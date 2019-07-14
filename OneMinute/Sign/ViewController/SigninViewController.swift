@@ -16,6 +16,7 @@ class SigninViewController : UIViewController {
   private var usernameField: InputField!
   private var passwordField: InputField!
   private var loginButton: UIButton!
+  private var signupButton: UIButton!
   private var loadingView: UIActivityIndicatorView!
   
   private let bag = DisposeBag()
@@ -65,8 +66,7 @@ class SigninViewController : UIViewController {
       make.height.equalTo(InputField.height)
     }
     
-    loginButton = ViewFactory.button(withTitle: "", font: .systemFont(ofSize: 18))
-    Config.localizedText(for: "signin_button_text").bind(to: loginButton.rx.title(for: .normal)).disposed(by: bag)
+    loginButton = ViewFactory.button(withTitle: Config.localizedText(for: "signin_button_text").value, font: .systemFont(ofSize: 18))
     loginButton.backgroundColor = .themeGreen
     loginButton.layer.cornerRadius = 5
     loginButton.layer.masksToBounds = true
@@ -77,6 +77,17 @@ class SigninViewController : UIViewController {
       make.trailing.equalTo(-37)
       make.top.equalTo(passwordField.snp_bottom).offset(60)
       make.height.equalTo(44)
+    }
+    
+    signupButton = ViewFactory.button(withTitle: Config.localizedText(for: "signup_button_text").value, font: .systemFont(ofSize: 18))
+    signupButton.backgroundColor = .themeGreen
+    signupButton.layer.cornerRadius = 5
+    signupButton.layer.masksToBounds = true
+    signupButton.setTitleColor(.white, for: .normal)
+    view.addSubview(signupButton)
+    signupButton.snp.makeConstraints { (make) in
+      make.height.leading.trailing.equalTo(loginButton)
+      make.top.equalTo(loginButton.snp.bottom).offset(12)
     }
     
     loadingView = UIActivityIndicatorView(style: .gray)
@@ -139,6 +150,10 @@ class SigninViewController : UIViewController {
       UIApplication.shared.delegate?.window??.rootViewController = LauncherViewController()
     }).drive(onNext: { signedIn in
       print("User signed in \(signedIn)")
+    }).disposed(by: bag)
+    
+    signupButton.rx.tap.subscribe(onNext: {
+      self.present(SignupViewController(), animated: true, completion: nil)
     }).disposed(by: bag)
   }
 }

@@ -69,6 +69,7 @@ struct Config {
   
   enum Address: String {
     case signin = "driver/login"
+    case signup = "driver/register"
     case userInfo = "driver/getDriverInfo"
     case orders = "order/findOrderInfoPage"
     case orderDetail = "order/driver/findOrder"

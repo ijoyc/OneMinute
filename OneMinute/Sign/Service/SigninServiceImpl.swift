@@ -41,6 +41,13 @@ class SigninServiceImplementation : SigninAPI {
     }
   }
   
+  func signup(with signupInfo: SignupInfo) -> Observable<(result: Result, token: String)> {
+    return OneMinuteAPI.post(.signup, parameters: ["phone": signupInfo.phone, "password": signupInfo.password, "cardNo": signupInfo.cardNo, "firstname": signupInfo.firstName, "lastname": signupInfo.lastName, "sex": 0, "type": 0]).map { json in
+      let code = json["code"] as? String ?? ""
+      return (result: Result(success: code == "200", message: json["message"] as? String ?? ""), token: json["data"] as? String ?? "")
+    }
+  }
+  
   func signout() -> Observable<Bool> {
     return Observable.just(true)
   }
